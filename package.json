@@ -1,6 +1,6 @@
 {
   "name": "brandemic-animations",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Custom GSAP and Barba.js animations for Brandemic website",
   "main": "src/index.js",
   "type": "module",
