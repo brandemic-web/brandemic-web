@@ -1,5 +1,5 @@
 /**
- * Brandemic Dubai - Main Entry Point
+ * Brandemic - Main Entry Point
  * 
  * This is the main entry point for all animations and interactions.
  * The code is organized into modular components for better maintainability.

@@ -1,7 +1,7 @@
 {
-  "name": "brandemic-dubai-animations",
+  "name": "brandemic-animations",
   "version": "1.1.0",
-  "description": "Custom GSAP and Barba.js animations for Brandemic Dubai website",
+  "description": "Custom GSAP and Barba.js animations for Brandemic website",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -17,7 +17,7 @@
     "webflow",
     "animations"
   ],
-  "author": "Brandemic Dubai",
+  "author": "Brandemic",
   "license": "UNLICENSED",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",

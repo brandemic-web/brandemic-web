@@ -17,7 +17,7 @@ export default {
             name: 'BrandemicAnimations',
             sourcemap: false,
             banner: `/**
- * Brandemic Dubai - Custom Animations
+ * Brandemic - Custom Animations
  * Version: 1.0.0
  * Built: ${new Date().toISOString()}
  * 
@@ -31,7 +31,7 @@ export default {
             name: 'BrandemicAnimations',
             sourcemap: false,
             plugins: [terser()],
-            banner: `/* Brandemic Dubai - Minified */`
+            banner: `/* Brandemic - Minified */`
         }
     ],
     plugins: [

@@ -1,6 +1,6 @@
-# Brandemic Dubai - Custom Animations
+# Brandemic - Custom Animations
 
-Custom GSAP and Barba.js animations for the Brandemic Dubai website.
+Custom GSAP and Barba.js animations for the Brandemic website.
 
 > 📚 **For Webflow Developers:** See [WORKFLOW.md](WORKFLOW.md) and [CLASS-REFERENCE.md](CLASS-REFERENCE.md)
 
@@ -116,9 +116,9 @@ npm run release:major   # Breaking: 1.0.0 → 2.0.0
 
 ```
 # Production (pinned version)
-https://cdn.jsdelivr.net/gh/brandemic-ae/brandemic-dubai@v1.0.x/dist/main.min.js
+https://cdn.jsdelivr.net/gh/brandemic-web/brandemic-web@v1.0.x/dist/main.min.js
 
 # Staging (latest)
-https://cdn.jsdelivr.net/gh/brandemic-ae/brandemic-dubai@main/dist/main.js
+https://cdn.jsdelivr.net/gh/brandemic-web/brandemic-web@main/dist/main.js
 ```
 

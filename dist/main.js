@@ -1,7 +1,7 @@
 /**
- * Brandemic Dubai - Custom Animations
+ * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-02-23T11:55:45.323Z
+ * Built: 2026-03-03T07:53:55.923Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3867,7 +3867,7 @@
     }
 
     /**
-     * Brandemic Dubai - Main Entry Point
+     * Brandemic - Main Entry Point
      * 
      * This is the main entry point for all animations and interactions.
      * The code is organized into modular components for better maintainability.
