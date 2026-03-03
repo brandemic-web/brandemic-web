@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-03-03T07:54:58.184Z
+ * Built: 2026-03-03T10:32:45.565Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2429,7 +2429,9 @@
      * Cycle through greeting words in different languages
      */
     function cycleHeadingWords() {
-        const words = [
+        const region = document.documentElement.dataset.region;
+
+        const baseWords = [
             "Namaste,",
             "Bonjour,",
             "Hej,",
@@ -2442,6 +2444,25 @@
             "Marhaba,",
         ];
 
+        // Reorder based on region
+        let words;
+
+        if (region === "india") {
+            words = [
+                "Namaste,",
+                ...baseWords.filter(word => word !== "Namaste,")
+            ];
+        } 
+        else if (region === "dubai") {
+            words = [
+                "Marhaba,",
+                ...baseWords.filter(word => word !== "Marhaba,")
+            ];
+        } 
+        else {
+            words = baseWords;
+        }
+
         const greetingText = document.querySelector("#greeting-text");
         if (!greetingText) return;
 
@@ -2451,9 +2472,11 @@
             const nextWord = words[currentIndex];
 
             const charsOut = new SplitText(greetingText, { type: "chars" });
+
             const tl = gsap.timeline({
                 onComplete: () => {
                     greetingText.textContent = nextWord;
+
                     const charsIn = new SplitText(greetingText, { type: "chars" });
 
                     gsap.fromTo(charsIn.chars, {

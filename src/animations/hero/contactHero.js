@@ -131,7 +131,9 @@ function initContactHeroFloatingEffect() {
  * Cycle through greeting words in different languages
  */
 function cycleHeadingWords() {
-    const words = [
+    const region = document.documentElement.dataset.region;
+
+    const baseWords = [
         "Namaste,",
         "Bonjour,",
         "Hej,",
@@ -144,6 +146,25 @@ function cycleHeadingWords() {
         "Marhaba,",
     ];
 
+    // Reorder based on region
+    let words;
+
+    if (region === "india") {
+        words = [
+            "Namaste,",
+            ...baseWords.filter(word => word !== "Namaste,")
+        ];
+    } 
+    else if (region === "dubai") {
+        words = [
+            "Marhaba,",
+            ...baseWords.filter(word => word !== "Marhaba,")
+        ];
+    } 
+    else {
+        words = baseWords;
+    }
+
     const greetingText = document.querySelector("#greeting-text");
     if (!greetingText) return;
 
@@ -153,9 +174,11 @@ function cycleHeadingWords() {
         const nextWord = words[currentIndex];
 
         const charsOut = new SplitText(greetingText, { type: "chars" });
+
         const tl = gsap.timeline({
             onComplete: () => {
                 greetingText.textContent = nextWord;
+
                 const charsIn = new SplitText(greetingText, { type: "chars" });
 
                 gsap.fromTo(charsIn.chars, {
