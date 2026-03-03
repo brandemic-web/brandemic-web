@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-03-03T10:32:45.565Z
+ * Built: 2026-03-03T10:42:24.685Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2447,13 +2447,13 @@
         // Reorder based on region
         let words;
 
-        if (region === "india") {
+        if (region === "dubai") {
             words = [
                 "Namaste,",
                 ...baseWords.filter(word => word !== "Namaste,")
             ];
         } 
-        else if (region === "dubai") {
+        else if (region === "india") {
             words = [
                 "Marhaba,",
                 ...baseWords.filter(word => word !== "Marhaba,")

@@ -149,13 +149,13 @@ function cycleHeadingWords() {
     // Reorder based on region
     let words;
 
-    if (region === "india") {
+    if (region === "dubai") {
         words = [
             "Namaste,",
             ...baseWords.filter(word => word !== "Namaste,")
         ];
     } 
-    else if (region === "dubai") {
+    else if (region === "india") {
         words = [
             "Marhaba,",
             ...baseWords.filter(word => word !== "Marhaba,")
