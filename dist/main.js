@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-03-03T10:42:24.685Z
+ * Built: 2026-03-11T08:03:54.756Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1860,6 +1860,7 @@
         images.forEach((img, i) => {
             gsap.set(img, {
                 autoAlpha: i === 0 ? 1 : 0,
+                rotation: i === 0 ? 5 : -5,  // degrees — use 'rotation' not 'rotate'
             });
         });
 

@@ -41,6 +41,7 @@ export function scrollPinObserver() {
     images.forEach((img, i) => {
         gsap.set(img, {
             autoAlpha: i === 0 ? 1 : 0,
+            rotation: i === 0 ? 5 : -5,  // degrees — use 'rotation' not 'rotate'
         });
     });
 
