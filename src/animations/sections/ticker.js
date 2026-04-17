@@ -35,7 +35,7 @@ export function brandTicker() {
             trigger: selector,
             start: "top bottom",
             once: true,
-            onEnter: () => loop.play()
+            onEnter: () => reversed ? loop.reverse() : loop.play()
         });
 
         return loop;

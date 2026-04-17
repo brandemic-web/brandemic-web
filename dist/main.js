@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-04-17T16:22:57.808Z
+ * Built: 2026-04-17T16:33:36.650Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1299,7 +1299,7 @@
                 trigger: selector,
                 start: "top bottom",
                 once: true,
-                onEnter: () => loop.play()
+                onEnter: () => reversed ? loop.reverse() : loop.play()
             });
 
             return loop;
