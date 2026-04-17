@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-04-17T16:13:20.811Z
+ * Built: 2026-04-17T16:18:04.284Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2557,37 +2557,6 @@
     let itiInstance = null;
     let submitHandler = null;
 
-    const ITI_CSS = 'https://cdn.jsdelivr.net/npm/intl-tel-input@27.0.0/dist/css/intlTelInput.css';
-    const ITI_JS = 'https://cdn.jsdelivr.net/npm/intl-tel-input@27.0.0/dist/js/intlTelInput.min.js';
-
-    function loadIntlTelInput() {
-        return new Promise((resolve) => {
-            if (typeof intlTelInput !== 'undefined') {
-                resolve();
-                return;
-            }
-
-            // Load CSS
-            if (!document.querySelector(`link[href="${ITI_CSS}"]`)) {
-                const link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = ITI_CSS;
-                document.head.appendChild(link);
-            }
-
-            // Load JS
-            const oldScript = document.querySelector(`script[src="${ITI_JS}"]`);
-            if (oldScript) oldScript.remove();
-
-            const script = document.createElement('script');
-            script.src = ITI_JS;
-            script.async = true;
-            script.onload = () => resolve();
-            script.onerror = () => resolve();
-            document.head.appendChild(script);
-        });
-    }
-
     /**
      * Initialize contact form: intl-tel-input + Freshworks CRM push
      */
@@ -2595,8 +2564,9 @@
         const input = document.querySelector('#contact_number');
         if (!input) return;
 
-        loadIntlTelInput().then(() => {
-            if (typeof intlTelInput === 'undefined') return;
+        console.log('intlTelInput', intlTelInput);
+        // intl-tel-input
+        if (typeof intlTelInput !== 'undefined') {
             itiInstance = intlTelInput(input, {
                 loadUtils: () => import('https://cdn.jsdelivr.net/npm/intl-tel-input@27.0.0/dist/js/utils.js'),
                 initialCountry: 'auto',
@@ -2608,7 +2578,7 @@
                 },
                 hiddenInput: 'full',
             });
-        });
+        }
 
         // Freshworks CRM on submit
         const form = document.querySelector('#wf-form-Contact-Form');
