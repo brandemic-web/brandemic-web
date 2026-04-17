@@ -8,7 +8,10 @@ import { initContactHeroAnimation, destroyContactHeroAnimation } from '../animat
 // Text Animations
 import { initCharAnimations } from '../animations/text/charAnimations.js';
 
-import { initScrollArrows,destroyScrollArrows } from '../components/lottie/arrowScroll.js';
+import { initScrollArrows, destroyScrollArrows } from '../components/lottie/arrowScroll.js';
+
+// Form
+import { initContactForm, destroyContactForm } from '../components/form/contactForm.js';
 
 /**
  * Initialize all contact page animations
@@ -17,7 +20,7 @@ export function initContactAnimations() {
     initCharAnimations();
     initContactHeroAnimation();
     initScrollArrows();
-
+    initContactForm();
 }
 
 /**
@@ -26,5 +29,6 @@ export function initContactAnimations() {
 export function destroyContactAnimations() {
     destroyContactHeroAnimation();
     destroyScrollArrows();
+    destroyContactForm();
 }
 

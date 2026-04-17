@@ -67,8 +67,12 @@ export function animateWorkImages() {
         img.style.zIndex = images.length - index;
     });
 
+    const flipImages = Array.from(images).slice(0, 10);
+    const restImages = Array.from(images).slice(10);
+
     gsap.set(firstImage, { rotation: 6 });
     gsap.set(secondImage, { rotation: 3 });
+    gsap.set(restImages, { autoAlpha: 0 });
 
     ScrollTrigger.create({
         trigger: ".our-work_block",
@@ -90,14 +94,17 @@ export function animateWorkImages() {
                 .set(title, { autoAlpha: 0 })
                 .set(titleWrapper, { autoAlpha: 0 })
                 .add(() => {
-                    const state = Flip.getState(images);
+                    const state = Flip.getState(flipImages);
                     wrapper.classList.add("flex-layout");
 
                     Flip.from(state, {
                         duration: 1,
                         ease: "power1.out",
                         stagger: 0.05,
-                        onComplete: featuredWorkLoop
+                        onComplete: () => {
+                            gsap.set(restImages, { autoAlpha: 1 });
+                            featuredWorkLoop();
+                        }
                     });
                 });
         }

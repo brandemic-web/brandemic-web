@@ -27,7 +27,15 @@ export function brandTicker() {
             inertia: false,
             repeat: -1,
             center: false,
-            reversed
+            reversed,
+            paused: true
+        });
+
+        ScrollTrigger.create({
+            trigger: selector,
+            start: "top bottom",
+            once: true,
+            onEnter: () => loop.play()
         });
 
         return loop;

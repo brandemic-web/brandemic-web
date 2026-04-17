@@ -114,6 +114,24 @@ export function startVideo() {
         videoCursor.removeEventListener("click", exitFullscreen);
     }
 
+    // On mobile, mute video when scrolled past
+    if (mobile) {
+        ScrollTrigger.create({
+            trigger: videoElement,
+            start: "bottom top",
+            onEnter: () => {
+                videoElement.pause();
+                videoElement.muted = true;
+            },
+            onLeaveBack: () => {
+                if (videoCursor.classList.contains("close")) {
+                    videoElement.muted = false;
+                    videoElement.play();
+                }
+            }
+        });
+    }
+
     // Attach the click listener **only once** to prevent duplicates
     videoCursor.removeEventListener("click", enterFullscreen);
     videoCursor.addEventListener("click", enterFullscreen);
