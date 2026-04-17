@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-04-17T16:18:04.284Z
+ * Built: 2026-04-17T16:22:57.808Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2554,31 +2554,26 @@
      * Contact Form - intl-tel-input and Freshworks CRM integration
      */
 
-    let itiInstance = null;
     let submitHandler = null;
 
     /**
      * Initialize contact form: intl-tel-input + Freshworks CRM push
      */
     function initContactForm() {
-        const input = document.querySelector('#contact_number');
-        if (!input) return;
-
-        console.log('intlTelInput', intlTelInput);
-        // intl-tel-input
-        if (typeof intlTelInput !== 'undefined') {
-            itiInstance = intlTelInput(input, {
-                loadUtils: () => import('https://cdn.jsdelivr.net/npm/intl-tel-input@27.0.0/dist/js/utils.js'),
-                initialCountry: 'auto',
-                geoIpLookup: (success, failure) => {
-                    fetch('https://ipapi.co/json')
-                        .then(res => res.json())
-                        .then(data => success(data.country_code))
-                        .catch(() => failure());
-                },
-                hiddenInput: 'full',
-            });
-        }
+        // TODO: intl-tel-input temporarily disabled
+        // if (typeof intlTelInput !== 'undefined') {
+        //     itiInstance = intlTelInput(input, {
+        //         loadUtils: () => import('https://cdn.jsdelivr.net/npm/intl-tel-input@27.0.0/dist/js/utils.js'),
+        //         initialCountry: 'auto',
+        //         geoIpLookup: (success, failure) => {
+        //             fetch('https://ipapi.co/json')
+        //                 .then(res => res.json())
+        //                 .then(data => success(data.country_code))
+        //                 .catch(() => failure());
+        //         },
+        //         hiddenInput: 'full',
+        //     });
+        // }
 
         // Freshworks CRM on submit
         const form = document.querySelector('#wf-form-Contact-Form');
@@ -2628,10 +2623,6 @@
      * Destroy contact form: cleanup intl-tel-input and event listeners
      */
     function destroyContactForm() {
-        if (itiInstance) {
-            itiInstance.destroy();
-            itiInstance = null;
-        }
 
         if (submitHandler) {
             const form = document.querySelector('#wf-form-Contact-Form');

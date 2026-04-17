@@ -9,24 +9,20 @@ let submitHandler = null;
  * Initialize contact form: intl-tel-input + Freshworks CRM push
  */
 export function initContactForm() {
-    const input = document.querySelector('#contact_number');
-    if (!input) return;
-
-    console.log('intlTelInput', intlTelInput);
-    // intl-tel-input
-    if (typeof intlTelInput !== 'undefined') {
-        itiInstance = intlTelInput(input, {
-            loadUtils: () => import('https://cdn.jsdelivr.net/npm/intl-tel-input@27.0.0/dist/js/utils.js'),
-            initialCountry: 'auto',
-            geoIpLookup: (success, failure) => {
-                fetch('https://ipapi.co/json')
-                    .then(res => res.json())
-                    .then(data => success(data.country_code))
-                    .catch(() => failure());
-            },
-            hiddenInput: 'full',
-        });
-    }
+    // TODO: intl-tel-input temporarily disabled
+    // if (typeof intlTelInput !== 'undefined') {
+    //     itiInstance = intlTelInput(input, {
+    //         loadUtils: () => import('https://cdn.jsdelivr.net/npm/intl-tel-input@27.0.0/dist/js/utils.js'),
+    //         initialCountry: 'auto',
+    //         geoIpLookup: (success, failure) => {
+    //             fetch('https://ipapi.co/json')
+    //                 .then(res => res.json())
+    //                 .then(data => success(data.country_code))
+    //                 .catch(() => failure());
+    //         },
+    //         hiddenInput: 'full',
+    //     });
+    // }
 
     // Freshworks CRM on submit
     const form = document.querySelector('#wf-form-Contact-Form');
