@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-04-17T15:46:08.347Z
+ * Built: 2026-04-17T16:01:40.419Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2564,6 +2564,7 @@
         const input = document.querySelector('#contact_number');
         if (!input) return;
 
+        console.log('intlTelInput', intlTelInput);
         // intl-tel-input
         if (typeof intlTelInput !== 'undefined') {
             itiInstance = intlTelInput(input, {

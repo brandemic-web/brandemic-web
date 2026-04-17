@@ -12,6 +12,7 @@ export function initContactForm() {
     const input = document.querySelector('#contact_number');
     if (!input) return;
 
+    console.log('intlTelInput', intlTelInput);
     // intl-tel-input
     if (typeof intlTelInput !== 'undefined') {
         itiInstance = intlTelInput(input, {
