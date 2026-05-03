@@ -20,6 +20,43 @@ import { initServiceAnimations, destroyServiceAnimations } from '../pages/servic
 import { initThankAnimations, destroyThankAnimations } from '../pages/thanks.js';
 import { initBlogAnimations, destroyBlogAnimations } from '../pages/blog.js';
 import { initBlogPostAnimations, destroyBlogPostAnimations } from '../pages/blogPost.js';
+
+// ─── Scroll Restoration Key ───────────────────────────────────────────────────
+const PORTFOLIO_SCROLL_KEY = 'portfolioScrollPos';
+
+/**
+ * Save the current portfolio scroll position into sessionStorage.
+ * Reads from ScrollSmoother if available, falls back to window.scrollY.
+ */
+function savePortfolioScroll() {
+    const smoother = ScrollSmoother.get();
+    const pos = smoother ? smoother.scrollTop() : window.scrollY;
+    sessionStorage.setItem(PORTFOLIO_SCROLL_KEY, pos);
+}
+
+/**
+ * Restore the saved portfolio scroll position.
+ * Must be called AFTER recreateSmoother() has run.
+ */
+function restorePortfolioScroll() {
+    const saved = sessionStorage.getItem(PORTFOLIO_SCROLL_KEY);
+    if (saved === null) return;
+
+    sessionStorage.removeItem(PORTFOLIO_SCROLL_KEY);
+
+    // Small delay lets ScrollSmoother finish initializing before we jump
+    setTimeout(() => {
+        const smoother = ScrollSmoother.get();
+        if (smoother) {
+            smoother.scrollTo(parseInt(saved, 10), false); // false = instant, no smooth animation
+        } else {
+            window.scrollTo({ top: parseInt(saved, 10), behavior: 'instant' });
+        }
+    }, 150);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 /**
  * Get the appropriate hero animation function for a namespace
  * @param {string} namespace 
@@ -77,6 +114,7 @@ export function initBarba() {
                 data.current.container.remove();
                 done();
             },
+
             async beforeEnter(data) {
                 resetWebflow(data);
                 const mobile = isMobile();
@@ -119,7 +157,13 @@ export function initBarba() {
                         ScrollTrigger.refresh();
                     });
                 }
+
+                // ✅ Restore portfolio scroll position AFTER smoother is recreated
+                if (data.next.namespace === 'portfolio') {
+                    restorePortfolioScroll();
+                }
             },
+
             async enter(data) {
                 gsap.from(data.next.container, {
                     opacity: 0,
@@ -128,6 +172,7 @@ export function initBarba() {
                 });
             },
         }],
+
         views: [{
             namespace: 'home',
             afterEnter(data) {
@@ -150,6 +195,8 @@ export function initBarba() {
                 initPortfolioAnimations();
             },
             beforeLeave(data) {
+                // ✅ Save scroll position before navigating to a case study
+                savePortfolioScroll();
                 destroyPortfolioAnimations();
             },
         }, {
@@ -203,4 +250,3 @@ export function initBarba() {
         }]
     });
 }
-
