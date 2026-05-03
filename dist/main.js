@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-04-17T16:33:36.650Z
+ * Built: 2026-05-03T18:01:31.373Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1447,29 +1447,29 @@
     /**
      * Animate horizontal scrolling text
      */
-   function animateScrollingText() {
-    const scrollTextWrapper = document.querySelector(".scroll_text-wrapper");
-    if (!scrollTextWrapper) return;
+    function animateScrollingText() {
+        const scrollTextWrapper = document.querySelector(".scroll_text-wrapper");
+        if (!scrollTextWrapper) return;
 
-    // Clone children to create seamless loop
-    const children = Array.from(scrollTextWrapper.children);
-    children.forEach(child => {
-        const clone = child.cloneNode(true);
-        scrollTextWrapper.appendChild(clone);
-    });
+        // Clone children to create seamless loop
+        const children = Array.from(scrollTextWrapper.children);
+        children.forEach(child => {
+            const clone = child.cloneNode(true);
+            scrollTextWrapper.appendChild(clone);
+        });
 
-    const singleSetWidth = scrollTextWrapper.scrollWidth / 2;
+        const singleSetWidth = scrollTextWrapper.scrollWidth / 2;
 
-    gsap.to(scrollTextWrapper, {
-        x: -singleSetWidth,
-        duration: 20,
-        ease: "none",
-        repeat: -1,
-        modifiers: {
-            x: gsap.utils.unitize(x => parseFloat(x) % singleSetWidth)
-        }
-    });
-}
+        gsap.to(scrollTextWrapper, {
+            x: -singleSetWidth,
+            duration: 20,
+            ease: "none",
+            repeat: -1,
+            modifiers: {
+                x: gsap.utils.unitize(x => parseFloat(x) % singleSetWidth)
+            }
+        });
+    }
 
     /**
      * SVG Path Drawing - Brandemic logo draw animation
@@ -3695,162 +3695,162 @@
     }
 
     /**
-     * Barba.js Configuration - Page transitions and view management
-     */
+    * Barba.js Configuration - Page transitions and view management
+    */
 
 
     /**
-     * Initialize Barba.js with all transitions and views
-     */
+    * Initialize Barba.js with all transitions and views
+    */
     function initBarba() {
-        barba.init({
-            sync: true,
-            transitions: [{
-                async leave(data) {
-                    const done = this.async();
-                    const isOpen = getIsOpen();
-                    if (isOpen) {
-                        const closeMenuTimeline = getCloseMenuTimeline();
-                        closeMenuTimeline.restart();
-                        document.body.classList.remove("no-scroll");
-                        setIsOpen(false);
-                    }
+    barba.init({
+    sync: true,
+    transitions: [{
+    async leave(data) {
+    const done = this.async();
+    const isOpen = getIsOpen();
+    if (isOpen) {
+    const closeMenuTimeline = getCloseMenuTimeline();
+    closeMenuTimeline.restart();
+    document.body.classList.remove("no-scroll");
+    setIsOpen(false);
+    }
 
-                    gsap.to(data.current.container, {
-                        opacity: 0,
-                        filter: "blur(10px)",
-                        duration: 0.5,
-                    });
+    gsap.to(data.current.container, {
+    opacity: 0,
+    filter: "blur(10px)",
+    duration: 0.5,
+    });
 
-                    await delay(500);
-                    data.current.container.remove();
-                    done();
-                },
-                async beforeEnter(data) {
-                    resetWebflow(data);
-                    const mobile = isMobile();
+    await delay(500);
+    data.current.container.remove();
+    done();
+    },
+    async beforeEnter(data) {
+    resetWebflow(data);
+    const mobile = isMobile();
 
-                    if (!mobile) {
-                        const scaleAnim = getScaleAnim();
-                        let isHovering = [...document.querySelectorAll(".link-hover-ix, a")].some(
-                            (el) => el.matches(":hover")
-                        );
+    if (!mobile) {
+    const scaleAnim = getScaleAnim();
+    let isHovering = [...document.querySelectorAll(".link-hover-ix, a")].some(
+    (el) => el.matches(":hover")
+    );
 
-                        if (!isHovering && scaleAnim) {
-                            scaleAnim.reverse();
-                        }
+    if (!isHovering && scaleAnim) {
+    scaleAnim.reverse();
+    }
 
-                        mouseHover();
-                    }
+    mouseHover();
+    }
 
-                    recreateSmoother();
+    recreateSmoother();
 
-                    ScrollTrigger.normalizeScroll(false);
+    ScrollTrigger.normalizeScroll(false);
 
-                    let triggers = ScrollTrigger.getAll();
-                    triggers.forEach(trigger => {
-                        trigger.kill();
-                    });
+    let triggers = ScrollTrigger.getAll();
+    triggers.forEach(trigger => {
+    trigger.kill();
+    });
 
-                    footerLimitless();
-                    copyYear();
+    footerLimitless();
+    copyYear();
 
-                    if (!mobile) {
-                        document.querySelectorAll("img").forEach(img => {
-                            if (img.complete) {
-                                ScrollTrigger.refresh();
-                            } else {
-                                img.addEventListener('load', imgLoaded => ScrollTrigger.refresh());
-                            }
-                        });
+    if (!mobile) {
+    document.querySelectorAll("img").forEach(img => {
+    if (img.complete) {
+    ScrollTrigger.refresh();
+    } else {
+    img.addEventListener('load', imgLoaded => ScrollTrigger.refresh());
+    }
+    });
 
-                        document.addEventListener('lazyloaded', function (e) {
-                            ScrollTrigger.refresh();
-                        });
-                    }
-                },
-                async enter(data) {
-                    gsap.from(data.next.container, {
-                        opacity: 0,
-                        filter: "blur(10px)",
-                        duration: 0.5,
-                    });
-                },
-            }],
-            views: [{
-                namespace: 'home',
-                afterEnter(data) {
-                    initHomeAnimations();
-                },
-                beforeLeave(data) {
-                    destroyHomeAnimations();
-                },
-            }, {
-                namespace: 'about',
-                afterEnter(data) {
-                    initAboutAnimations();
-                },
-                beforeLeave(data) {
-                    destroyAboutAnimations();
-                },
-            }, {
-                namespace: 'portfolio',
-                afterEnter(data) {
-                    initPortfolioAnimations();
-                },
-                beforeLeave(data) {
-                    destroyPortfolioAnimations();
-                },
-            }, {
-                namespace: 'contact',
-                afterEnter(data) {
-                    initContactAnimations();
-                },
-                beforeLeave(data) {
-                    destroyContactAnimations();
-                },
-            }, {
-                namespace: 'case-study',
-                afterEnter(data) {
-                    initCaseStudyAnimations();
-                },
-                beforeLeave(data) {
-                    destroyCaseStudyAnimations();
-                },
-            }, {
-                namespace: 'service',
-                afterEnter(data) {
-                    initServiceAnimations();
-                },
-                beforeLeave(data) {
-                    destroyServiceAnimations();
-                },
-            }, {
-                namespace: 'thanks',
-                afterEnter(data) {
-                    initThankAnimations();
-                },
-                beforeLeave(data) {
-                    destroyThankAnimations();
-                },
-            }, {
-                namespace: 'blogs',
-                afterEnter(data) {
-                    initBlogAnimations();
-                },
-                beforeLeave(data) {
-                    destroyBlogAnimations();
-                },
-            }, {
-                namespace: 'blog',
-                afterEnter(data) {
-                    initBlogPostAnimations();
-                },
-                beforeLeave(data) {
-                    destroyBlogPostAnimations();
-                },
-            }]
-        });
+    document.addEventListener('lazyloaded', function (e) {
+    ScrollTrigger.refresh();
+    });
+    }
+    },
+    async enter(data) {
+    gsap.from(data.next.container, {
+    opacity: 0,
+    filter: "blur(10px)",
+    duration: 0.5,
+    });
+    },
+    }],
+    views: [{
+    namespace: 'home',
+    afterEnter(data) {
+    initHomeAnimations();
+    },
+    beforeLeave(data) {
+    destroyHomeAnimations();
+    },
+    }, {
+    namespace: 'about',
+    afterEnter(data) {
+    initAboutAnimations();
+    },
+    beforeLeave(data) {
+    destroyAboutAnimations();
+    },
+    }, {
+    namespace: 'portfolio',
+    afterEnter(data) {
+    initPortfolioAnimations();
+    },
+    beforeLeave(data) {
+    destroyPortfolioAnimations();
+    },
+    }, {
+    namespace: 'contact',
+    afterEnter(data) {
+    initContactAnimations();
+    },
+    beforeLeave(data) {
+    destroyContactAnimations();
+    },
+    }, {
+    namespace: 'case-study',
+    afterEnter(data) {
+    initCaseStudyAnimations();
+    },
+    beforeLeave(data) {
+    destroyCaseStudyAnimations();
+    },
+    }, {
+    namespace: 'service',
+    afterEnter(data) {
+    initServiceAnimations();
+    },
+    beforeLeave(data) {
+    destroyServiceAnimations();
+    },
+    }, {
+    namespace: 'thanks',
+    afterEnter(data) {
+    initThankAnimations();
+    },
+    beforeLeave(data) {
+    destroyThankAnimations();
+    },
+    }, {
+    namespace: 'blogs',
+    afterEnter(data) {
+    initBlogAnimations();
+    },
+    beforeLeave(data) {
+    destroyBlogAnimations();
+    },
+    }, {
+    namespace: 'blog',
+    afterEnter(data) {
+    initBlogPostAnimations();
+    },
+    beforeLeave(data) {
+    destroyBlogPostAnimations();
+    },
+    }]
+    });
     }
 
     /**
