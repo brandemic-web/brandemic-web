@@ -2,13 +2,21 @@ export function animateScrollingText() {
     const scrollTextWrapper = document.querySelector(".scroll_text-wrapper");
     if (!scrollTextWrapper) return;
 
-    // Measure BEFORE duplicating
-    const originalWidth = scrollTextWrapper.scrollWidth;
+    // Prevent double-init
+    if (scrollTextWrapper.dataset.scrollInit) {
+        gsap.killTweensOf(scrollTextWrapper);
+    }
+    scrollTextWrapper.dataset.scrollInit = "true";
 
-    // Duplicate the content
-    scrollTextWrapper.innerHTML += scrollTextWrapper.innerHTML;
+    // Clone nodes instead of innerHTML to preserve listeners/avoid duplicate IDs
+    const children = Array.from(scrollTextWrapper.children);
+    children.forEach(child => {
+        scrollTextWrapper.appendChild(child.cloneNode(true));
+    });
 
-    // Now scroll exactly one original-width's worth
+    const originalWidth = scrollTextWrapper.scrollWidth / 2; // now doubled
+    if (!originalWidth) return; // guard against hidden/empty
+
     gsap.to(scrollTextWrapper, {
         x: -originalWidth,
         duration: 20,
