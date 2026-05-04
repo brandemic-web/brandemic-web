@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-04T10:54:19.708Z
+ * Built: 2026-05-04T11:29:16.197Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1440,26 +1440,24 @@
         }
     }
 
-    /**
-     * Scrolling Text Animation - Continuous auto-scroll (marquee)
-     */
-
-    /**
-     * Animate horizontal scrolling text continuously
-     */
     function animateScrollingText() {
         const scrollTextWrapper = document.querySelector(".scroll_text-wrapper");
         if (!scrollTextWrapper) return;
 
-        const textWidth = scrollTextWrapper.scrollWidth / 2; // Half if content is duplicated
+        // Measure BEFORE duplicating
+        const originalWidth = scrollTextWrapper.scrollWidth;
 
+        // Duplicate the content
+        scrollTextWrapper.innerHTML += scrollTextWrapper.innerHTML;
+
+        // Now scroll exactly one original-width's worth
         gsap.to(scrollTextWrapper, {
-            x: -textWidth,
-            duration: 20, // Adjust speed: lower = faster
+            x: -originalWidth,
+            duration: 20,
             ease: "none",
-            repeat: -1, // Infinite loop
+            repeat: -1,
             modifiers: {
-                x: gsap.utils.unitize(x => parseFloat(x) % textWidth) // Seamless wrap
+                x: gsap.utils.unitize(x => parseFloat(x) % originalWidth)
             }
         });
     }
