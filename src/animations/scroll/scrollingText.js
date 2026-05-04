@@ -1,25 +1,23 @@
 /**
- * Scrolling Text Animation - Horizontal scroll on scroll
+ * Scrolling Text Animation - Continuous auto-scroll (marquee)
  */
 
 /**
- * Animate horizontal scrolling text
+ * Animate horizontal scrolling text continuously
  */
 export function animateScrollingText() {
     const scrollTextWrapper = document.querySelector(".scroll_text-wrapper");
     if (!scrollTextWrapper) return;
 
-    const textWidth = scrollTextWrapper.scrollWidth;
+    const textWidth = scrollTextWrapper.scrollWidth / 2; // Half if content is duplicated
 
     gsap.to(scrollTextWrapper, {
-        x: -textWidth + window.innerWidth,
+        x: -textWidth,
+        duration: 20, // Adjust speed: lower = faster
         ease: "none",
-        scrollTrigger: {
-            trigger: scrollTextWrapper,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
+        repeat: -1, // Infinite loop
+        modifiers: {
+            x: gsap.utils.unitize(x => parseFloat(x) % textWidth) // Seamless wrap
         }
     });
 }
-
