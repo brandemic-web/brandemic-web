@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-03T18:01:31.373Z
+ * Built: 2026-05-04T10:34:25.854Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1451,22 +1451,16 @@
         const scrollTextWrapper = document.querySelector(".scroll_text-wrapper");
         if (!scrollTextWrapper) return;
 
-        // Clone children to create seamless loop
-        const children = Array.from(scrollTextWrapper.children);
-        children.forEach(child => {
-            const clone = child.cloneNode(true);
-            scrollTextWrapper.appendChild(clone);
-        });
-
-        const singleSetWidth = scrollTextWrapper.scrollWidth / 2;
+        const textWidth = scrollTextWrapper.scrollWidth;
 
         gsap.to(scrollTextWrapper, {
-            x: -singleSetWidth,
-            duration: 20,
+            x: -textWidth + window.innerWidth,
             ease: "none",
-            repeat: -1,
-            modifiers: {
-                x: gsap.utils.unitize(x => parseFloat(x) % singleSetWidth)
+            scrollTrigger: {
+                trigger: scrollTextWrapper,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
             }
         });
     }
