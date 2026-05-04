@@ -1,11 +1,13 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// Pin the heading for the duration of the services wrapper scroll
+let servicesWrapper = document.querySelector(".services-wrapper");
+let heading = document.querySelector(".services_offering-heading");
+
 ScrollTrigger.create({
   trigger: ".services_offering-wrapper",
-  start: "top top",          // when the wrapper hits the top of viewport
-  end: () => `+=${document.querySelector(".services-wrapper").offsetHeight}`, // unpin after full services list has scrolled
+  start: "top top",
+  end: () => "+=" + (servicesWrapper.offsetHeight - heading.offsetHeight),
   pin: ".services_offering-heading",
-  pinSpacing: false,         // don't push content down — heading overlaps naturally
-  anticipatePin: 1,          // smooths out the pin moment
+  pinSpacing: false,
+  markers: true, // ← add this temporarily to debug, remove once working
 });
