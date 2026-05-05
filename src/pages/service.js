@@ -27,6 +27,7 @@ import { animateWorkImages, destroyFeaturedWorkLoop } from '../animations/sectio
 
 // Arrow Scrolling
 import { initScrollArrows,destroyScrollArrows } from '../components/lottie/arrowScroll.js';
+import { servicesOfferingPin, destroyServicesOfferingPin } from '../animations/sections/servicesOfferingPin.js';
 
 /**
  * Initialize all service page animations
@@ -43,6 +44,7 @@ export function initServiceAnimations() {
     serviceProcessScroll();
     serviceHoverAnimation();
     initTestimonialsSwiperScripts();
+    servicesOfferingPin();
 }
 
 /**
@@ -57,5 +59,6 @@ export function destroyServiceAnimations() {
     destroyFeaturedWorkLoop();
     destroyTestimonialsSwiperScripts();
     destroyScrollArrows();
+    destroyServicesOfferingPin();
 }
 

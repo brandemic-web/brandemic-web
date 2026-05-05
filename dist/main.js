@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-05T06:43:02.715Z
+ * Built: 2026-05-05T06:57:28.487Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3149,6 +3149,40 @@
         }
     }
 
+    // src/animations/servicesOfferingPin.js
+
+
+    let servicesPinST = null;
+
+    /**
+     * Initialize services offering heading pin
+     */
+    function servicesOfferingPin() {
+        if (isMobile()) return;
+
+        const servicesList = document.querySelector(".services-wrapper.is-services-page");
+        if (!servicesList) return;
+
+        servicesPinST = ScrollTrigger.create({
+            trigger: ".section_services-offerings",
+            start: "top top",
+            end: () => `+=${servicesList.offsetHeight}`,
+            pin: ".services_offering-heading",
+            pinSpacing: false,
+            anticipatePin: 1,
+        });
+    }
+
+    /**
+     * Destroy services offering heading pin
+     */
+    function destroyServicesOfferingPin() {
+        if (servicesPinST) {
+            servicesPinST.kill();
+            servicesPinST = null;
+        }
+    }
+
     /**
      * Service Page - Initialize and destroy animations
      */
@@ -3169,6 +3203,7 @@
         serviceProcessScroll();
         serviceHoverAnimation();
         initTestimonialsSwiperScripts();
+        servicesOfferingPin();
     }
 
     /**
@@ -3183,6 +3218,7 @@
         destroyFeaturedWorkLoop();
         destroyTestimonialsSwiperScripts();
         destroyScrollArrows();
+        destroyServicesOfferingPin();
     }
 
     /**
