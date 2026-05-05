@@ -20,6 +20,7 @@ export function servicesOfferingPin() {
         pin: ".services_offering-heading",
         pinSpacing: false,
         anticipatePin: 1,
+        markers: true,
     });
 }
 

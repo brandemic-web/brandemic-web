@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-05T06:57:28.487Z
+ * Built: 2026-05-05T07:01:41.903Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3170,6 +3170,7 @@
             pin: ".services_offering-heading",
             pinSpacing: false,
             anticipatePin: 1,
+            markers: true,
         });
     }
 
