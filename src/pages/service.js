@@ -10,7 +10,7 @@ import { initCharAnimations } from '../animations/text/charAnimations.js';
 
 // Sections
 import { serviceHoverAnimation, destroyServiceHoverAnimation } from '../animations/sections/serviceHover.js';
-import { serviceProcessScroll, destroyServiceProcessScroll } from '../animations/sections/process.js';
+import { serviceProcessScroll, destroyServiceProcessScroll, servicesOfferingPin, destroyServicesOfferingPin } from '../animations/sections/process.js';
 
 // SVG
 import { animateSvgPaths } from '../animations/svg/drawPaths.js';
@@ -27,7 +27,7 @@ import { animateWorkImages, destroyFeaturedWorkLoop } from '../animations/sectio
 
 // Arrow Scrolling
 import { initScrollArrows,destroyScrollArrows } from '../components/lottie/arrowScroll.js';
-import { servicesOfferingPin, destroyServicesOfferingPin } from '../animations/sections/servicesOfferingPin.js';
+
 
 /**
  * Initialize all service page animations
@@ -45,6 +45,7 @@ export function initServiceAnimations() {
     serviceHoverAnimation();
     initTestimonialsSwiperScripts();
     servicesOfferingPin();
+    
 }
 
 /**
