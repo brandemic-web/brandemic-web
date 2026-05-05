@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-05T07:47:49.881Z
+ * Built: 2026-05-05T08:13:08.014Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3729,6 +3729,7 @@
     */
 
 
+    let barbaInit = false;
     /**
     * Initialize Barba.js with all transitions and views
     */
@@ -3737,6 +3738,11 @@
     sync: true,
     transitions: [{
     async leave(data) {
+        if (!barbaInit) {
+            barbaInit = true;
+            done();
+            return;
+        }
     const done = this.async();
     const isOpen = getIsOpen();
     if (isOpen) {

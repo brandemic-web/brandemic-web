@@ -50,6 +50,7 @@ return () => { }; // Fallback to no-op
 }
 }
 
+let barbaInit = false;
 /**
 * Initialize Barba.js with all transitions and views
 */
@@ -58,6 +59,11 @@ barba.init({
 sync: true,
 transitions: [{
 async leave(data) {
+    if (!barbaInit) {
+        barbaInit = true;
+        done();
+        return;
+    }
 const done = this.async();
 const isOpen = getIsOpen();
 if (isOpen) {
