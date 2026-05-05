@@ -8,11 +8,23 @@ let servicesPinST = null;
  * Initialize services offering heading pin
  */
 export function servicesOfferingPin() {
-    if (isMobile()) return;
+    console.log("servicesOfferingPin called");
+    
+    if (isMobile()) {
+        console.log("bailed: isMobile");
+        return;
+    }
 
     const servicesList = document.querySelector(".services-wrapper.is-services-page");
-    if (!servicesList) return;
+    console.log("servicesList:", servicesList);
+    
+    if (!servicesList) {
+        console.log("bailed: servicesList not found");
+        return;
+    }
 
+    console.log("creating ScrollTrigger...");
+    
     servicesPinST = ScrollTrigger.create({
         trigger: ".section_services-offerings",
         start: "top top",
@@ -22,6 +34,8 @@ export function servicesOfferingPin() {
         anticipatePin: 1,
         markers: true,
     });
+    
+    console.log("ScrollTrigger created:", servicesPinST);
 }
 
 /**
