@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-05T08:13:08.014Z
+ * Built: 2026-05-06T11:18:41.005Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1023,6 +1023,7 @@
         elements.forEach((element) => {
             const serviceLine = element.querySelector(".service_line");
             const serviceDescription = element.querySelector(".service_description");
+            const serviceButton = element.querySelector(".service_button");
             const serviceImage = element.querySelector(".service_image");
             const serviceHeading = element.querySelector(".service_heading");
             const serviceNumber = element.querySelector(".service_number");
@@ -1049,7 +1050,8 @@
                     .to(serviceNumber, { color: "#38C67F", duration: 0.5, ease: "power2.out" }, "<")
                     .to(serviceImage, { opacity: 1, scale: 1, y: 0, rotate: 12, duration: 0.5, ease: "power2.out" }, "<")
                     .to(serviceLine, { width: mobile ? "70%" : "100%", duration: 0.5, ease: "power2.out" }, "<")
-                    .to(serviceDescription, { opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.1");
+                    .to(serviceDescription, { opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.1")
+                    .to(serviceButton, { opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.1");
                 if (!mobile && window.location.pathname === "/") {
                     gsap.timeline.call(() => ScrollTrigger && ScrollTrigger.refresh());
                 }
@@ -1063,6 +1065,7 @@
                     .to(serviceImage, { opacity: 0, scale: 0.8, y: -10, rotate: 0, duration: 0.3, ease: "power2.out" }, "<")
                     .to(serviceLine, { width: "0%", duration: 0.3, ease: "power2.out" }, "<")
                     .to(serviceDescription, { opacity: 0, duration: 0 }, "<")
+                    .to(serviceButton, { opacity: 0, duration: 0 }, "<")
                     .call(() => {
                         element.removeEventListener("mousemove", floatImage);
                         gsap.to(serviceImage, { x: 0, y: -10, rotate: 0, duration: 0 });
