@@ -44,7 +44,7 @@ export function serviceHoverAnimation() {
                 .to(serviceImage, { opacity: 1, scale: 1, y: 0, rotate: 12, duration: 0.5, ease: "power2.out" }, "<")
                 .to(serviceLine, { width: mobile ? "70%" : "100%", duration: 0.5, ease: "power2.out" }, "<")
                 .to(serviceDescription, { opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.1")
-                .to(serviceButton, { opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.1");
+                .to(serviceButton, { opacity: 1, duration: 0.5, ease: "power2.out" }, "<");
             if (!mobile && window.location.pathname === "/") {
                 gsap.timeline.call(() => ScrollTrigger && ScrollTrigger.refresh());
             }
