@@ -63,7 +63,7 @@ export function brandTicker() {
             });
           });
           hoverTarget.addEventListener("mouseleave", () => {
-            gsap.to(loop, { timeScale: reversed ? -1 : 1, overwrite: true });
+            gsap.to(loop, { timeScale: reversed ? -1 : 1, duration: 0.2, ease: "power2.out", overwrite: true });
           });
         },
       });
