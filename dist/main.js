@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T09:30:25.932Z
+ * Built: 2026-05-07T09:43:27.751Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1278,59 +1278,78 @@
      * Initialize about page tickers (brands, team, culture)
      */
     function brandTicker() {
-        const elements = [
-            { selector: ".brand_logo", container: ".brand_logo_list", reversed: false },
-            { selector: ".team_ticker-wrapper.is-one .team_card", container: ".team_ticker-wrapper.is-one", reversed: false },
-            { selector: ".team_ticker-wrapper.is-two .team_card", container: ".team_ticker-wrapper.is-two", reversed: true },
-            { selector: ".culture_image", container: ".culture_image-ticker", reversed: false }
-        ];
+      const elements = [
+        { selector: ".brand_logo", container: ".brand_logo_list", reversed: false },
+        {
+          selector: ".team_ticker-wrapper.is-one .team_card",
+          container: ".team_ticker-wrapper.is-one",
+          reversed: false,
+        },
+        {
+          selector: ".team_ticker-wrapper.is-two .team_card",
+          container: ".team_ticker-wrapper.is-two",
+          reversed: true,
+        },
+        {
+          selector: ".culture_image",
+          container: ".culture_image-ticker",
+          reversed: false,
+        },
+      ];
 
-        aboutTickerLoops = elements.map(({ selector, container, reversed }) => {
-            const items = gsap.utils.toArray(selector);
-            if (items.length === 0) return null;
+      aboutTickerLoops = elements
+        .map(({ selector, container, reversed }) => {
+          const items = gsap.utils.toArray(selector);
+          if (items.length === 0) return null;
 
-            const loop = horizontalLoop(items, {
-                draggable: false,
-                inertia: false,
-                repeat: -1,
-                center: false,
-                reversed,
-                paused: true
-            });
+          const loop = horizontalLoop(items, {
+            draggable: false,
+            inertia: false,
+            repeat: -1,
+            center: false,
+            reversed,
+            paused: true,
+          });
 
-            ScrollTrigger.create({
-                trigger: selector,
-                start: "top bottom",
-                once: true,
-                onEnter: () => {
-                    reversed ? loop.reverse() : loop.play();
+          ScrollTrigger.create({
+            trigger: selector,
+            start: "top bottom",
+            once: true,
+            onEnter: () => {
+              reversed ? loop.reverse() : loop.play();
 
-                    const hoverTarget = document.querySelector(container);
-                    if (!hoverTarget) return;
+              const hoverTarget = document.querySelector(container);
+              if (!hoverTarget) return;
 
-                    hoverTarget.addEventListener("mouseenter", () => {
-                     gsap.to(loop, { timeScale: 0, duration: 0.25, ease: "power2.out", overwrite: true });
-                      });
-                    hoverTarget.addEventListener("mouseleave", () => {
-                     gsap.to(loop, { timeScale: reversed ? -1 : 1, duration: 0.6, ease: "power2.out", overwrite: true });
-                    });
-                }
-            });
+              hoverTarget.addEventListener("mouseenter", () => {
+                gsap.to(loop, {
+                  timeScale: 0,
+                  ease: "power2.out",
+                  duration: 1,
+                  overwrite: true,
+                });
+              });
+              hoverTarget.addEventListener("mouseleave", () => {
+                gsap.to(loop, { timeScale: reversed ? -1 : 1, overwrite: true });
+              });
+            },
+          });
 
-            return loop;
-        }).filter(Boolean);
+          return loop;
+        })
+        .filter(Boolean);
     }
 
     /**
      * Destroy about page tickers
      */
     function destroyBrandTicker() {
-        aboutTickerLoops.forEach(loop => {
-            if (loop && typeof loop.kill === 'function') {
-                loop.kill();
-            }
-        });
-        aboutTickerLoops = [];
+      aboutTickerLoops.forEach((loop) => {
+        if (loop && typeof loop.kill === "function") {
+          loop.kill();
+        }
+      });
+      aboutTickerLoops = [];
     }
 
     /**
@@ -1357,51 +1376,57 @@
     }
 
     function destroyHorizontalTickers() {
-      tickerLoops.forEach(loop => loop.kill && loop.kill());
+      tickerLoops.forEach((loop) => loop.kill && loop.kill());
       tickerLoops = [];
     }
-
-
 
     /**
      * Initialize Hopscotch tickers (two tickers moving in opposite directions)
      */
     function hopscotchTicker() {
-        const tickerOne = document.querySelector(".hopscotch_ticker.is-one");
-        const tickerTwo = document.querySelector(".hopscotch_ticker.is-two");
-        if (!tickerOne && !tickerTwo) return;
+      const tickerOne = document.querySelector(".hopscotch_ticker.is-one");
+      const tickerTwo = document.querySelector(".hopscotch_ticker.is-two");
+      if (!tickerOne && !tickerTwo) return;
 
-        const elements = [
-            { selector: ".hopscotch_ticker.is-one .hopscotch_ticker-svg", reversed: false },
-            { selector: ".hopscotch_ticker.is-two .hopscotch_ticker-svg", reversed: true },
-        ];
+      const elements = [
+        {
+          selector: ".hopscotch_ticker.is-one .hopscotch_ticker-svg",
+          reversed: false,
+        },
+        {
+          selector: ".hopscotch_ticker.is-two .hopscotch_ticker-svg",
+          reversed: true,
+        },
+      ];
 
-        hopscotchTickerLoops = elements.map(({ selector, reversed }) => {
-            const items = gsap.utils.toArray(selector);
-            if (items.length === 0) return null;
+      hopscotchTickerLoops = elements
+        .map(({ selector, reversed }) => {
+          const items = gsap.utils.toArray(selector);
+          if (items.length === 0) return null;
 
-            const loop = horizontalLoop(items, {
-                draggable: false,
-                inertia: false,
-                repeat: -1,
-                center: false,
-                reversed
-            });
+          const loop = horizontalLoop(items, {
+            draggable: false,
+            inertia: false,
+            repeat: -1,
+            center: false,
+            reversed,
+          });
 
-            return loop;
-        }).filter(Boolean);
+          return loop;
+        })
+        .filter(Boolean);
     }
 
     /**
      * Destroy case study variant tickers
      */
     function destroyTickers() {
-        hopscotchTickerLoops.forEach(loop => {
-            if (loop && typeof loop.kill === 'function') {
-                loop.kill();
-            }
-        });
-        hopscotchTickerLoops = [];
+      hopscotchTickerLoops.forEach((loop) => {
+        if (loop && typeof loop.kill === "function") {
+          loop.kill();
+        }
+      });
+      hopscotchTickerLoops = [];
     }
 
     let marqueeTweens$1 = [];
@@ -1416,7 +1441,7 @@
 
       elements.forEach((el) => {
         // prevent duplicate tween on same element
-        if (marqueeTweens$1.some(t => t.targets().includes(el))) return;
+        if (marqueeTweens$1.some((t) => t.targets().includes(el))) return;
 
         const tween = gsap.to(el, {
           x: "-100%",
@@ -1424,8 +1449,8 @@
           ease: "none",
           repeat: -1,
           modifiers: {
-            x: gsap.utils.unitize(x => parseFloat(x) % 100)
-          }
+            x: gsap.utils.unitize((x) => parseFloat(x) % 100),
+          },
         });
 
         marqueeTweens$1.push(tween);
@@ -1436,7 +1461,7 @@
      * Destroy ALL marquee tweens
      */
     function destroyMarqueeSVG() {
-      marqueeTweens$1.forEach(tween => tween.kill());
+      marqueeTweens$1.forEach((tween) => tween.kill());
       marqueeTweens$1 = [];
     }
 
