@@ -12,14 +12,14 @@ let hopscotchTickerLoops = [];
  */
 export function brandTicker() {
   const elements = [
-    { selector: ".brand_logo", reversed: false },
+    { selector: ".brand_logo", hover: ".brands_wrapper", reversed: false },
     { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
     { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
     { selector: ".culture_image", reversed: false },
   ];
 
   aboutTickerLoops = elements
-    .map(({ selector, reversed }) => {
+    .map(({ selector, hover, reversed }) => {
       const items = gsap.utils.toArray(selector);
       if (items.length === 0) return null;
 
@@ -40,11 +40,16 @@ export function brandTicker() {
       });
 
       // Pause on hover
-      const parent = items[0].parentNode;
-      const resume = () => (reversed ? loop.reverse() : loop.play());
-      const pause = () => loop.pause();
-      parent.addEventListener("mouseenter", pause);
-      parent.addEventListener("mouseleave", resume);
+      const target = hover
+        ? document.querySelector(hover)
+        : items[0].parentNode;
+
+      if (target) {
+        target.addEventListener("mouseenter", () => loop.pause());
+        target.addEventListener("mouseleave", () =>
+          reversed ? loop.reverse() : loop.play()
+        );
+      }
 
       return loop;
     })
