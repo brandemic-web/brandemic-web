@@ -73,7 +73,7 @@ export function destroyBrandTicker() {
  */
 let tickerLoops = [];
 
-export function initHorizontalTicker(wrapperSelector, itemSelector) {
+export function initHorizontalTicker(wrapperSelector, itemSelector, hoverSelector) {
   const wrapper = document.querySelector(wrapperSelector);
   if (!wrapper) return;
 
@@ -87,9 +87,14 @@ export function initHorizontalTicker(wrapperSelector, itemSelector) {
     center: false,
   });
 
-  // Pause on hover
-  wrapper.addEventListener("mouseenter", () => loop.pause());
-  wrapper.addEventListener("mouseleave", () => loop.play());
+  // Pause on hover — prefer the outer wrapper over the items' direct parent
+  const hoverTarget =
+    (hoverSelector && document.querySelector(hoverSelector)) ||
+    wrapper.parentElement ||
+    wrapper;
+
+  hoverTarget.addEventListener("mouseenter", () => loop.pause());
+  hoverTarget.addEventListener("mouseleave", () => loop.play());
 
   tickerLoops.push(loop);
   return loop;

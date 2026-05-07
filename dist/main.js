@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T15:40:23.467Z
+ * Built: 2026-05-07T15:49:47.931Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1340,7 +1340,7 @@
      */
     let tickerLoops = [];
 
-    function initHorizontalTicker(wrapperSelector, itemSelector) {
+    function initHorizontalTicker(wrapperSelector, itemSelector, hoverSelector) {
       const wrapper = document.querySelector(wrapperSelector);
       if (!wrapper) return;
 
@@ -1354,9 +1354,13 @@
         center: false,
       });
 
-      // Pause on hover
-      wrapper.addEventListener("mouseenter", () => loop.pause());
-      wrapper.addEventListener("mouseleave", () => loop.play());
+      // Pause on hover — prefer the outer wrapper over the items' direct parent
+      const hoverTarget =
+        wrapper.parentElement ||
+        wrapper;
+
+      hoverTarget.addEventListener("mouseenter", () => loop.pause());
+      hoverTarget.addEventListener("mouseleave", () => loop.play());
 
       tickerLoops.push(loop);
       return loop;
