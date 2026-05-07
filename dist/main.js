@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T11:27:37.867Z
+ * Built: 2026-05-07T11:31:27.216Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1297,56 +1297,54 @@
         },
       ];
 
-      aboutTickerLoops = elements.map(({ selector, container, reversed }) => {
-        const items = gsap.utils.toArray(selector);
-        const hoverTarget = document.querySelector(container);
-        if (items.length === 0 || !hoverTarget) return null;
+      aboutTickerLoops = elements
+        .map(({ selector, container, reversed }) => {
+          const items = gsap.utils.toArray(selector);
+          const hoverTarget = document.querySelector(container);
+          if (items.length === 0 || !hoverTarget) return null;
 
-        const loop = horizontalLoop(items, {
-          draggable: false,
-          inertia: false,
-          repeat: -1,
-          center: false,
-          reversed: reversed, // Set initial state
-          paused: true,
-        });
-
-        // We define the speed multiplier based on your 'reversed' requirement
-        // If reversed is true, the 'normal' speed is -1
-        const normalSpeed = reversed ? -1 : 1;
-
-        // Attach listeners once to prevent the "5-6 times pause" (listener stacking)
-        hoverTarget.addEventListener("mouseenter", () => {
-          gsap.to(loop, {
-            timeScale: 0,
-            duration: 0.3,
-            ease: "power1.out",
-            overwrite: true, // Stops any existing movement tweens immediately
+          const loop = horizontalLoop(items, {
+            draggable: false,
+            inertia: false,
+            repeat: -1,
+            center: false,
+            paused: true,
+            // note: removed `reversed` from horizontalLoop config
           });
-        });
 
-        hoverTarget.addEventListener("mouseleave", () => {
-          gsap.to(loop, {
-            timeScale: normalSpeed,
-            duration: 0.3,
-            ease: "power4.out",
-            overwrite: true,
+          const normalSpeed = reversed ? -1 : 1;
+
+          hoverTarget.addEventListener("mouseenter", () => {
+            gsap.to(loop, {
+              timeScale: 0,
+              duration: 0.3,
+              ease: "power1.out",
+              overwrite: true,
+            });
           });
-        });
 
-        ScrollTrigger.create({
-          trigger: hoverTarget,
-          start: "top bottom",
-          once: true,
-          onEnter: () => {
-            // EXACTLY like your original code: 
-            // If it's meant to be reversed, call reverse(), otherwise play()
-            reversed ? loop.reverse() : loop.play();
-          },
-        });
+          hoverTarget.addEventListener("mouseleave", () => {
+            gsap.to(loop, {
+              timeScale: normalSpeed,
+              duration: 0.3,
+              ease: "power4.out",
+              overwrite: true,
+            });
+          });
 
-        return loop;
-      }).filter(Boolean);
+          ScrollTrigger.create({
+            trigger: hoverTarget,
+            start: "top bottom",
+            once: true,
+            onEnter: () => {
+              loop.timeScale(normalSpeed);
+              loop.play();   // always play() — direction comes from timeScale
+            },
+          });
+
+          return loop;
+        })
+        .filter(Boolean);
     }
 
     /**
