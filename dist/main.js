@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T08:11:50.194Z
+ * Built: 2026-05-07T08:17:23.258Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1302,7 +1302,18 @@
                 trigger: selector,
                 start: "top bottom",
                 once: true,
-                onEnter: () => reversed ? loop.reverse() : loop.play()
+                onEnter: () => {
+                   reversed ? loop.reverse() : loop.play();
+
+                   items.forEach(item => {
+                   item.addEventListener("mouseenter", () =>
+                   gsap.to(loop, { timeScale: 0, duration: 0.4, overwrite: true })
+                 );
+                  item.addEventListener("mouseleave", () =>
+                gsap.to(loop, { timeScale: reversed ? -1 : 1, duration: 0.4, overwrite: true })
+            );
+        });
+    }
             });
 
             return loop;

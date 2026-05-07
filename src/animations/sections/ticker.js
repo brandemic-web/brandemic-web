@@ -35,7 +35,18 @@ export function brandTicker() {
             trigger: selector,
             start: "top bottom",
             once: true,
-            onEnter: () => reversed ? loop.reverse() : loop.play()
+            onEnter: () => {
+               reversed ? loop.reverse() : loop.play();
+
+               items.forEach(item => {
+               item.addEventListener("mouseenter", () =>
+               gsap.to(loop, { timeScale: 0, duration: 0.4, overwrite: true })
+             );
+              item.addEventListener("mouseleave", () =>
+            gsap.to(loop, { timeScale: reversed ? -1 : 1, duration: 0.4, overwrite: true })
+        );
+    });
+}
         });
 
         return loop;
