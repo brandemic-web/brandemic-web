@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T12:10:08.383Z
+ * Built: 2026-05-07T12:12:05.963Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1297,16 +1297,6 @@
             center: false,
             reversed,
             paused: true,
-          });
-
-          wrapper.addEventListener("mouseenter", () => {
-            // Smoothly slow down to 0
-            gsap.to(items, { timeScale: 0, overwrite: true });
-          });
-
-          wrapper.addEventListener("mouseleave", () => {
-            // Smoothly speed back up to 1 (normal speed)
-            gsap.to(items, { timeScale: 1, overwrite: true });
           });
 
           ScrollTrigger.create({

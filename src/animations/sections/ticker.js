@@ -32,16 +32,6 @@ export function brandTicker() {
         paused: true,
       });
 
-      wrapper.addEventListener("mouseenter", () => {
-        // Smoothly slow down to 0
-        gsap.to(items, { timeScale: 0, overwrite: true });
-      });
-
-      wrapper.addEventListener("mouseleave", () => {
-        // Smoothly speed back up to 1 (normal speed)
-        gsap.to(items, { timeScale: 1, overwrite: true });
-      });
-
       ScrollTrigger.create({
         trigger: selector,
         start: "top bottom",
