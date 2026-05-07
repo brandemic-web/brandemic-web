@@ -11,35 +11,47 @@ let hopscotchTickerLoops = [];
  * Initialize about page tickers (brands, team, culture)
  */
 export function brandTicker() {
-    const elements = [
-        { selector: ".brand_logo", reversed: false },
-        { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
-        { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
-        { selector: ".culture_image", reversed: false }
-    ];
+  const elements = [
+    { selector: ".brand_logo", reversed: false },
+    { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
+    { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
+    { selector: ".culture_image", reversed: false },
+  ];
 
-    aboutTickerLoops = elements.map(({ selector, reversed }) => {
-        const items = gsap.utils.toArray(selector);
-        if (items.length === 0) return null;
+  aboutTickerLoops = elements
+    .map(({ selector, reversed }) => {
+      const items = gsap.utils.toArray(selector);
+      if (items.length === 0) return null;
 
-        const loop = horizontalLoop(items, {
-            draggable: false,
-            inertia: false,
-            repeat: -1,
-            center: false,
-            reversed,
-            paused: true
-        });
+      const loop = horizontalLoop(items, {
+        draggable: false,
+        inertia: false,
+        repeat: -1,
+        center: false,
+        reversed,
+        paused: true,
+      });
 
-        ScrollTrigger.create({
-            trigger: selector,
-            start: "top bottom",
-            once: true,
-            onEnter: () => reversed ? loop.reverse() : loop.play()
-        });
+      wrapper.addEventListener("mouseenter", () => {
+        // Smoothly slow down to 0
+        gsap.to(items, { timeScale: 0, overwrite: true });
+      });
 
-        return loop;
-    }).filter(Boolean);
+      wrapper.addEventListener("mouseleave", () => {
+        // Smoothly speed back up to 1 (normal speed)
+        gsap.to(items, { timeScale: 1, overwrite: true });
+      });
+
+      ScrollTrigger.create({
+        trigger: selector,
+        start: "top bottom",
+        once: true,
+        onEnter: () => (reversed ? loop.reverse() : loop.play()),
+      });
+
+      return loop;
+    })
+    .filter(Boolean);
 }
 
 /**
