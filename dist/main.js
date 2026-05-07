@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T15:32:49.566Z
+ * Built: 2026-05-07T15:40:23.467Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1353,6 +1353,10 @@
         repeat: -1,
         center: false,
       });
+
+      // Pause on hover
+      wrapper.addEventListener("mouseenter", () => loop.pause());
+      wrapper.addEventListener("mouseleave", () => loop.play());
 
       tickerLoops.push(loop);
       return loop;

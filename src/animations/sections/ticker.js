@@ -87,6 +87,10 @@ export function initHorizontalTicker(wrapperSelector, itemSelector) {
     center: false,
   });
 
+  // Pause on hover
+  wrapper.addEventListener("mouseenter", () => loop.pause());
+  wrapper.addEventListener("mouseleave", () => loop.play());
+
   tickerLoops.push(loop);
   return loop;
 }
