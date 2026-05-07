@@ -66,7 +66,7 @@ export function brandTicker() {
             gsap.to(loop, {
               timeScale: reversed ? -1 : 1,
               ease: "power4.out",
-              duration: 0.6,
+              duration: 0,
               overwrite: true,
             });
           });
