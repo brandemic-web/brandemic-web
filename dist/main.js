@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T11:19:58.059Z
+ * Built: 2026-05-07T11:24:31.264Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1305,8 +1305,11 @@
 
           // 1. Initialize the loop
           const loop = horizontalLoop(items, {
+            draggable: false,
+            inertia: false,
             repeat: -1,
-            reversed: reversed, // Let the helper handle the direction
+            center: false,
+            reversed,
             paused: true,
           });
 

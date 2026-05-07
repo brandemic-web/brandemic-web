@@ -38,8 +38,11 @@ export function brandTicker() {
 
       // 1. Initialize the loop
       const loop = horizontalLoop(items, {
+        draggable: false,
+        inertia: false,
         repeat: -1,
-        reversed: reversed, // Let the helper handle the direction
+        center: false,
+        reversed,
         paused: true,
       });
 
