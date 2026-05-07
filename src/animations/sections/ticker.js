@@ -57,16 +57,16 @@ export function brandTicker() {
           hoverTarget.addEventListener("mouseenter", () => {
             gsap.to(loop, {
               timeScale: 0,
-              duration: 0.5,
-              ease: "power2.out",
+              duration: 0.25,
+              ease: 'power2.out',
               overwrite: true,
             });
           });
           hoverTarget.addEventListener("mouseleave", () => {
             gsap.to(loop, {
               timeScale: reversed ? -1 : 1,
-              ease: "none",
-              duration: 0.1,
+              ease: "power2.out",
+              duration: 0.6,
               overwrite: true,
             });
           });
