@@ -39,6 +39,13 @@ export function brandTicker() {
         onEnter: () => (reversed ? loop.reverse() : loop.play()),
       });
 
+      // Pause on hover
+      const parent = items[0].parentNode;
+      const resume = () => (reversed ? loop.reverse() : loop.play());
+      const pause = () => loop.pause();
+      parent.addEventListener("mouseenter", pause);
+      parent.addEventListener("mouseleave", resume);
+
       return loop;
     })
     .filter(Boolean);

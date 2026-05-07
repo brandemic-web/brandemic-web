@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T12:12:05.963Z
+ * Built: 2026-05-07T12:15:52.650Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1305,6 +1305,13 @@
             once: true,
             onEnter: () => (reversed ? loop.reverse() : loop.play()),
           });
+
+          // Pause on hover
+          const parent = items[0].parentNode;
+          const resume = () => (reversed ? loop.reverse() : loop.play());
+          const pause = () => loop.pause();
+          parent.addEventListener("mouseenter", pause);
+          parent.addEventListener("mouseleave", resume);
 
           return loop;
         })
