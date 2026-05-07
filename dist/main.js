@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T11:31:27.216Z
+ * Built: 2026-05-07T11:42:02.902Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1309,10 +1309,17 @@
             repeat: -1,
             center: false,
             paused: true,
-            // note: removed `reversed` from horizontalLoop config
+            // NOTE: do NOT pass `reversed` — we control direction via timeScale
           });
 
           const normalSpeed = reversed ? -1 : 1;
+
+          // For the reversed ticker, jump the playhead far forward so backward
+          // playback has runway. This mirrors what horizontalLoop does internally
+          // when you pass reversed:true, but keeps direction control in our hands.
+          if (reversed) {
+            loop.totalTime(loop.duration() * 100);
+          }
 
           hoverTarget.addEventListener("mouseenter", () => {
             gsap.to(loop, {
@@ -1338,7 +1345,7 @@
             once: true,
             onEnter: () => {
               loop.timeScale(normalSpeed);
-              loop.play();   // always play() — direction comes from timeScale
+              loop.play();   // always play(); negative timeScale handles reverse
             },
           });
 

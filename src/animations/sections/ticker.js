@@ -42,10 +42,17 @@ export function brandTicker() {
         repeat: -1,
         center: false,
         paused: true,
-        // note: removed `reversed` from horizontalLoop config
+        // NOTE: do NOT pass `reversed` — we control direction via timeScale
       });
 
       const normalSpeed = reversed ? -1 : 1;
+
+      // For the reversed ticker, jump the playhead far forward so backward
+      // playback has runway. This mirrors what horizontalLoop does internally
+      // when you pass reversed:true, but keeps direction control in our hands.
+      if (reversed) {
+        loop.totalTime(loop.duration() * 100);
+      }
 
       hoverTarget.addEventListener("mouseenter", () => {
         gsap.to(loop, {
@@ -71,7 +78,7 @@ export function brandTicker() {
         once: true,
         onEnter: () => {
           loop.timeScale(normalSpeed);
-          loop.play();   // always play() — direction comes from timeScale
+          loop.play();   // always play(); negative timeScale handles reverse
         },
       });
 
