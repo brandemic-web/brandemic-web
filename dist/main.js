@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T11:24:31.264Z
+ * Built: 2026-05-07T11:27:37.867Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1297,47 +1297,56 @@
         },
       ];
 
-      aboutTickerLoops = elements
-        .map(({ selector, container, reversed }) => {
-          const items = gsap.utils.toArray(selector);
-          const hoverTarget = document.querySelector(container);
-          if (items.length === 0 || !hoverTarget) return null;
+      aboutTickerLoops = elements.map(({ selector, container, reversed }) => {
+        const items = gsap.utils.toArray(selector);
+        const hoverTarget = document.querySelector(container);
+        if (items.length === 0 || !hoverTarget) return null;
 
-          // 1. Initialize the loop
-          const loop = horizontalLoop(items, {
-            draggable: false,
-            inertia: false,
-            repeat: -1,
-            center: false,
-            reversed,
-            paused: true,
+        const loop = horizontalLoop(items, {
+          draggable: false,
+          inertia: false,
+          repeat: -1,
+          center: false,
+          reversed: reversed, // Set initial state
+          paused: true,
+        });
+
+        // We define the speed multiplier based on your 'reversed' requirement
+        // If reversed is true, the 'normal' speed is -1
+        const normalSpeed = reversed ? -1 : 1;
+
+        // Attach listeners once to prevent the "5-6 times pause" (listener stacking)
+        hoverTarget.addEventListener("mouseenter", () => {
+          gsap.to(loop, {
+            timeScale: 0,
+            duration: 0.3,
+            ease: "power1.out",
+            overwrite: true, // Stops any existing movement tweens immediately
           });
+        });
 
-          // 2. Attach listeners ONCE (outside ScrollTrigger)
-          // We use a simple toggle to avoid scale direction confusion
-          hoverTarget.addEventListener("mouseenter", () => {
-            gsap.to(loop, { timeScale: 0, duration: 0.5, overwrite: "auto" });
+        hoverTarget.addEventListener("mouseleave", () => {
+          gsap.to(loop, {
+            timeScale: normalSpeed,
+            duration: 0.3,
+            ease: "power4.out",
+            overwrite: true,
           });
+        });
 
-          hoverTarget.addEventListener("mouseleave", () => {
-            // Always go back to 1, because the 'reversed' state is
-            // handled internally by the loop's play/reverse direction
-            gsap.to(loop, { timeScale: 1, duration: 0.5, overwrite: "auto" });
-          });
+        ScrollTrigger.create({
+          trigger: hoverTarget,
+          start: "top bottom",
+          once: true,
+          onEnter: () => {
+            // EXACTLY like your original code: 
+            // If it's meant to be reversed, call reverse(), otherwise play()
+            reversed ? loop.reverse() : loop.play();
+          },
+        });
 
-          // 3. Use ScrollTrigger only to Start/Stop the ticker
-          ScrollTrigger.create({
-            trigger: hoverTarget,
-            start: "top bottom",
-            onEnter: () => loop.play(),
-            onLeave: () => loop.pause(),
-            onEnterBack: () => loop.play(),
-            onLeaveBack: () => loop.pause(),
-          });
-
-          return loop;
-        })
-        .filter(Boolean);
+        return loop;
+      }).filter(Boolean);
     }
 
     /**
