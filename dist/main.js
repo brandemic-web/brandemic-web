@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T11:04:06.717Z
+ * Built: 2026-05-07T11:09:49.926Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1327,7 +1327,7 @@
                 gsap.to(loop, {
                   timeScale: 0,
                   duration: 0.3,
-                  ease: "none",
+                  ease: "power1.out",
                   overwrite: true,
                 });
               });
@@ -1336,7 +1336,7 @@
                 gsap.to(loop, {
                   timeScale: targetScale,
                   duration: 0.3,
-                  ease: "none",
+                  ease: "power4.out",
                   overwrite: true,
                 });
               });
