@@ -11,80 +11,35 @@ let hopscotchTickerLoops = [];
  * Initialize about page tickers (brands, team, culture)
  */
 export function brandTicker() {
-  const elements = [
-    { selector: ".brand_logo", container: ".brand_logo_list", reversed: false },
-    {
-      selector: ".team_ticker-wrapper.is-one .team_card",
-      container: ".team_ticker-wrapper.is-one",
-      reversed: false,
-    },
-    {
-      selector: ".team_ticker-wrapper.is-two .team_card",
-      container: ".team_ticker-wrapper.is-two",
-      reversed: true,
-    },
-    {
-      selector: ".culture_image",
-      container: ".culture_image-ticker",
-      reversed: false,
-    },
-  ];
+    const elements = [
+        { selector: ".brand_logo", reversed: false },
+        { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
+        { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
+        { selector: ".culture_image", reversed: false }
+    ];
 
-  aboutTickerLoops = elements
-    .map(({ selector, container, reversed }) => {
-      const items = gsap.utils.toArray(selector);
-      const hoverTarget = document.querySelector(container);
-      if (items.length === 0 || !hoverTarget) return null;
+    aboutTickerLoops = elements.map(({ selector, reversed }) => {
+        const items = gsap.utils.toArray(selector);
+        if (items.length === 0) return null;
 
-      const loop = horizontalLoop(items, {
-        draggable: false,
-        inertia: false,
-        repeat: -1,
-        center: false,
-        paused: true,
-        // NOTE: do NOT pass `reversed` — we control direction via timeScale
-      });
-
-      const normalSpeed = reversed ? -1 : 1;
-
-      // For the reversed ticker, jump the playhead far forward so backward
-      // playback has runway. This mirrors what horizontalLoop does internally
-      // when you pass reversed:true, but keeps direction control in our hands.
-      if (reversed) {
-        loop.totalTime(loop.duration() * 100);
-      }
-
-      hoverTarget.addEventListener("mouseenter", () => {
-        gsap.to(loop, {
-          timeScale: 0,
-          duration: 0.3,
-          ease: "power1.out",
-          overwrite: true,
+        const loop = horizontalLoop(items, {
+            draggable: false,
+            inertia: false,
+            repeat: -1,
+            center: false,
+            reversed,
+            paused: true
         });
-      });
 
-      hoverTarget.addEventListener("mouseleave", () => {
-        gsap.to(loop, {
-          timeScale: normalSpeed,
-          duration: 0.3,
-          ease: "power4.out",
-          overwrite: true,
+        ScrollTrigger.create({
+            trigger: selector,
+            start: "top bottom",
+            once: true,
+            onEnter: () => reversed ? loop.reverse() : loop.play()
         });
-      });
 
-      ScrollTrigger.create({
-        trigger: hoverTarget,
-        start: "top bottom",
-        once: true,
-        onEnter: () => {
-          loop.timeScale(normalSpeed);
-          loop.play();   // always play(); negative timeScale handles reverse
-        },
-      });
-
-      return loop;
-    })
-    .filter(Boolean);
+        return loop;
+    }).filter(Boolean);
 }
 
 /**
