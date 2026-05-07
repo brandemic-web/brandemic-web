@@ -12,13 +12,13 @@ let hopscotchTickerLoops = [];
  */
 export function brandTicker() {
     const elements = [
-        { selector: ".brand_logo", reversed: false },
-        { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
-        { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
-        { selector: ".culture_image", reversed: false }
+        { selector: ".brand_logo", container: ".brand_logo_list", reversed: false },
+        { selector: ".team_ticker-wrapper.is-one .team_card", container: ".team_ticker-wrapper.is-one", reversed: false },
+        { selector: ".team_ticker-wrapper.is-two .team_card", container: ".team_ticker-wrapper.is-two", reversed: true },
+        { selector: ".culture_image", container: ".culture_image-ticker", reversed: false }
     ];
 
-    aboutTickerLoops = elements.map(({ selector, reversed }) => {
+    aboutTickerLoops = elements.map(({ selector, container, reversed }) => {
         const items = gsap.utils.toArray(selector);
         if (items.length === 0) return null;
 
@@ -36,17 +36,18 @@ export function brandTicker() {
             start: "top bottom",
             once: true,
             onEnter: () => {
-               reversed ? loop.reverse() : loop.play();
+                reversed ? loop.reverse() : loop.play();
 
-               items.forEach(item => {
-               item.addEventListener("mouseenter", () =>
-               gsap.to(loop, { timeScale: 0, duration: 0.4, overwrite: true })
-             );
-              item.addEventListener("mouseleave", () =>
-            gsap.to(loop, { timeScale: reversed ? -1 : 1, duration: 0.4, overwrite: true })
-        );
-    });
-}
+                const hoverTarget = document.querySelector(container);
+                if (!hoverTarget) return;
+
+                hoverTarget.addEventListener("mouseenter", () => {
+                    gsap.to(loop, { timeScale: 0, duration: 0.3, overwrite: true });
+                });
+                hoverTarget.addEventListener("mouseleave", () => {
+                    gsap.to(loop, { timeScale: reversed ? -1 : 1, duration: 0.3, overwrite: true });
+                });
+            }
         });
 
         return loop;
