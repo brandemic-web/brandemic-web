@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T10:47:11.036Z
+ * Built: 2026-05-07T10:52:00.451Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1324,15 +1324,12 @@
               hoverTarget.addEventListener("mouseenter", () => {
                 gsap.to(loop, {
                   timeScale: 0,
-                  duration: 0.5,
                   overwrite: true,
                 });
               });
               hoverTarget.addEventListener("mouseleave", () => {
                 gsap.to(loop, {
                   timeScale: reversed ? -1 : 1,
-                  ease: "power4.out",
-                  duration: 0.1,
                   overwrite: true,
                 });
               });
