@@ -54,15 +54,22 @@ export function brandTicker() {
           const hoverTarget = document.querySelector(container);
           if (!hoverTarget) return;
 
+          const targetScale = reversed ? -1 : 1;
+
           hoverTarget.addEventListener("mouseenter", () => {
             gsap.to(loop, {
               timeScale: 0,
+              duration: 0.3,
+              ease: "none",
               overwrite: true,
             });
           });
+
           hoverTarget.addEventListener("mouseleave", () => {
             gsap.to(loop, {
-              timeScale: reversed ? -1 : 1,
+              timeScale: targetScale,
+              duration: 0.3,
+              ease: "none",
               overwrite: true,
             });
           });
