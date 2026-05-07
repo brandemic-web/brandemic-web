@@ -42,10 +42,10 @@ export function brandTicker() {
                 if (!hoverTarget) return;
 
                 hoverTarget.addEventListener("mouseenter", () => {
-                    gsap.to(loop, { timeScale: 0, duration: 0.3, overwrite: true });
-                });
+                 gsap.to(loop, { timeScale: 0, duration: 0.25, ease: "power2.out", overwrite: true });
+                  });
                 hoverTarget.addEventListener("mouseleave", () => {
-                    gsap.to(loop, { timeScale: reversed ? -1 : 1, duration: 0.3, overwrite: true });
+                 gsap.to(loop, { timeScale: reversed ? -1 : 1, duration: 0.6, ease: "power2.out", overwrite: true });
                 });
             }
         });
