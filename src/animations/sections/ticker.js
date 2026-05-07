@@ -33,47 +33,36 @@ export function brandTicker() {
   aboutTickerLoops = elements
     .map(({ selector, container, reversed }) => {
       const items = gsap.utils.toArray(selector);
-      if (items.length === 0) return null;
+      const hoverTarget = document.querySelector(container);
+      if (items.length === 0 || !hoverTarget) return null;
 
+      // 1. Initialize the loop
       const loop = horizontalLoop(items, {
-        draggable: false,
-        inertia: false,
         repeat: -1,
-        center: false,
-        reversed,
+        reversed: reversed, // Let the helper handle the direction
         paused: true,
       });
 
+      // 2. Attach listeners ONCE (outside ScrollTrigger)
+      // We use a simple toggle to avoid scale direction confusion
+      hoverTarget.addEventListener("mouseenter", () => {
+        gsap.to(loop, { timeScale: 0, duration: 0.5, overwrite: "auto" });
+      });
+
+      hoverTarget.addEventListener("mouseleave", () => {
+        // Always go back to 1, because the 'reversed' state is
+        // handled internally by the loop's play/reverse direction
+        gsap.to(loop, { timeScale: 1, duration: 0.5, overwrite: "auto" });
+      });
+
+      // 3. Use ScrollTrigger only to Start/Stop the ticker
       ScrollTrigger.create({
-        trigger: selector,
+        trigger: hoverTarget,
         start: "top bottom",
-        once: true,
-        onEnter: () => {
-          reversed ? loop.reverse() : loop.play();
-
-          const hoverTarget = document.querySelector(container);
-          if (!hoverTarget) return;
-
-          const targetScale = reversed ? -1 : 1;
-
-          hoverTarget.addEventListener("mouseenter", () => {
-            gsap.to(loop, {
-              timeScale: 0,
-              duration: 0.3,
-              ease: "power1.out",
-              overwrite: true,
-            });
-          });
-
-          hoverTarget.addEventListener("mouseleave", () => {
-            gsap.to(loop, {
-              timeScale: targetScale,
-              duration: 0.3,
-              ease: "power4.out",
-              overwrite: true,
-            });
-          });
-        },
+        onEnter: () => loop.play(),
+        onLeave: () => loop.pause(),
+        onEnterBack: () => loop.play(),
+        onLeaveBack: () => loop.pause(),
       });
 
       return loop;
