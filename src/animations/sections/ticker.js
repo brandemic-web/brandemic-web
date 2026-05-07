@@ -57,7 +57,7 @@ export function brandTicker() {
           hoverTarget.addEventListener("mouseenter", () => {
             gsap.to(loop, {
               timeScale: 0,
-              duration: 0.25,
+              duration: 0.5,
               ease: "power2.out",
               overwrite: true,
             });
