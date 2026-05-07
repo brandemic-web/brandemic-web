@@ -65,8 +65,8 @@ export function brandTicker() {
           hoverTarget.addEventListener("mouseleave", () => {
             gsap.to(loop, {
               timeScale: reversed ? -1 : 1,
-              duration: 0.3,
-              ease: "expo.out",
+              ease: "power4.out",
+              duration: 0.6,
               overwrite: true,
             });
           });
