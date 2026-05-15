@@ -6,14 +6,14 @@ import { createHeroTimeline } from '../utils/heroTimeline.js';
 
 // SVG
 import { animateSvgPaths } from '../animations/svg/drawPaths.js';
-
 // Sections
 import { animateCTA } from '../animations/sections/cta.js';
 
 // Components
 import { initShareButton, destroyShareButton } from '../components/share/shareButton.js';
 import { initTableOfContents, destroyTableOfContents } from '../components/toc/tableOfContents.js';
-import { initAccordionComponents, destroyAccordionComponents } from '../components/accordion/accordion.js';
+import { initAccordionComponents, destroyAccordionComponents, lineAnimation } from '../components/accordion/accordion.js';
+
 
 let blogPostTl = null;
 
@@ -21,8 +21,9 @@ let blogPostTl = null;
  * Initialize all blog post page animations
  */
 export function initBlogPostAnimations() {
-    blogPostTl = createHeroTimeline();
+    blogPostTl = createHeroTimeline(); 
     animateSvgPaths();
+    
     initShareButton();
     animateCTA();
     initAccordionComponents();
