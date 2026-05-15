@@ -13,6 +13,7 @@ import { animateCTA } from '../animations/sections/cta.js';
 // Components
 import { initShareButton, destroyShareButton } from '../components/share/shareButton.js';
 import { initTableOfContents, destroyTableOfContents } from '../components/toc/tableOfContents.js';
+import { initAccordionComponents, destroyAccordionComponents } from '../components/accordion/accordion.js';
 
 let blogPostTl = null;
 
@@ -24,6 +25,8 @@ export function initBlogPostAnimations() {
     animateSvgPaths();
     initShareButton();
     animateCTA();
+    initAccordionComponents();
+    lineAnimation();
     initTableOfContents();
 }
 
@@ -33,6 +36,7 @@ export function initBlogPostAnimations() {
 export function destroyBlogPostAnimations() {
     if (blogPostTl) blogPostTl.kill();
     destroyShareButton();
+    destroyAccordionComponents();
     destroyTableOfContents();
 }
 

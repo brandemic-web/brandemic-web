@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-07T15:49:47.931Z
+ * Built: 2026-05-15T10:37:06.998Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1664,7 +1664,7 @@
         accordionListeners = [];
     }
 
-    function lineAnimation() {
+    function lineAnimation$1() {
         gsap.fromTo(
             '.accordion',
             { clipPath: "polygon(0 0, 0% 0, 0% 100%, 0 100%)" },
@@ -1716,7 +1716,7 @@
         animateScrollingText();
         animateCTA();
         initAccordionComponents();
-        lineAnimation();
+        lineAnimation$1();
         loadFeedSpring();
         initToolsSwiperScripts();
         initTestimonialsSwiperScripts();
@@ -2217,7 +2217,7 @@
         scrollPinObserver();
         brandTicker();
         initAccordionComponents();
-        lineAnimation();
+        lineAnimation$1();
         initCharAnimations();
         initLineAnimations();
         applyParallaxEffect();
@@ -3220,7 +3220,7 @@
         initHeroAnimation();
         initScrollArrows();
         initAccordionComponents();
-        lineAnimation();
+        lineAnimation$1();
         animateWorkImages();
         initCharAnimations();
         animateSvgPaths();
@@ -3743,6 +3743,8 @@
         animateSvgPaths();
         initShareButton();
         animateCTA();
+        initAccordionComponents();
+        lineAnimation();
         initTableOfContents();
     }
 
@@ -3752,6 +3754,7 @@
     function destroyBlogPostAnimations() {
         if (blogPostTl) blogPostTl.kill();
         destroyShareButton();
+        destroyAccordionComponents();
         destroyTableOfContents();
     }
 
