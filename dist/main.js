@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T10:45:51.171Z
+ * Built: 2026-05-21T10:48:21.281Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1433,7 +1433,7 @@
           }
 
           // Add phase 2 to master with a slight pause after main image appears
-          master.add(phase2, "+=0.3");
+          master.add(phase2, "+=0.0");
         },
       });
     }

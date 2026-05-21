@@ -166,7 +166,7 @@ function teamTicker() {
       }
 
       // Add phase 2 to master with a slight pause after main image appears
-      master.add(phase2, "+=0.3");
+      master.add(phase2, "+=0.0");
     },
   });
 }
