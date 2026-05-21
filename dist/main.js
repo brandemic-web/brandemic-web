@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T12:12:15.008Z
+ * Built: 2026-05-21T12:15:55.675Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1321,8 +1321,9 @@
                 gsap.to(visibleItems, {
                   autoAlpha: 1,
                   filter: "blur(0px)",
-                  stagger: 0.2,
-                  ease: "power2.out",
+                  duration: 1.6,
+                  stagger: 0.4,
+                  ease: "power1.inOut",
                   onComplete: () => {
                     reversed ? loop.reverse() : loop.play();
                   },

@@ -54,8 +54,9 @@ export function brandTicker() {
             gsap.to(visibleItems, {
               autoAlpha: 1,
               filter: "blur(0px)",
-              stagger: 0.2,
-              ease: "power2.out",
+              duration: 1.6,
+              stagger: 0.4,
+              ease: "power1.inOut",
               onComplete: () => {
                 reversed ? loop.reverse() : loop.play();
               },
