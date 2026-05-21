@@ -48,13 +48,12 @@ export function brandTicker() {
             gsap.set(restItems, { autoAlpha: 1 });
             gsap.set(visibleItems, {
               autoAlpha: 0,
-              filter: "blur(8px)",
+              filter: "blur(5px)",
             });
 
             gsap.to(visibleItems, {
               autoAlpha: 1,
               filter: "blur(0px)",
-              duration: 1.5,
               stagger: 0.2,
               ease: "power2.out",
               onComplete: () => {

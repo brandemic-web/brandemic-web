@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T12:08:36.185Z
+ * Built: 2026-05-21T12:12:15.008Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1315,13 +1315,12 @@
                 gsap.set(restItems, { autoAlpha: 1 });
                 gsap.set(visibleItems, {
                   autoAlpha: 0,
-                  filter: "blur(8px)",
+                  filter: "blur(5px)",
                 });
 
                 gsap.to(visibleItems, {
                   autoAlpha: 1,
                   filter: "blur(0px)",
-                  duration: 1.5,
                   stagger: 0.2,
                   ease: "power2.out",
                   onComplete: () => {
