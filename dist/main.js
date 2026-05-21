@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T10:14:28.074Z
+ * Built: 2026-05-21T10:26:29.776Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1330,21 +1330,26 @@
       ];
 
       const built = wrappers
-        .map(({ selector, reversed }) => {
+        .map(({ selector, reversed }, wrapperIndex) => {
           const items = gsap.utils.toArray(selector);
           if (items.length === 0) return null;
 
-          const mainIndex = items.findIndex(
-            (el) =>
-              el.querySelector(".is_main_image") ||
-              el.classList.contains("is_main_image"),
-          );
+          const centerIndex = wrapperIndex === 0
+            ? items.findIndex(
+                (el) =>
+                  el.querySelector(".is_main_image") ||
+                  el.classList.contains("is_main_image"),
+              )
+            : -1;
 
-          items.forEach(() => gsap.set(items, { opacity: 0, scale: 0.9 }));
-
-          if (mainIndex !== -1) {
-            gsap.set(items[mainIndex], { opacity: 1, scale: 1 });
-          }
+          // First ticker: hide all except main image
+          // Second ticker: hide all
+          items.forEach((item, i) => {
+            gsap.set(item, wrapperIndex === 0 && i === centerIndex
+              ? { opacity: 1, scale: 1 }
+              : { opacity: 0, scale: 0.9 }
+            );
+          });
 
           const loop = horizontalLoop(items, {
             draggable: false,
@@ -1354,12 +1359,6 @@
             reversed,
             paused: true,
           });
-
-          if (mainIndex !== -1) {
-            gsap.delayedCall(0.05, () => {
-              loop.toIndex(mainIndex, { duration: 0, ease: "none" });
-            });
-          }
 
           aboutTickerLoops.push(loop);
 
@@ -1371,7 +1370,7 @@
             );
           }
 
-          return { items, mainIndex, loop, reversed };
+          return { items, centerIndex, loop, reversed, wrapperIndex };
         })
         .filter(Boolean);
 
@@ -1382,44 +1381,34 @@
         start: "top bottom",
         once: true,
         onEnter: () => {
-          const timelines = built.map(({ items, mainIndex, loop, reversed }, index) => {
-            const centerIndex =
-              mainIndex !== -1 ? mainIndex : Math.floor(items.length / 2);
-            const maxDistance = Math.max(
-              centerIndex,
-              items.length - 1 - centerIndex,
-            );
+          // Build both timelines
+          const timelines = built.map(({ items, centerIndex, loop, reversed, wrapperIndex }) => {
+            const mid = wrapperIndex === 0
+              ? centerIndex
+              : Math.floor(items.length / 2);
+            const maxDistance = Math.max(mid, items.length - 1 - mid);
 
-            const tl = gsap.timeline({
-              delay: index === 1 ? 0.8 : 0,
-            });
+            const tl = gsap.timeline();
 
             for (let i = 1; i <= maxDistance; i++) {
-              const left = items[centerIndex - i];
-              const right = items[centerIndex + i];
+              const left = items[mid - i];
+              const right = items[mid + i];
               const targets = [left, right].filter(Boolean);
 
-              tl.to(
-                targets,
-                {
-                  opacity: 1,
-                  scale: 1,
-                  duration: 0.6,
-                  ease: "power1.inOut",
-                },
-                i === 1 ? "+=0.5" : "<0.15",
-              );
+              tl.to(targets, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: "power1.inOut",
+              },
+              i === 1 ? "+=0.5" : "<0.15");
             }
 
             return { tl, loop, reversed };
           });
 
-          // Find the longest timeline and start all loops together after it finishes
-          const maxDuration = Math.max(
-            ...timelines.map(({ tl }, i) => tl.totalDuration() + (i === 1 ? 0.8 : 0)),
-          );
-
-          gsap.delayedCall(maxDuration, () => {
+          // First timeline drives the timing — both loops start when it finishes
+          timelines[0].tl.eventCallback("onComplete", () => {
             timelines.forEach(({ loop, reversed }) => {
               reversed ? loop.reverse() : loop.play();
             });
