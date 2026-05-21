@@ -35,7 +35,6 @@ export function brandTicker() {
       });
 
       if (isTeamRow) {
-        // Hide all cards immediately so they don't flash before scroll trigger
         gsap.set(items, { autoAlpha: 0 });
 
         ScrollTrigger.create({
@@ -43,10 +42,14 @@ export function brandTicker() {
           start: "top bottom",
           once: true,
           onEnter: () => {
+            // Ensure loop is paused before stagger begins — prevents is-two
+            // from playing in reverse while cards are still fading in
+            loop.pause();
+
             gsap.to(items, {
               autoAlpha: 1,
-              duration: 0.4,
-              stagger: 0.08,
+              duration: 0.55, // slightly slower fade per card
+              stagger: 0.12, // slightly slower stagger between cards
               ease: "power2.out",
               onComplete: () => {
                 reversed ? loop.reverse() : loop.play();
