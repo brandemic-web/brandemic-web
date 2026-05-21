@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T12:24:54.842Z
+ * Built: 2026-05-21T12:41:27.388Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1274,9 +1274,6 @@
     let aboutTickerLoops = [];
     let hopscotchTickerLoops = [];
 
-    /**
-     * Initialize about page tickers (brands, team, culture)
-     */
     function brandTicker() {
       const elements = [
         { selector: ".brand_logo", hover: ".brands_wrapper", reversed: false },
@@ -1285,8 +1282,10 @@
         { selector: ".culture_image", reversed: false },
       ];
 
+      const teamRows = [];
+
       aboutTickerLoops = elements
-        .map(({ selector, hover, reversed }, index) => {
+        .map(({ selector, hover, reversed }) => {
           const items = gsap.utils.toArray(selector);
           if (items.length === 0) return null;
 
@@ -1300,35 +1299,11 @@
             reversed,
             paused: true,
           });
+
           if (isTeamRow) {
             loop.pause();
             gsap.set(items, { autoAlpha: 0, x: 0, clearProps: "transform" });
-
-            ScrollTrigger.create({
-              trigger: selector,
-              start: "top 80%",
-              once: true,
-              onEnter: () => {
-                const isMobile = window.innerWidth < 768;
-                const visibleCount = isMobile ? 4 : 7;
-                const visibleItems = items.slice(0, visibleCount);
-                const restItems = items.slice(visibleCount);
-
-                gsap.set(restItems, { autoAlpha: 1 });
-                gsap.set(visibleItems, { autoAlpha: 0, filter: "blur(5px)" });
-
-                gsap.to(visibleItems, {
-                  autoAlpha: 1,
-                  filter: "blur(0px)",
-                  duration: 1.2,
-                  stagger: 0.3,
-                  ease: "power1.inOut",
-                  onComplete: () => {
-                    reversed ? loop.reverse() : loop.play();
-                  },
-                });
-              },
-            });
+            teamRows.push({ items, loop, reversed });
           } else {
             ScrollTrigger.create({
               trigger: selector,
@@ -1353,6 +1328,42 @@
           return loop;
         })
         .filter(Boolean);
+
+      // Single shared ScrollTrigger for both team rows
+      if (teamRows.length > 0) {
+        const sharedTrigger =
+          document.querySelector(".team_ticker-wrapper.is-one") ||
+          teamRows[0].items[0].parentNode;
+
+        ScrollTrigger.create({
+          trigger: sharedTrigger,
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            const isMobile = window.innerWidth < 768;
+            const visibleCount = isMobile ? 4 : 7;
+
+            teamRows.forEach(({ items, loop, reversed }) => {
+              const visibleItems = items.slice(0, visibleCount);
+              const restItems = items.slice(visibleCount);
+
+              gsap.set(restItems, { autoAlpha: 1 });
+              gsap.set(visibleItems, { autoAlpha: 0, filter: "blur(5px)" });
+
+              gsap.to(visibleItems, {
+                autoAlpha: 1,
+                filter: "blur(0px)",
+                duration: 1.2,
+                stagger: 0.3,
+                ease: "power1.inOut",
+                onComplete: () => {
+                  reversed ? loop.reverse() : loop.play();
+                },
+              });
+            });
+          },
+        });
+      }
     }
 
     /**
