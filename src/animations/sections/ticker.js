@@ -47,15 +47,14 @@ export function brandTicker() {
       if (target) {
         target.addEventListener("mouseenter", () => loop.pause());
         target.addEventListener("mouseleave", () =>
-          reversed ? loop.reverse() : loop.play()
+          reversed ? loop.reverse() : loop.play(),
         );
       }
 
       return loop;
     })
     .filter(Boolean);
-    teamTicker();
-    
+  teamTicker();
 }
 function teamTicker() {
   const wrappers = [
@@ -63,75 +62,94 @@ function teamTicker() {
     { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
   ];
 
-  wrappers.forEach(({ selector, reversed }) => {
-    const items = gsap.utils.toArray(selector);
-    console.log(`[teamTicker] ${selector} → ${items.length} items`); // ← check 1
+  // Build both loops first
+  const built = wrappers
+    .map(({ selector, reversed }) => {
+      const items = gsap.utils.toArray(selector);
+      if (items.length === 0) return null;
 
-    if (items.length === 0) return;
+      const mainIndex = items.findIndex(
+        (el) =>
+          el.querySelector(".is_main_image") ||
+          el.classList.contains("is_main_image"),
+      );
 
-    const mainIndex = items.findIndex(el =>
-      el.querySelector(".is_main_image") || el.classList.contains("is_main_image")
-    );
-    console.log(`[teamTicker] mainIndex: ${mainIndex}`); // ← check 2
+      // Hide all items initially
+      items.forEach(() => gsap.set(items, { opacity: 0, scale: 0.9 }));
 
-    if (mainIndex === -1) return;
+      // Show only main image on first ticker, nothing on second
+      if (mainIndex !== -1) {
+        gsap.set(items[mainIndex], { opacity: 1, scale: 1 });
+      }
 
-    items.forEach((item, i) => {
-      if (i !== mainIndex) gsap.set(item, { opacity: 0, scale: 0.9 });
-    });
+      const loop = horizontalLoop(items, {
+        draggable: false,
+        inertia: false,
+        repeat: -1,
+        center: true,
+        reversed,
+        paused: true,
+      });
 
-    const loop = horizontalLoop(items, {
-      draggable: false,
-      inertia: false,
-      repeat: -1,
-      center: true,
-      reversed,
-      paused: true,
-    });
+      if (mainIndex !== -1) {
+        gsap.delayedCall(0.05, () => {
+          loop.toIndex(mainIndex, { duration: 0, ease: "none" });
+        });
+      }
 
-    console.log(`[teamTicker] loop.toIndex exists: ${typeof loop.toIndex}`); // ← check 3
+      aboutTickerLoops.push(loop);
 
-    // Safe snap — works with or without toIndex
-    if (typeof loop.toIndex === "function") {
-      loop.toIndex(mainIndex, { duration: 0, ease: "none" });
-    } else {
-      loop.seek(loop.duration() * (mainIndex / items.length));
-    }
+      // Hover
+      const target = items[0].parentNode;
+      if (target) {
+        target.addEventListener("mouseenter", () => loop.pause());
+        target.addEventListener("mouseleave", () =>
+          reversed ? loop.reverse() : loop.play(),
+        );
+      }
 
-    aboutTickerLoops.push(loop); // ← track for cleanup
+      return { items, mainIndex, loop, reversed };
+    })
+    .filter(Boolean);
 
-    ScrollTrigger.create({
-      trigger: selector,
-      start: "top bottom",
-      once: true,
-      onEnter: () => {
-        console.log(`[teamTicker] ScrollTrigger fired for ${selector}`); // ← check 4
-        const maxDistance = Math.max(mainIndex, items.length - 1 - mainIndex);
+  if (built.length === 0) return;
+
+  // Single ScrollTrigger on the first ticker triggers reveal for ALL
+  ScrollTrigger.create({
+    trigger: wrappers[0].selector,
+    start: "top bottom",
+    once: true,
+    onEnter: () => {
+      built.forEach(({ items, mainIndex, loop, reversed }) => {
+        const centerIndex =
+          mainIndex !== -1 ? mainIndex : Math.floor(items.length / 2);
+        const maxDistance = Math.max(
+          centerIndex,
+          items.length - 1 - centerIndex,
+        );
+
         const tl = gsap.timeline({
-          onComplete: () => reversed ? loop.reverse() : loop.play(),
+          onComplete: () => (reversed ? loop.reverse() : loop.play()),
         });
 
         for (let i = 1; i <= maxDistance; i++) {
-          const left  = items[mainIndex - i];
-          const right = items[mainIndex + i];
+          const left = items[centerIndex - i];
+          const right = items[centerIndex + i];
           const targets = [left, right].filter(Boolean);
 
           tl.to(
             targets,
-            { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" },
-            i === 1 ? "+=0.2" : "<0.12"
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.6,
+              ease: "power1.inOut",
+            },
+            i === 1 ? "+=0.5" : "<0.15",
           );
         }
-      },
-    });
-
-    const target = items[0].parentNode;
-    if (target) {
-      target.addEventListener("mouseenter", () => loop.pause());
-      target.addEventListener("mouseleave", () =>
-        reversed ? loop.reverse() : loop.play()
-      );
-    }
+      });
+    },
   });
 }
 /**
@@ -151,7 +169,11 @@ export function destroyBrandTicker() {
  */
 let tickerLoops = [];
 
-export function initHorizontalTicker(wrapperSelector, itemSelector, hoverSelector) {
+export function initHorizontalTicker(
+  wrapperSelector,
+  itemSelector,
+  hoverSelector,
+) {
   const wrapper = document.querySelector(wrapperSelector);
   if (!wrapper) return;
 
