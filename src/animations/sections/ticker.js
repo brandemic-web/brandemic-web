@@ -74,15 +74,10 @@ function teamTicker() {
                 el.querySelector(".is_main_image") ||
                 el.classList.contains("is_main_image"),
             )
-          : -1;
+          : Math.floor(items.length / 2);
 
-      items.forEach((item, i) => {
-        if (wrapperIndex === 0 && i === centerIndex) {
-          gsap.set(item, { opacity: 1, scale: 1 });
-        } else {
-          gsap.set(item, { opacity: 0, scale: 0.9 });
-        }
-      });
+      // Hide all items initially
+      gsap.set(items, { opacity: 0, scale: 0.9 });
 
       const loop = horizontalLoop(items, {
         draggable: false,
@@ -122,46 +117,56 @@ function teamTicker() {
         },
       });
 
-      built.forEach(({ items, centerIndex, loop, reversed, wrapperIndex }) => {
-        const mid =
-          wrapperIndex === 0 ? centerIndex : Math.floor(items.length / 2);
-
-        const tl = gsap.timeline();
-
-        if (wrapperIndex === 0) {
-          const maxDistance = Math.max(mid, items.length - 1 - mid);
-          for (let i = 1; i <= maxDistance; i++) {
-            const left = items[mid - i];
-            const right = items[mid + i];
-            const targets = [left, right].filter(Boolean);
-
-            tl.to(
-              targets,
-              {
-                opacity: 1,
-                scale: 1,
-                duration: 0.6,
-                ease: "power1.inOut",
-              },
-              i === 1 ? "+=0.5" : "<0.15",
-            );
-          }
-        } else {
-          tl.to(
-            items,
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 0.6,
-              ease: "power1.inOut",
-            },
-            "+=0.5",
-          );
-        }
-
-        // Add both sub-timelines to master, starting at the same time
-        master.add(tl, 0);
+      // Phase 1: main image of first ticker appears alone
+      const { items: firstItems, centerIndex } = built[0];
+      master.to(firstItems[centerIndex], {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        ease: "power1.inOut",
       });
+
+      // Phase 2: rest of first ticker reveals outward + all of second ticker together
+      const phase2 = gsap.timeline();
+
+      // First ticker outward reveal
+      const maxDistance = Math.max(
+        centerIndex,
+        firstItems.length - 1 - centerIndex,
+      );
+      for (let i = 1; i <= maxDistance; i++) {
+        const left = firstItems[centerIndex - i];
+        const right = firstItems[centerIndex + i];
+        const targets = [left, right].filter(Boolean);
+
+        phase2.to(
+          targets,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power1.inOut",
+          },
+          i === 1 ? "0" : "<0.15",
+        );
+      }
+
+      // Second ticker all at once, in parallel with phase 2
+      if (built[1]) {
+        phase2.to(
+          built[1].items,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power1.inOut",
+          },
+          0, // start at the same time as phase 2
+        );
+      }
+
+      // Add phase 2 to master with a slight pause after main image appears
+      master.add(phase2, "+=0.3");
     },
   });
 }
