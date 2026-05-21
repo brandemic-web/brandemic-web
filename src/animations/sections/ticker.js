@@ -65,22 +65,21 @@ function teamTicker() {
 
   wrappers.forEach(({ selector, reversed }) => {
     const items = gsap.utils.toArray(selector);
+    console.log(`[teamTicker] ${selector} → ${items.length} items`); // ← check 1
+
     if (items.length === 0) return;
 
-    // 1. Find the main image index
     const mainIndex = items.findIndex(el =>
       el.querySelector(".is_main_image") || el.classList.contains("is_main_image")
     );
+    console.log(`[teamTicker] mainIndex: ${mainIndex}`); // ← check 2
+
     if (mainIndex === -1) return;
 
-    // 2. Hide all non-main items immediately (before loop init)
     items.forEach((item, i) => {
-      if (i !== mainIndex) {
-        gsap.set(item, { opacity: 0, scale: 0.9 });
-      }
+      if (i !== mainIndex) gsap.set(item, { opacity: 0, scale: 0.9 });
     });
 
-    // 3. Init the loop
     const loop = horizontalLoop(items, {
       draggable: false,
       inertia: false,
@@ -90,21 +89,28 @@ function teamTicker() {
       paused: true,
     });
 
-    // 4. Snap loop to center on main image (no animation, instant)
-    loop.toIndex(mainIndex, { duration: 0, ease: "none" });
+    console.log(`[teamTicker] loop.toIndex exists: ${typeof loop.toIndex}`); // ← check 3
 
-    // 5. ScrollTrigger: Phase 1 reveal → Phase 2 loop
+    // Safe snap — works with or without toIndex
+    if (typeof loop.toIndex === "function") {
+      loop.toIndex(mainIndex, { duration: 0, ease: "none" });
+    } else {
+      loop.seek(loop.duration() * (mainIndex / items.length));
+    }
+
+    aboutTickerLoops.push(loop); // ← track for cleanup
+
     ScrollTrigger.create({
       trigger: selector,
       start: "top bottom",
       once: true,
       onEnter: () => {
+        console.log(`[teamTicker] ScrollTrigger fired for ${selector}`); // ← check 4
         const maxDistance = Math.max(mainIndex, items.length - 1 - mainIndex);
         const tl = gsap.timeline({
           onComplete: () => reversed ? loop.reverse() : loop.play(),
         });
 
-        // Reveal pairs outward from mainIndex
         for (let i = 1; i <= maxDistance; i++) {
           const left  = items[mainIndex - i];
           const right = items[mainIndex + i];
@@ -113,13 +119,12 @@ function teamTicker() {
           tl.to(
             targets,
             { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" },
-            i === 1 ? "+=0.2" : "<0.12" // slight delay before first pair, then overlap
+            i === 1 ? "+=0.2" : "<0.12"
           );
         }
       },
     });
 
-    // 6. Hover pause/resume (same as before)
     const target = items[0].parentNode;
     if (target) {
       target.addEventListener("mouseenter", () => loop.pause());
