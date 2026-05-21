@@ -67,21 +67,21 @@ function teamTicker() {
       const items = gsap.utils.toArray(selector);
       if (items.length === 0) return null;
 
-      const centerIndex = wrapperIndex === 0
-        ? items.findIndex(
-            (el) =>
-              el.querySelector(".is_main_image") ||
-              el.classList.contains("is_main_image"),
-          )
-        : -1;
+      const centerIndex =
+        wrapperIndex === 0
+          ? items.findIndex(
+              (el) =>
+                el.querySelector(".is_main_image") ||
+                el.classList.contains("is_main_image"),
+            )
+          : -1;
 
-      // First ticker: hide all except main image
-      // Second ticker: hide all
       items.forEach((item, i) => {
-        gsap.set(item, wrapperIndex === 0 && i === centerIndex
-          ? { opacity: 1, scale: 1 }
-          : { opacity: 0, scale: 0.9 }
-        );
+        if (wrapperIndex === 0 && i === centerIndex) {
+          gsap.set(item, { opacity: 1, scale: 1 });
+        } else {
+          gsap.set(item, { opacity: 0, scale: 0.9 });
+        }
       });
 
       const loop = horizontalLoop(items, {
@@ -114,33 +114,53 @@ function teamTicker() {
     start: "top bottom",
     once: true,
     onEnter: () => {
-      // Build both timelines
-      const timelines = built.map(({ items, centerIndex, loop, reversed, wrapperIndex }) => {
-        const mid = wrapperIndex === 0
-          ? centerIndex
-          : Math.floor(items.length / 2);
-        const maxDistance = Math.max(mid, items.length - 1 - mid);
+      const timelines = built.map(
+        ({ items, centerIndex, loop, reversed, wrapperIndex }) => {
+          const mid =
+            wrapperIndex === 0
+              ? centerIndex
+              : Math.floor(items.length / 2);
 
-        const tl = gsap.timeline();
+          const tl = gsap.timeline();
 
-        for (let i = 1; i <= maxDistance; i++) {
-          const left = items[mid - i];
-          const right = items[mid + i];
-          const targets = [left, right].filter(Boolean);
+          if (wrapperIndex === 0) {
+            // First ticker: reveal outward from center
+            const maxDistance = Math.max(mid, items.length - 1 - mid);
+            for (let i = 1; i <= maxDistance; i++) {
+              const left = items[mid - i];
+              const right = items[mid + i];
+              const targets = [left, right].filter(Boolean);
 
-          tl.to(targets, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            ease: "power1.inOut",
-          },
-          i === 1 ? "+=0.5" : "<0.15");
-        }
+              tl.to(
+                targets,
+                {
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.6,
+                  ease: "power1.inOut",
+                },
+                i === 1 ? "+=0.5" : "<0.15",
+              );
+            }
+          } else {
+            // Second ticker: all appear together at the same time as first ticker starts
+            tl.to(
+              items,
+              {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: "power1.inOut",
+              },
+              "+=0.5",
+            );
+          }
 
-        return { tl, loop, reversed };
-      });
+          return { tl, loop, reversed };
+        },
+      );
 
-      // First timeline drives the timing — both loops start when it finishes
+      // Both loops start together when first timeline finishes
       timelines[0].tl.eventCallback("onComplete", () => {
         timelines.forEach(({ loop, reversed }) => {
           reversed ? loop.reverse() : loop.play();
