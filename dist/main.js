@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T10:48:21.281Z
+ * Built: 2026-05-21T10:54:20.486Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1376,16 +1376,21 @@
         start: "top bottom",
         once: true,
         onEnter: () => {
+          // Force both loops to be paused before anything starts
+          built.forEach(({ loop }) => loop.pause());
+
           const master = gsap.timeline({
             onComplete: () => {
               built.forEach(({ loop, reversed }) => {
+                loop.pause(); // reset any accidental play state
                 reversed ? loop.reverse() : loop.play();
               });
             },
           });
 
-          // Phase 1: main image of first ticker appears alone
           const { items: firstItems, centerIndex } = built[0];
+
+          // Phase 1: main image appears alone
           master.to(firstItems[centerIndex], {
             opacity: 1,
             scale: 1,
@@ -1393,14 +1398,14 @@
             ease: "power1.inOut",
           });
 
-          // Phase 2: rest of first ticker reveals outward + all of second ticker together
+          // Phase 2: rest of first ticker + all of second ticker
           const phase2 = gsap.timeline();
 
-          // First ticker outward reveal
           const maxDistance = Math.max(
             centerIndex,
             firstItems.length - 1 - centerIndex,
           );
+
           for (let i = 1; i <= maxDistance; i++) {
             const left = firstItems[centerIndex - i];
             const right = firstItems[centerIndex + i];
@@ -1418,7 +1423,6 @@
             );
           }
 
-          // Second ticker all at once, in parallel with phase 2
           if (built[1]) {
             phase2.to(
               built[1].items,
@@ -1428,11 +1432,10 @@
                 duration: 0.6,
                 ease: "power1.inOut",
               },
-              0, // start at the same time as phase 2
+              0,
             );
           }
 
-          // Add phase 2 to master with a slight pause after main image appears
           master.add(phase2, "+=0.0");
         },
       });
