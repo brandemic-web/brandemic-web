@@ -42,14 +42,13 @@ export function brandTicker() {
           start: "top 80%",
           once: true,
           onEnter: () => {
-            const visibleItems = items.slice(0, 7);
-            const restItems = items.slice(7);
+            const isMobile = window.innerWidth < 768;
+            const visibleCount = isMobile ? 4 : 7;
+            const visibleItems = items.slice(0, visibleCount);
+            const restItems = items.slice(visibleCount);
 
             gsap.set(restItems, { autoAlpha: 1 });
-            gsap.set(visibleItems, {
-              autoAlpha: 0,
-              filter: "blur(5px)",
-            });
+            gsap.set(visibleItems, { autoAlpha: 0, filter: "blur(5px)" });
 
             gsap.to(visibleItems, {
               autoAlpha: 1,

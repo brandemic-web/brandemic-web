@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T12:17:23.369Z
+ * Built: 2026-05-21T12:24:54.842Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1309,14 +1309,13 @@
               start: "top 80%",
               once: true,
               onEnter: () => {
-                const visibleItems = items.slice(0, 7);
-                const restItems = items.slice(7);
+                const isMobile = window.innerWidth < 768;
+                const visibleCount = isMobile ? 4 : 7;
+                const visibleItems = items.slice(0, visibleCount);
+                const restItems = items.slice(visibleCount);
 
                 gsap.set(restItems, { autoAlpha: 1 });
-                gsap.set(visibleItems, {
-                  autoAlpha: 0,
-                  filter: "blur(5px)",
-                });
+                gsap.set(visibleItems, { autoAlpha: 0, filter: "blur(5px)" });
 
                 gsap.to(visibleItems, {
                   autoAlpha: 1,
