@@ -62,7 +62,6 @@ function teamTicker() {
     { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
   ];
 
-  // Build both loops first
   const built = wrappers
     .map(({ selector, reversed }) => {
       const items = gsap.utils.toArray(selector);
@@ -74,10 +73,8 @@ function teamTicker() {
           el.classList.contains("is_main_image"),
       );
 
-      // Hide all items initially
       items.forEach(() => gsap.set(items, { opacity: 0, scale: 0.9 }));
 
-      // Show only main image on first ticker, nothing on second
       if (mainIndex !== -1) {
         gsap.set(items[mainIndex], { opacity: 1, scale: 1 });
       }
@@ -99,7 +96,6 @@ function teamTicker() {
 
       aboutTickerLoops.push(loop);
 
-      // Hover
       const target = items[0].parentNode;
       if (target) {
         target.addEventListener("mouseenter", () => loop.pause());
@@ -114,13 +110,12 @@ function teamTicker() {
 
   if (built.length === 0) return;
 
-  // Single ScrollTrigger on the first ticker triggers reveal for ALL
   ScrollTrigger.create({
     trigger: wrappers[0].selector,
     start: "top bottom",
     once: true,
     onEnter: () => {
-      built.forEach(({ items, mainIndex, loop, reversed }) => {
+      const timelines = built.map(({ items, mainIndex, loop, reversed }, index) => {
         const centerIndex =
           mainIndex !== -1 ? mainIndex : Math.floor(items.length / 2);
         const maxDistance = Math.max(
@@ -129,7 +124,7 @@ function teamTicker() {
         );
 
         const tl = gsap.timeline({
-          onComplete: () => (reversed ? loop.reverse() : loop.play()),
+          delay: index === 1 ? 0.8 : 0,
         });
 
         for (let i = 1; i <= maxDistance; i++) {
@@ -148,6 +143,19 @@ function teamTicker() {
             i === 1 ? "+=0.5" : "<0.15",
           );
         }
+
+        return { tl, loop, reversed };
+      });
+
+      // Find the longest timeline and start all loops together after it finishes
+      const maxDuration = Math.max(
+        ...timelines.map(({ tl }, i) => tl.totalDuration() + (i === 1 ? 0.8 : 0)),
+      );
+
+      gsap.delayedCall(maxDuration, () => {
+        timelines.forEach(({ loop, reversed }) => {
+          reversed ? loop.reverse() : loop.play();
+        });
       });
     },
   });
