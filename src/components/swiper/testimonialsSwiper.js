@@ -15,7 +15,7 @@ export function initTestimonialsSwiperScripts() {
         spaceBetween: 30,
         loop: true,
         autoplay: {
-            delay: 2500,
+            delay: 6000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
         },

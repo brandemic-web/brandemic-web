@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T12:41:27.388Z
+ * Built: 2026-05-21T13:04:20.242Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1628,7 +1628,7 @@
             spaceBetween: 30,
             loop: true,
             autoplay: {
-                delay: 2500,
+                delay: 6000,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
             },
