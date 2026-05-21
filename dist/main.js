@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T11:52:24.017Z
+ * Built: 2026-05-21T11:56:25.417Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1305,7 +1305,7 @@
 
             // Kill any transform horizontalLoop applied during init,
             // reset all cards to their natural DOM position
-            gsap.set(items, { autoAlpha: 0, x: 0, clearProps: "transform" });
+            gsap.set(items, { opacity: 0, x: 0, clearProps: "transform" });
 
             ScrollTrigger.create({
               trigger: selector,
@@ -1313,9 +1313,9 @@
               once: true,
               onEnter: () => {
                 gsap.to(items, {
-                  autoAlpha: 1,
-                  duration: 0.55,
-                  stagger: 0.12,
+                  opacity: 1,
+                  duration: 0.8,
+                  stagger: 0.2,
                   ease: "power2.out",
                   onComplete: () => {
                     reversed ? loop.reverse() : loop.play();
