@@ -38,15 +38,16 @@ export function brandTicker() {
 
         // Kill any transform horizontalLoop applied during init,
         // reset all cards to their natural DOM position
-        gsap.set(items, { opacity: 0, x: 0, clearProps: "transform" });
+        gsap.set(items, { opacity: 0, x: 0, scale:0.9, clearProps: "transform" });
 
         ScrollTrigger.create({
           trigger: selector,
-          start: "top bottom",
+          start: "top 80%",
           once: true,
           onEnter: () => {
             gsap.to(items, {
               opacity: 1,
+              scale: 1,
               duration: 0.8,
               stagger: 0.2,
               ease: "power2.out",
