@@ -35,20 +35,26 @@ export function brandTicker() {
       });
       if (isTeamRow) {
         loop.pause();
-
-        // Kill any transform horizontalLoop applied during init,
-        // reset all cards to their natural DOM position
-        gsap.set(items, { opacity: 0, x: 0, scale:0.9, clearProps: "transform" });
+        gsap.set(items, { autoAlpha: 0, x: 0, clearProps: "transform" });
 
         ScrollTrigger.create({
           trigger: selector,
           start: "top 80%",
           once: true,
           onEnter: () => {
-            gsap.to(items, {
-              opacity: 1,
-              scale: 1,
-              duration: 0.8,
+            const visibleItems = items.slice(0, 7);
+            const restItems = items.slice(7);
+
+            gsap.set(restItems, { autoAlpha: 1 });
+            gsap.set(visibleItems, {
+              autoAlpha: 0,
+              filter: "blur(8px)",
+            });
+
+            gsap.to(visibleItems, {
+              autoAlpha: 1,
+              filter: "blur(0px)",
+              duration: 1.5,
               stagger: 0.2,
               ease: "power2.out",
               onComplete: () => {
