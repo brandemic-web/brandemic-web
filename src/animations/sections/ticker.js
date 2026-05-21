@@ -13,8 +13,8 @@ let hopscotchTickerLoops = [];
 export function brandTicker() {
   const elements = [
     { selector: ".brand_logo", hover: ".brands_wrapper", reversed: false },
-    { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
-    { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
+    // { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
+    // { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
     { selector: ".culture_image", reversed: false },
   ];
 
@@ -54,8 +54,81 @@ export function brandTicker() {
       return loop;
     })
     .filter(Boolean);
+    teamTicker();
+    
 }
+function teamTicker() {
+  const wrappers = [
+    { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
+    { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
+  ];
 
+  wrappers.forEach(({ selector, reversed }) => {
+    const items = gsap.utils.toArray(selector);
+    if (items.length === 0) return;
+
+    // 1. Find the main image index
+    const mainIndex = items.findIndex(el =>
+      el.querySelector(".is_main_image") || el.classList.contains("is_main_image")
+    );
+    if (mainIndex === -1) return;
+
+    // 2. Hide all non-main items immediately (before loop init)
+    items.forEach((item, i) => {
+      if (i !== mainIndex) {
+        gsap.set(item, { opacity: 0, scale: 0.9 });
+      }
+    });
+
+    // 3. Init the loop
+    const loop = horizontalLoop(items, {
+      draggable: false,
+      inertia: false,
+      repeat: -1,
+      center: true,
+      reversed,
+      paused: true,
+    });
+
+    // 4. Snap loop to center on main image (no animation, instant)
+    loop.toIndex(mainIndex, { duration: 0, ease: "none" });
+
+    // 5. ScrollTrigger: Phase 1 reveal → Phase 2 loop
+    ScrollTrigger.create({
+      trigger: selector,
+      start: "top bottom",
+      once: true,
+      onEnter: () => {
+        const maxDistance = Math.max(mainIndex, items.length - 1 - mainIndex);
+        const tl = gsap.timeline({
+          onComplete: () => reversed ? loop.reverse() : loop.play(),
+        });
+
+        // Reveal pairs outward from mainIndex
+        for (let i = 1; i <= maxDistance; i++) {
+          const left  = items[mainIndex - i];
+          const right = items[mainIndex + i];
+          const targets = [left, right].filter(Boolean);
+
+          tl.to(
+            targets,
+            { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" },
+            i === 1 ? "+=0.2" : "<0.12" // slight delay before first pair, then overlap
+          );
+        }
+      },
+    });
+
+    // 6. Hover pause/resume (same as before)
+    const target = items[0].parentNode;
+    if (target) {
+      target.addEventListener("mouseenter", () => loop.pause());
+      target.addEventListener("mouseleave", () =>
+        reversed ? loop.reverse() : loop.play()
+      );
+    }
+  });
+}
 /**
  * Destroy about page tickers
  */

@@ -17,6 +17,7 @@ export function initTestimonialsSwiperScripts() {
         autoplay: {
             delay: 2500,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
         },
         effect: "creative",
         creativeEffect: {
