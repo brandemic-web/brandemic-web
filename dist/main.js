@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-05-21T13:04:20.242Z
+ * Built: 2026-05-22T10:09:05.064Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3260,7 +3260,6 @@
      */
 
 
-
     /**
      * Initialize all service page animations
      */
@@ -3269,10 +3268,12 @@
         initScrollArrows();
         initAccordionComponents();
         lineAnimation();
+        brandTicker();
         animateWorkImages();
         initCharAnimations();
         animateSvgPaths();
         initFeaturedSwiper();
+        animateScrollingText();
         serviceProcessScroll();
         serviceHoverAnimation();
         initTestimonialsSwiperScripts();
@@ -3288,6 +3289,7 @@
         destroyAccordionComponents();
         destroyFeaturedSwiper();
         destroyServiceProcessScroll();
+        destroyBrandTicker();
         destroyServiceHoverAnimation();
         destroyFeaturedWorkLoop();
         destroyTestimonialsSwiperScripts();

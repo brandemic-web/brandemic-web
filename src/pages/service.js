@@ -28,6 +28,10 @@ import { animateWorkImages, destroyFeaturedWorkLoop } from '../animations/sectio
 // Arrow Scrolling
 import { initScrollArrows,destroyScrollArrows } from '../components/lottie/arrowScroll.js';
 
+// Logo Tickers
+import { brandTicker, destroyBrandTicker } from '../animations/sections/ticker.js';
+
+import { animateScrollingText } from '../animations/scroll/scrollingText.js';
 
 /**
  * Initialize all service page animations
@@ -37,10 +41,12 @@ export function initServiceAnimations() {
     initScrollArrows();
     initAccordionComponents();
     lineAnimation();
+    brandTicker();
     animateWorkImages();
     initCharAnimations();
     animateSvgPaths();
     initFeaturedSwiper();
+    animateScrollingText();
     serviceProcessScroll();
     serviceHoverAnimation();
     initTestimonialsSwiperScripts();
@@ -56,6 +62,7 @@ export function destroyServiceAnimations() {
     destroyAccordionComponents();
     destroyFeaturedSwiper();
     destroyServiceProcessScroll();
+    destroyBrandTicker();
     destroyServiceHoverAnimation();
     destroyFeaturedWorkLoop();
     destroyTestimonialsSwiperScripts();
