@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-01T09:56:54.440Z
+ * Built: 2026-06-01T10:12:06.003Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2662,109 +2662,12 @@
     }
 
     /**
-     * Contact Form - intl-tel-input and Freshworks CRM integration
-     */
-
-    let submitHandler = null;
-
-    /**
-     * Initialize contact form: intl-tel-input + Freshworks CRM push
-     */
-    function initContactForm() {
-      // TODO: intl-tel-input temporarily disabled
-      // if (typeof intlTelInput !== 'undefined') {
-      //     itiInstance = intlTelInput(input, {
-      //         loadUtils: () => import('https://cdn.jsdelivr.net/npm/intl-tel-input@27.0.0/dist/js/utils.js'),
-      //         initialCountry: 'auto',
-      //         geoIpLookup: (success, failure) => {
-      //             fetch('https://ipapi.co/json')
-      //                 .then(res => res.json())
-      //                 .then(data => success(data.country_code))
-      //                 .catch(() => failure());
-      //         },
-      //         hiddenInput: 'full',
-      //     });
-      // }
-
-      // Freshworks CRM on submit
-      const form = document.querySelector("#wf-form-Contact-Form");
-      if (form) {
-        submitHandler = function (e) {
-          if (typeof fwcrm === "undefined") {
-            console.error("FWCRM NOT LOADED - submission lost");
-            return;
-          }
-          try {
-            const fullName = document.getElementById("full_name").value.split(" ");
-            const firstName = fullName[0];
-            const lastName =
-              fullName.length > 1 ? fullName.slice(1).join(" ") : "\u200C\u200C";
-            const email = document.getElementById("email").value;
-
-            const requirements = [];
-            ["Branding", "Packaging", "UI-UX", "Web-Development", "SEO"].forEach(
-              (id) => {
-                const cb = document.getElementById(id);
-                if (cb && cb.checked) {
-                  requirements.push(cb.getAttribute("data-name") || cb.name);
-                }
-              },
-            );
-
-            const serviceEl = document.querySelector(
-              'input[name="service_company"]:checked',
-            );
-
-            fwcrm.identify(
-              email,
-              {
-                "First name": firstName,
-                "Last name": lastName,
-                Email: email,
-                "Contact Number": document.getElementById("contact_number").value,
-                "Company Name": document.getElementById("company").value,
-                "Company Type": serviceEl ? serviceEl.value : "",
-                Requirement: requirements.join(";"),
-                "Project Budget": document.getElementById("project_budget").value,
-                Deadline: document.getElementById("project_deadline").value,
-                Message: document.getElementById("your_message").value,
-                "How Did You Hear About Us":
-                  document.getElementById("how_did_you_hear").value,
-              },
-              function () {
-                console.log("SUCCESS - lead pushed:", email);
-              },
-              function (err) {
-                console.error("FAILED - lead not pushed:", email, err);
-              },
-            );
-          } catch (err) {
-            console.warn("Freshworks CRM push failed:", err);
-          }
-        };
-
-        form.addEventListener("submit", submitHandler);
-      }
-    }
-
-    /**
-     * Destroy contact form: cleanup intl-tel-input and event listeners
-     */
-    function destroyContactForm() {
-
-      if (submitHandler) {
-        const form = document.querySelector("#wf-form-Contact-Form");
-        if (form) {
-          form.removeEventListener("submit", submitHandler);
-        }
-        submitHandler = null;
-      }
-    }
-
-    /**
      * Contact Page - Initialize and destroy animations
      */
 
+
+    // Form
+    // import { initContactForm, destroyContactForm } from '../components/form/contactForm.js';
 
     /**
      * Initialize all contact page animations
@@ -2773,7 +2676,7 @@
         initCharAnimations();
         initContactHeroAnimation();
         initScrollArrows();
-        initContactForm();
+        // initContactForm();
     }
 
     /**
@@ -2782,7 +2685,7 @@
     function destroyContactAnimations() {
         destroyContactHeroAnimation();
         destroyScrollArrows();
-        destroyContactForm();
+        // destroyContactForm();
     }
 
     /**
