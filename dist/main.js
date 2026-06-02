@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-02T07:01:03.997Z
+ * Built: 2026-06-02T11:58:02.713Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2762,7 +2762,7 @@
             'Requirement':             data.requirements,
             'Project Budget':          data.projectBudget,
             'Deadline':                data.deadline,
-            'Message':                 data.message,
+            'Message_new':          data.message,
             'How Did You Hear About Us': data.howDidYouHear,
         },
         // ── Success callback ──────────────────────────────────
