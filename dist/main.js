@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-16T09:43:09.588Z
+ * Built: 2026-06-16T11:55:56.439Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2144,7 +2144,7 @@
     let servicesPinST = null;
 
     function servicesOfferingPin() {
-        if (isMobile()) return;
+         if (isMobile()) return;
 
         const servicesList = document.querySelector(".services-wrapper.is-services-page");
         if (!servicesList) return;
@@ -2152,11 +2152,13 @@
         servicesPinST = ScrollTrigger.create({
             trigger: ".section_services-offerings",
             start: "top top",
-            end: () => `+=${servicesList.offsetHeight}`,
+            end: "+=" + servicesList.offsetHeight * 0.9,
             pin: ".services_offering-heading",
             pinSpacing: false,
             anticipatePin: 1,
         });
+
+        ScrollTrigger.refresh();
     }
 
     function destroyServicesOfferingPin() {

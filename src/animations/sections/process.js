@@ -208,7 +208,7 @@ export function destroyServiceProcessScroll() {
 let servicesPinST = null;
 
 export function servicesOfferingPin() {
-    if (isMobile()) return;
+     if (isMobile()) return;
 
     const servicesList = document.querySelector(".services-wrapper.is-services-page");
     if (!servicesList) return;
@@ -216,11 +216,13 @@ export function servicesOfferingPin() {
     servicesPinST = ScrollTrigger.create({
         trigger: ".section_services-offerings",
         start: "top top",
-        end: () => `+=${servicesList.offsetHeight}`,
+        end: "+=" + servicesList.offsetHeight * 0.9,
         pin: ".services_offering-heading",
         pinSpacing: false,
         anticipatePin: 1,
     });
+
+    ScrollTrigger.refresh();
 }
 
 export function destroyServicesOfferingPin() {
