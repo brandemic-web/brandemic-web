@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-16T06:48:35.387Z
+ * Built: 2026-06-16T09:43:09.588Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -4159,8 +4159,8 @@
 
             customCursorInit();
             mouseHover();
-            buttonFillHover();
         }
+        buttonFillHover();
 
         // Navigation
         megaMenuToggle();

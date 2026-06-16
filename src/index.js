@@ -51,8 +51,8 @@ function init() {
 
         customCursorInit();
         mouseHover();
-        buttonFillHover();
     }
+    buttonFillHover();
 
     // Navigation
     megaMenuToggle();
