@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-22T07:24:31.830Z
+ * Built: 2026-06-22T08:40:50.209Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1023,7 +1023,7 @@
         elements.forEach((element) => {
             const serviceLine = element.querySelector('[data-anim-attr="service_line"]');
             const serviceDescription = element.querySelector('[data-anim-attr="service_description"]');
-            const serviceButton = element.querySelector('[data-anim-attr="service_button"]');
+            const serviceButton = element.querySelector(".service_button");
             const serviceImage = element.querySelector('[data-anim-attr="service_image"]');
             const serviceHeading = element.querySelector('[data-anim-attr="service_heading"]');
             const serviceNumber = element.querySelector('[data-anim-attr="service_number"]');

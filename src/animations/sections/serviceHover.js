@@ -16,7 +16,7 @@ export function serviceHoverAnimation() {
     elements.forEach((element) => {
         const serviceLine = element.querySelector('[data-anim-attr="service_line"]');
         const serviceDescription = element.querySelector('[data-anim-attr="service_description"]');
-        const serviceButton = element.querySelector('[data-anim-attr="service_button"]');
+        const serviceButton = element.querySelector(".service_button");// the class name is an attribute not webflow class so will not change accross sites
         const serviceImage = element.querySelector('[data-anim-attr="service_image"]');
         const serviceHeading = element.querySelector('[data-anim-attr="service_heading"]');
         const serviceNumber = element.querySelector('[data-anim-attr="service_number"]');
