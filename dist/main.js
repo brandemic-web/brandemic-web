@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-22T09:00:19.798Z
+ * Built: 2026-06-22T10:52:50.873Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1107,7 +1107,7 @@
      * Initialize vision section animation
      */
     function visionSectionAnimation() {
-        const visionSection = document.querySelector(".section_our-vision");
+        const visionSection = document.querySelector('[data-anim-attr="our-vision_section"]');
         if (!visionSection) return;
 
         const visionPara = visionSection.querySelector('[data-anim-attr="vision_para"]');

@@ -10,7 +10,7 @@ let visionTl = null;
  * Initialize vision section animation
  */
 export function visionSectionAnimation() {
-    const visionSection = document.querySelector(".section_our-vision");
+    const visionSection = document.querySelector('[data-anim-attr="our-vision_section"]');
     if (!visionSection) return;
 
     const visionPara = visionSection.querySelector('[data-anim-attr="vision_para"]');
