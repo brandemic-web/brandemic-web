@@ -6,7 +6,7 @@
  * Animate SVG paths with draw effect
  */
 export function animateSvgPaths() {
-    const paths = document.querySelectorAll(".brandemic-logo-draw .brandemic_svg-path");
+    const paths = document.querySelectorAll('[data-anim-attr="brandemic_svg-path"]');
 
     paths.forEach((path) => {
         gsap.from(path, {
@@ -20,4 +20,3 @@ export function animateSvgPaths() {
         });
     });
 }
-

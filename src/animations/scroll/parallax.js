@@ -10,7 +10,7 @@ import { getSmoother } from '../../core/smoothScroll.js';
 export function applyParallaxEffect() {
     const smoother = getSmoother();
     if (smoother) {
-        smoother.effects(".parallax-image", { speed: "auto" });
+        smoother.effects('[data-anim-attr="parallax-image"]', { speed: "auto" });
     }
 }
 

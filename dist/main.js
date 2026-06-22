@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-22T07:12:38.525Z
+ * Built: 2026-06-22T07:18:47.816Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -466,7 +466,7 @@
      * Initialize character-based text animations
      */
     function initCharAnimations() {
-        const animatedChars = document.querySelectorAll(".animated-chars");
+        const animatedChars = document.querySelectorAll('[data-anim-attr="animated-chars"]');
 
         animatedChars.forEach((element) => {
             const splitChars = new SplitText(element, { type: "chars,words,lines" });
@@ -1514,7 +1514,7 @@
     function applyParallaxEffect() {
         const smoother = getSmoother();
         if (smoother) {
-            smoother.effects(".parallax-image", { speed: "auto" });
+            smoother.effects('[data-anim-attr="parallax-image"]', { speed: "auto" });
         }
     }
 
@@ -1556,7 +1556,7 @@
      * Animate SVG paths with draw effect
      */
     function animateSvgPaths() {
-        const paths = document.querySelectorAll(".brandemic-logo-draw .brandemic_svg-path");
+        const paths = document.querySelectorAll('[data-anim-attr="brandemic_svg-path"]');
 
         paths.forEach((path) => {
             gsap.from(path, {

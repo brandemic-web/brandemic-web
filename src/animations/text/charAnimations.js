@@ -6,7 +6,7 @@
  * Initialize character-based text animations
  */
 export function initCharAnimations() {
-    const animatedChars = document.querySelectorAll(".animated-chars");
+    const animatedChars = document.querySelectorAll('[data-anim-attr="animated-chars"]');
 
     animatedChars.forEach((element) => {
         const splitChars = new SplitText(element, { type: "chars,words,lines" });
