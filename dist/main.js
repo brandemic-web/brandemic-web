@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-22T07:09:20.398Z
+ * Built: 2026-06-22T07:12:38.525Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3972,7 +3972,7 @@
      * Initialize button fill hover effect
      */
     function buttonFillHover() {
-        document.querySelectorAll('.button[data-button-type="is-fill"], .button[data-button-type="is-fill-rect"]').forEach(button => {
+        document.querySelectorAll('[data-anim-attr="is-fill"], [data-anim-attr="is-fill-rect"]').forEach(button => {
             const flair = button.querySelector('[data-anim-attr="button__flair"]');
 
             button.addEventListener("mouseenter", (e) => {
