@@ -6,7 +6,7 @@
  * Initialize word-based text animations
  */
 export function initWordAnimations() {
-    const animatedWords = document.querySelectorAll(".animated-words");
+    const animatedWords = document.querySelectorAll('[data-anim-attr="animated-words"]');
 
     animatedWords.forEach((element) => {
         const splitWords = new SplitText(element, { type: "chars,words,lines" });
