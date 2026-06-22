@@ -11,7 +11,7 @@ let heroCycleCall = null;
  * Initialize home hero animation
  */
 export function initHomeHeroAnimation() {
-    const homeHeroChars = document.querySelector(".hero_anim-chars");
+    const homeHeroChars = document.querySelector('[data-anim-attr="hero_anim-chars"]');
     if (!homeHeroChars) return;
 
     const splitHomeHeroChars = new SplitText(homeHeroChars, { type: "chars,words,lines" });

@@ -6,7 +6,7 @@
  * Initialize button fill hover effect
  */
 export function buttonFillHover() {
-    document.querySelectorAll(".button.is-fill, .button.is-fill-rect").forEach(button => {
+    document.querySelectorAll('.button[data-button-type="is-fill"], .button[data-button-type="is-fill-rect"]').forEach(button => {
         const flair = button.querySelector(".button__flair");
 
         button.addEventListener("mouseenter", (e) => {

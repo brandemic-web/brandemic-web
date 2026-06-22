@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-16T11:55:56.439Z
+ * Built: 2026-06-22T06:54:50.087Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -379,7 +379,7 @@
      * Initialize home hero animation
      */
     function initHomeHeroAnimation() {
-        const homeHeroChars = document.querySelector(".hero_anim-chars");
+        const homeHeroChars = document.querySelector('[data-anim-attr="hero_anim-chars"]');
         if (!homeHeroChars) return;
 
         const splitHomeHeroChars = new SplitText(homeHeroChars, { type: "chars,words,lines" });
@@ -3972,7 +3972,7 @@
      * Initialize button fill hover effect
      */
     function buttonFillHover() {
-        document.querySelectorAll(".button.is-fill, .button.is-fill-rect").forEach(button => {
+        document.querySelectorAll('.button[data-button-type="is-fill"], .button[data-button-type="is-fill-rect"]').forEach(button => {
             const flair = button.querySelector(".button__flair");
 
             button.addEventListener("mouseenter", (e) => {
