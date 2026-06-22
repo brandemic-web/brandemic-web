@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-22T10:58:38.915Z
+ * Built: 2026-06-22T11:28:08.774Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1520,7 +1520,7 @@
     }
 
     function animateScrollingText() {
-        const scrollTextWrapper = document.querySelector(".scroll_text-wrapper");
+        const scrollTextWrapper = document.querySelector('[data-anim-attr="scroll_text-wrapper"]');
         if (!scrollTextWrapper) return;
 
         // Prevent double-init

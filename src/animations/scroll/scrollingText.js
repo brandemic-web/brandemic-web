@@ -1,5 +1,5 @@
 export function animateScrollingText() {
-    const scrollTextWrapper = document.querySelector(".scroll_text-wrapper");
+    const scrollTextWrapper = document.querySelector('[data-anim-attr="scroll_text-wrapper"]');
     if (!scrollTextWrapper) return;
 
     // Prevent double-init
