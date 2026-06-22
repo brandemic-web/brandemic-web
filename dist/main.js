@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-22T08:40:50.209Z
+ * Built: 2026-06-22T08:52:58.953Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1023,7 +1023,7 @@
         elements.forEach((element) => {
             const serviceLine = element.querySelector('[data-anim-attr="service_line"]');
             const serviceDescription = element.querySelector('[data-anim-attr="service_description"]');
-            const serviceButton = element.querySelector(".service_button");
+            const serviceButton = element.querySelector(".service_button");// the class name is an attribute not webflow class so will not change accross sites
             const serviceImage = element.querySelector('[data-anim-attr="service_image"]');
             const serviceHeading = element.querySelector('[data-anim-attr="service_heading"]');
             const serviceNumber = element.querySelector('[data-anim-attr="service_number"]');
@@ -1110,9 +1110,10 @@
         const visionSection = document.querySelector(".section_our-vision");
         if (!visionSection) return;
 
-        const visionPara = visionSection.querySelector(".our-vision_content-wrapper p");
-        const visionButton = visionSection.querySelector(".our-vision_content-wrapper .button");
-        const visionImages = document.querySelectorAll(".our-vision_image");
+        const visionPara = visionSection.querySelector('[data-anim-attr="vision_para"]');
+        const visionWrapper = visionSection.querySelector('[data-anim-attr="our-vision_content-wrapper"]');
+        const visionButton = visionWrapper?.querySelector('.button');
+        const visionImages = document.querySelectorAll('[data-anim-attr="our-vision_image"]');
         const visionLines = new SplitText(visionPara, { type: "lines" });
 
         visionTl = gsap.timeline({

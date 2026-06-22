@@ -13,9 +13,10 @@ export function visionSectionAnimation() {
     const visionSection = document.querySelector(".section_our-vision");
     if (!visionSection) return;
 
-    const visionPara = visionSection.querySelector(".our-vision_content-wrapper p");
-    const visionButton = visionSection.querySelector(".our-vision_content-wrapper .button");
-    const visionImages = document.querySelectorAll(".our-vision_image");
+    const visionPara = visionSection.querySelector('[data-anim-attr="vision_para"]');
+    const visionWrapper = visionSection.querySelector('[data-anim-attr="our-vision_content-wrapper"]');
+    const visionButton = visionWrapper?.querySelector('.button');
+    const visionImages = document.querySelectorAll('[data-anim-attr="our-vision_image"]');
     const visionLines = new SplitText(visionPara, { type: "lines" });
 
     visionTl = gsap.timeline({
