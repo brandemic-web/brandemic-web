@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-22T06:54:50.087Z
+ * Built: 2026-06-22T07:09:20.398Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3973,7 +3973,7 @@
      */
     function buttonFillHover() {
         document.querySelectorAll('.button[data-button-type="is-fill"], .button[data-button-type="is-fill-rect"]').forEach(button => {
-            const flair = button.querySelector(".button__flair");
+            const flair = button.querySelector('[data-anim-attr="button__flair"]');
 
             button.addEventListener("mouseenter", (e) => {
                 const { left, top } = button.getBoundingClientRect();
