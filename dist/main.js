@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-23T07:18:55.053Z
+ * Built: 2026-06-23T09:11:22.604Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1797,11 +1797,11 @@
     function initHeroAnimation() {
         heroTl$2 = createHeroTimeline();
 
-        const splitTag = new SplitText(".hero-tl-0", { type: "chars,words,lines" });
-        const splitHeadline = new SplitText(".hero-tl-1", { type: "chars,words,lines" });
-        const splitPara = new SplitText(".hero-tl-2", { type: "chars,words,lines" });
-        const leftImages = ['.animated_hero-image.is-one', '.animated_hero-image.is-two', '.animated_hero-image.is-three'];
-        const rightImages = ['.animated_hero-image.is-four', '.animated_hero-image.is-five', '.animated_hero-image.is-six'];
+        const splitTag = new SplitText('[data-anim-attr="hero-tl-0"]', { type: "chars,words,lines" });
+        const splitHeadline = new SplitText('[data-anim-attr="hero-tl-1"]', { type: "chars,words,lines" });
+        const splitPara = new SplitText('[data-anim-attr="hero-tl-2"]', { type: "chars,words,lines" });
+        const leftImages = ['[data-anim-attr="is-one"]', '[data-anim-attr="is-two"]', '[data-anim-attr="is-three"]'];
+        const rightImages = ['[data-anim-attr="is-four"]', '[data-anim-attr="is-five"]', '[data-anim-attr="is-six"]'];
 
         heroTl$2.from(splitTag.chars, {
                 opacity: 0,
@@ -1856,7 +1856,7 @@
                 ease: "power3.out",
                 stagger: 0.2
             }, "-=1.3")
-            .to(".scroll-down", {
+            .to('[data-anim-attr="scroll-down"]', {
                 opacity: 1,
                 duration: 1,
                 ease: "power3.out"
@@ -1866,15 +1866,15 @@
 
     function initHeroFloatingEffect() {
         const floatTargets = [
-            { selector: '.is-one', xFactor: 20, yFactor: 10, rotFactor: 5 },
-            { selector: '.is-two', xFactor: 15, yFactor: 20, rotFactor: -6 },
-            { selector: '.is-three', xFactor: 25, yFactor: 15, rotFactor: 4 },
-            { selector: '.is-four', xFactor: -20, yFactor: 18, rotFactor: -5 },
-            { selector: '.is-five', xFactor: -15, yFactor: 10, rotFactor: 6 },
-            { selector: '.is-six', xFactor: -25, yFactor: 15, rotFactor: -4 },
+            { selector: '[data-anim-attr="is-one"]', xFactor: 20, yFactor: 10, rotFactor: 5 },
+            { selector: '[data-anim-attr="is-two"]', xFactor: 15, yFactor: 20, rotFactor: -6 },
+            { selector: '[data-anim-attr="is-three"]', xFactor: 25, yFactor: 15, rotFactor: 4 },
+            { selector: '[data-anim-attr="is-four"]', xFactor: -20, yFactor: 18, rotFactor: -5 },
+            { selector: '[data-anim-attr="is-five"]', xFactor: -15, yFactor: 10, rotFactor: 6 },
+            { selector: '[data-anim-attr="is-six"]', xFactor: -25, yFactor: 15, rotFactor: -4 },
         ];
 
-        const wrapper = document.querySelector(".section-hero");
+        const wrapper = document.querySelector('[data-anim-attr="section-hero"]');
         if (!wrapper) return;
 
         wrapper.addEventListener("mousemove", (e) => {
