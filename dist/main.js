@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-23T09:32:57.907Z
+ * Built: 2026-06-23T09:48:52.562Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1949,9 +1949,9 @@
     function scrollPinObserver() {
         if (isMobile()) return;
 
-        let headings = gsap.utils.toArray(".process_heading"),
-            descriptions = gsap.utils.toArray(".process_description"),
-            images = gsap.utils.toArray(".process_image"),
+        let headings = gsap.utils.toArray('[data-anim-attr="process_heading"]'),
+            descriptions = gsap.utils.toArray('[data-anim-attr="process_description"]'),
+            images = gsap.utils.toArray('[data-anim-attr="process_image"]'),
             splitHeadings = headings.map(heading =>
                 new SplitText(heading, { type: "chars,words,lines", linesClass: "clip-text" })
             ),
@@ -2080,7 +2080,7 @@
         intentObserver.disable();
 
         ScrollTrigger.create({
-            trigger: ".section_process-desktop",
+            trigger: '[data-anim-attr="section_process-desktop"]',
             pin: true,
             start: "top top",
             end: "+=10",

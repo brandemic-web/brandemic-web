@@ -12,9 +12,9 @@ let processTl = null;
 export function scrollPinObserver() {
     if (isMobile()) return;
 
-    let headings = gsap.utils.toArray(".process_heading"),
-        descriptions = gsap.utils.toArray(".process_description"),
-        images = gsap.utils.toArray(".process_image"),
+    let headings = gsap.utils.toArray('[data-anim-attr="process_heading"]'),
+        descriptions = gsap.utils.toArray('[data-anim-attr="process_description"]'),
+        images = gsap.utils.toArray('[data-anim-attr="process_image"]'),
         splitHeadings = headings.map(heading =>
             new SplitText(heading, { type: "chars,words,lines", linesClass: "clip-text" })
         ),
@@ -143,7 +143,7 @@ export function scrollPinObserver() {
     intentObserver.disable();
 
     ScrollTrigger.create({
-        trigger: ".section_process-desktop",
+        trigger: '[data-anim-attr="section_process-desktop"]',
         pin: true,
         start: "top top",
         end: "+=10",
