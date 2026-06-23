@@ -103,7 +103,7 @@ export function brandTicker() {
     { selector: '[data-anim-attr="brand_logo"]', hover: ".brands_wrapper", reversed: false },
     { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
     { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
-    { selector: ".culture_image", reversed: false },
+    { selector: '[data-anim-attr="culture_image"]', reversed: false },
   ];
 
   const teamRows = [];

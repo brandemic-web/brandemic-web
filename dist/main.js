@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-23T12:38:49.051Z
+ * Built: 2026-06-23T12:56:14.200Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1371,7 +1371,7 @@
         { selector: '[data-anim-attr="brand_logo"]', hover: ".brands_wrapper", reversed: false },
         { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
         { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
-        { selector: ".culture_image", reversed: false },
+        { selector: '[data-anim-attr="culture_image"]', reversed: false },
       ];
 
       const teamRows = [];
