@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-22T11:28:08.774Z
+ * Built: 2026-06-23T07:18:55.053Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -325,7 +325,7 @@
      * Animate "Think Limitless" text in footer
      */
     function footerLimitless() {
-        const thinkLimitless = document.querySelector(".think-limitless");
+        const thinkLimitless = document.querySelector('[data-anim-attr="think-limitless"]');
         if (!thinkLimitless) return;
 
         const splitLimitless = new SplitText(thinkLimitless, { type: "chars" });

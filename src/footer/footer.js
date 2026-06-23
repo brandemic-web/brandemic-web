@@ -6,7 +6,7 @@
  * Animate "Think Limitless" text in footer
  */
 export function footerLimitless() {
-    const thinkLimitless = document.querySelector(".think-limitless");
+    const thinkLimitless = document.querySelector('[data-anim-attr="think-limitless"]');
     if (!thinkLimitless) return;
 
     const splitLimitless = new SplitText(thinkLimitless, { type: "chars" });
