@@ -7,6 +7,97 @@ import { horizontalLoop } from "../../utils/horizontalLoop.js";
 let aboutTickerLoops = [];
 let hopscotchTickerLoops = [];
 
+// export function brandTicker() {
+//   const elements = [
+//     { selector: '[data-anim-attr="brand_logo"]', hover: ".brands_wrapper", reversed: false },
+//     { selector: ".team_ticker-wrapper.is-one .team_card",hover: ".team_ticker-wrapper_collection .is-one", reversed: false },
+//     { selector: ".team_ticker-wrapper.is-two .team_card",hover: ".team_ticker-wrapper_collection .is-two", reversed: true },
+//     { selector: ".culture_image", reversed: false },
+//   ];
+
+//   const teamRows = [];
+
+//   aboutTickerLoops = elements
+//     .map(({ selector, hover, reversed }) => {
+//       const items = gsap.utils.toArray(selector);
+//       if (items.length === 0) return null;
+
+//       const isTeamRow = selector.includes("team_card");
+
+//       const loop = horizontalLoop(items, {
+//         draggable: false,
+//         inertia: false,
+//         repeat: -1,
+//         center: false,
+//         reversed,
+//         paused: true,
+//       });
+
+//       if (isTeamRow) {
+//         loop.pause();
+//         gsap.set(items, { autoAlpha: 0, x: 0, clearProps: "transform" });
+//         teamRows.push({ items, loop, reversed });
+//       } else {
+//         ScrollTrigger.create({
+//           trigger: selector,
+//           start: "top bottom",
+//           once: true,
+//           onEnter: () => (reversed ? loop.reverse() : loop.play()),
+//         });
+//       }
+
+//       // Pause on hover
+//       const target = hover
+//         ? document.querySelector(hover)
+//         : items[0].parentNode;
+
+//       if (target) {
+//         target.addEventListener("mouseenter", () => loop.pause());
+//         target.addEventListener("mouseleave", () =>
+//           reversed ? loop.reverse() : loop.play(),
+//         );
+//       }
+
+//       return loop;
+//     })
+//     .filter(Boolean);
+
+//   // Single shared ScrollTrigger for both team rows
+//   if (teamRows.length > 0) {
+//     const sharedTrigger =
+//       document.querySelector(".team_ticker-wrapper.is-one") ||
+//       teamRows[0].items[0].parentNode;
+
+//     ScrollTrigger.create({
+//       trigger: sharedTrigger,
+//       start: "top 80%",
+//       once: true,
+//       onEnter: () => {
+//         const isMobile = window.innerWidth < 768;
+//         const visibleCount = isMobile ? 4 : 7;
+
+//         teamRows.forEach(({ items, loop, reversed }) => {
+//           const visibleItems = items.slice(0, visibleCount);
+//           const restItems = items.slice(visibleCount);
+
+//           gsap.set(restItems, { autoAlpha: 1 });
+//           gsap.set(visibleItems, { autoAlpha: 0, filter: "blur(5px)" });
+
+//           gsap.to(visibleItems, {
+//             autoAlpha: 1,
+//             filter: "blur(0px)",
+//             duration: 1.2,
+//             stagger: 0.3,
+//             ease: "power1.inOut",
+//             onComplete: () => {
+//               reversed ? loop.reverse() : loop.play();
+//             },
+//           });
+//         });
+//       },
+//     });
+//   }
+// }
 export function brandTicker() {
   const elements = [
     { selector: '[data-anim-attr="brand_logo"]', hover: ".brands_wrapper", reversed: false },
@@ -44,18 +135,18 @@ export function brandTicker() {
           once: true,
           onEnter: () => (reversed ? loop.reverse() : loop.play()),
         });
-      }
 
-      // Pause on hover
-      const target = hover
-        ? document.querySelector(hover)
-        : items[0].parentNode;
+        // Hover only for non-team rows
+        const target = hover
+          ? document.querySelector(hover)
+          : items[0].parentNode;
 
-      if (target) {
-        target.addEventListener("mouseenter", () => loop.pause());
-        target.addEventListener("mouseleave", () =>
-          reversed ? loop.reverse() : loop.play(),
-        );
+        if (target) {
+          target.addEventListener("mouseenter", () => loop.pause());
+          target.addEventListener("mouseleave", () =>
+            reversed ? loop.reverse() : loop.play()
+          );
+        }
       }
 
       return loop;
@@ -95,6 +186,18 @@ export function brandTicker() {
           });
         });
       },
+    });
+
+    // Bind each collection wrapper to its corresponding loop
+    const collectionWrappers = document.querySelectorAll(".team_ticker_wrapper_collection");
+    collectionWrappers.forEach((wrapper, index) => {
+      const row = teamRows[index];
+      if (!row || !wrapper) return;
+
+      wrapper.addEventListener("mouseenter", () => row.loop.pause());
+      wrapper.addEventListener("mouseleave", () => {
+        row.reversed ? row.loop.reverse() : row.loop.play();
+      });
     });
   }
 }
