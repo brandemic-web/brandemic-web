@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-23T09:11:22.604Z
+ * Built: 2026-06-23T09:32:57.907Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -522,7 +522,7 @@
      * Initialize line-based text animations
      */
     function initLineAnimations() {
-        const animatedLines = document.querySelectorAll(".animated-lines");
+        const animatedLines = document.querySelectorAll('[data-anim-attr="animated-lines"]');
 
         animatedLines.forEach((element) => {
             const splitLines = new SplitText(element, { type: "chars,words,lines" });
@@ -1919,10 +1919,10 @@
      * Animate milestone blocks
      */
     function animateMilestones() {
-        gsap.utils.toArray(".milestone_block").forEach((block, index) => {
-            const line = block.querySelector(".milestone_line");
-            const number = block.querySelector(".milestone_number");
-            const text = block.querySelector("p");
+        gsap.utils.toArray('[data-anim-attr="milestone_block"]').forEach((block, index) => {
+            const line = block.querySelector('[data-anim-attr="milestone_line"]');
+            const number = block.querySelector('[data-anim-attr="milestone_number"]');
+            const text = block.querySelector('[data-anim-attr="para"]');
 
             gsap.timeline({
                 scrollTrigger: {

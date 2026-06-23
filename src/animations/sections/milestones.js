@@ -6,10 +6,10 @@
  * Animate milestone blocks
  */
 export function animateMilestones() {
-    gsap.utils.toArray(".milestone_block").forEach((block, index) => {
-        const line = block.querySelector(".milestone_line");
-        const number = block.querySelector(".milestone_number");
-        const text = block.querySelector("p");
+    gsap.utils.toArray('[data-anim-attr="milestone_block"]').forEach((block, index) => {
+        const line = block.querySelector('[data-anim-attr="milestone_line"]');
+        const number = block.querySelector('[data-anim-attr="milestone_number"]');
+        const text = block.querySelector('[data-anim-attr="para"]');
 
         gsap.timeline({
             scrollTrigger: {

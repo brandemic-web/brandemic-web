@@ -6,7 +6,7 @@
  * Initialize line-based text animations
  */
 export function initLineAnimations() {
-    const animatedLines = document.querySelectorAll(".animated-lines");
+    const animatedLines = document.querySelectorAll('[data-anim-attr="animated-lines"]');
 
     animatedLines.forEach((element) => {
         const splitLines = new SplitText(element, { type: "chars,words,lines" });
