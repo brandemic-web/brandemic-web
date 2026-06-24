@@ -5,7 +5,7 @@ let marqueeActive = false;
 export function initSkaiMarqueeSVG() {
   if (marqueeActive) return;
 
-  const svgs = document.querySelectorAll(".marquee_text-svg");
+  const svgs = document.querySelectorAll('[data-anim-attr="marquee_text-svg"]');
   if (!svgs.length) return;
 
   const wrapper = svgs[0].parentElement;

@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T10:31:10.625Z
+ * Built: 2026-06-24T10:40:49.845Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3169,7 +3169,7 @@
     function initSkaiMarqueeSVG() {
       if (marqueeActive) return;
 
-      const svgs = document.querySelectorAll(".marquee_text-svg");
+      const svgs = document.querySelectorAll('[data-anim-attr="marquee_text-svg"]');
       if (!svgs.length) return;
 
       const wrapper = svgs[0].parentElement;
