@@ -8,16 +8,16 @@ import { isMobile } from '../../utils/isMobile.js';
  * Animate CTA section
  */
 export function animateCTA() {
-    const ctaWrapper = document.querySelector(".cta_text-wrapper");
+    const ctaWrapper = document.querySelector('[data-anim-attr="cta_text-wrapper"]');
     if (!ctaWrapper) return;
 
     const mobile = isMobile();
 
-    const allParagraphs = Array.from(ctaWrapper.querySelectorAll(".cta_paragraph"));
+    const allParagraphs = Array.from(ctaWrapper.querySelectorAll('[data-anim-attr="cta_paragraph"]'));
     const visibleParagraphs = allParagraphs.filter(p => {
-        if (mobile && p.classList.contains("desktop-hidden")) return true;
-        if (!mobile && p.classList.contains("mobile-hidden")) return true;
-        if (p.classList.contains("desktop-hidden") || p.classList.contains("mobile-hidden")) return false;
+        if (mobile && p.classList.contains('[data-visibility-attr="desktop-hidden"]')) return true;
+        if (!mobile && p.classList.contains('[data-visibility-attr="mobile-hidden"]')) return true;
+        if (p.classList.contains('[data-visibility-attr="desktop-hidden"]') || p.classList.contains('[data-visibility-attr="mobile-hidden"]')) return false;
         return true;
     });
 
@@ -28,8 +28,8 @@ export function animateCTA() {
 
     // Select images
     const images = [
-        ctaWrapper.querySelector(".cta_span-image.is-one"),
-        ctaWrapper.querySelector(".cta_span-image.is-two")
+        ctaWrapper.querySelector('[data-anim-attr="cta_image-one"]'),
+        ctaWrapper.querySelector('[data-anim-attr="cta_image-two"]')
     ];
 
     // Timeline with ScrollTrigger

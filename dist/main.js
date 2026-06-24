@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T09:27:11.001Z
+ * Built: 2026-06-24T09:57:38.623Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1206,16 +1206,16 @@
      * Animate CTA section
      */
     function animateCTA() {
-        const ctaWrapper = document.querySelector(".cta_text-wrapper");
+        const ctaWrapper = document.querySelector('[data-anim-attr="cta_text-wrapper"]');
         if (!ctaWrapper) return;
 
         const mobile = isMobile();
 
-        const allParagraphs = Array.from(ctaWrapper.querySelectorAll(".cta_paragraph"));
+        const allParagraphs = Array.from(ctaWrapper.querySelectorAll('[data-anim-attr="cta_paragraph"]'));
         const visibleParagraphs = allParagraphs.filter(p => {
-            if (mobile && p.classList.contains("desktop-hidden")) return true;
-            if (!mobile && p.classList.contains("mobile-hidden")) return true;
-            if (p.classList.contains("desktop-hidden") || p.classList.contains("mobile-hidden")) return false;
+            if (mobile && p.classList.contains('[data-visibility-attr="desktop-hidden"]')) return true;
+            if (!mobile && p.classList.contains('[data-visibility-attr="mobile-hidden"]')) return true;
+            if (p.classList.contains('[data-visibility-attr="desktop-hidden"]') || p.classList.contains('[data-visibility-attr="mobile-hidden"]')) return false;
             return true;
         });
 
@@ -1226,8 +1226,8 @@
 
         // Select images
         const images = [
-            ctaWrapper.querySelector(".cta_span-image.is-one"),
-            ctaWrapper.querySelector(".cta_span-image.is-two")
+            ctaWrapper.querySelector('[data-anim-attr="cta_image-one"]'),
+            ctaWrapper.querySelector('[data-anim-attr="cta_image-two"]')
         ];
 
         // Timeline with ScrollTrigger
