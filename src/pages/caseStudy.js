@@ -40,9 +40,9 @@ export function initCaseStudyAnimations() {
 
     // Variant animations (element-guarded)
     // Case Study ticker
-    initHorizontalTicker(".case_studies-ticker-element", ".case_study-ticker-image");
+    initHorizontalTicker('[data-anim-attr="case_studies-ticker-element"]', '[data-anim-attr="case_study-ticker-image"]');
     // LivX ticker
-    initHorizontalTicker(".is-livx-texts", ".livx_ticker-text");
+    initHorizontalTicker('[data-anim-attr="livx-texts"]', '[data-anim-attr="livx_ticker-text"]');
     hopscotchTicker();
     initHappyFeetAnimation();
     initHabitusSVG();
