@@ -20,6 +20,7 @@ import { applyParallaxEffect } from '../animations/scroll/parallax.js';
 
 // Variant animations (case-study specific)
 import { initHappyFeetAnimation, destroyHappyFeetAnimation } from '../animations/sections/case-study/happyfeet.js';
+import { initScreworksSVG, destroyScreworksSVG } from '../animations/sections/case-study/Screworks.js';
 import { initHabitusSVG, destroyHabitusSVG } from '../animations/sections/case-study/habitus.js';
 import { initGyglTextPathAnimation, destroyGyglTextPathAnimation,} from '../animations/sections/case-study/gygl.js';
 import { initSkaiMarqueeSVG, destroySkaiMarqueeSVG} from '../animations/sections/case-study/skai.js';
@@ -48,6 +49,7 @@ export function initCaseStudyAnimations() {
     initGyglTextPathAnimation();
     initFloutRotateGroupAnimation();
     initSkaiMarqueeSVG();
+    initScreworksSVG();
     initMarqueeSVG("blitz-text-svg");
     initMarqueeSVG("gygl-marquee-svg");
     initCasePreviewIframe();
@@ -66,5 +68,6 @@ export function destroyCaseStudyAnimations() {
     destroySkaiMarqueeSVG();
     destroyFloutRotateGroupAnimation();
     destroyMarqueeSVG();
+    destroyScreworksSVG();
 }
 

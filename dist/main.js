@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T11:25:10.964Z
+ * Built: 2026-06-24T11:54:24.952Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3038,6 +3038,34 @@
         }
     }
 
+    let screworksTween = null;
+    let screworksActive = false;
+
+    function initScreworksSVG() {
+      if (screworksActive) return;
+
+      const el = document.querySelector('[data-anim-attr="is-animating-screworks-svg"]');
+      if (!el) return;
+
+      screworksActive = true;
+
+      screworksTween = gsap.to(el, {
+        rotation: 360,
+        duration: 16,
+        repeat: -1,
+        ease: "none",
+        transformOrigin: "50% 50%"
+      });
+    }
+
+    function destroyScreworksSVG() {
+      if (!screworksActive) return;
+
+      screworksTween?.kill();
+      screworksTween = null;
+      screworksActive = false;
+    }
+
     // Habitus SVG Scroll Animation
 
     let habitusInstances = [];
@@ -3295,6 +3323,7 @@
         initGyglTextPathAnimation();
         initFloutRotateGroupAnimation();
         initSkaiMarqueeSVG();
+        initScreworksSVG();
         initMarqueeSVG("blitz-text-svg");
         initMarqueeSVG("gygl-marquee-svg");
         initCasePreviewIframe();
@@ -3313,6 +3342,7 @@
         destroySkaiMarqueeSVG();
         destroyFloutRotateGroupAnimation();
         destroyMarqueeSVG();
+        destroyScreworksSVG();
     }
 
     /**
