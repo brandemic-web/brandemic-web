@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T07:34:28.171Z
+ * Built: 2026-06-24T08:01:46.014Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2216,12 +2216,12 @@
     function serviceProcessScroll() {
         if (isMobile()) return;
 
-        let processWrapper = document.querySelector(".service_process-contents");
+        let processWrapper = document.querySelector('[data-anim-attr="service_process-contents"]');
         if (!processWrapper) return;
 
         processTl = gsap.timeline({
             scrollTrigger: {
-                trigger: ".section-service-process",
+                trigger: '[data-anim-attr="section-service-process"]',
                 start: "center center",
                 end: "+=1500",
                 scrub: true,

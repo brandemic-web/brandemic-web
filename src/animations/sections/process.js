@@ -175,12 +175,12 @@ export function destroyScrollPinObserver() {
 export function serviceProcessScroll() {
     if (isMobile()) return;
 
-    let processWrapper = document.querySelector(".service_process-contents");
+    let processWrapper = document.querySelector('[data-anim-attr="service_process-contents"]');
     if (!processWrapper) return;
 
     processTl = gsap.timeline({
         scrollTrigger: {
-            trigger: ".section-service-process",
+            trigger: '[data-anim-attr="section-service-process"]',
             start: "center center",
             end: "+=1500",
             scrub: true,
