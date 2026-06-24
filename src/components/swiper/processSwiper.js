@@ -16,8 +16,8 @@ export function initProcessSwiper() {
             direction: 'horizontal',
             spaceBetween: 30,
             navigation: {
-                nextEl: '.process-next',
-                prevEl: '.process-prev',
+                nextEl: '#process-next',
+                prevEl: '#process-prev',
             },
         });
     }

@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T06:26:31.190Z
+ * Built: 2026-06-24T07:34:28.171Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2290,8 +2290,8 @@
                 direction: 'horizontal',
                 spaceBetween: 30,
                 navigation: {
-                    nextEl: '.process-next',
-                    prevEl: '.process-prev',
+                    nextEl: '#process-next',
+                    prevEl: '#process-prev',
                 },
             });
         }
