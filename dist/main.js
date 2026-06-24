@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T05:56:34.684Z
+ * Built: 2026-06-24T06:26:31.190Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1369,8 +1369,8 @@
     function brandTicker() {
       const elements = [
         { selector: '[data-anim-attr="brand_logo"]', hover: ".brands_wrapper", reversed: false },
-        { selector: ".team_ticker-wrapper.is-one .team_card", reversed: false },
-        { selector: ".team_ticker-wrapper.is-two .team_card", reversed: true },
+        { selector: '[data-anim-attr="team_ticker-wrapper-one"] [data-anim-attr="team_card"]', reversed: false },
+        { selector: '[data-anim-attr="team_ticker-wrapper-two"] [data-anim-attr="team_card"]', reversed: true },
         { selector: '[data-anim-attr="culture_image"]', reversed: false },
       ];
 
@@ -1424,7 +1424,7 @@
       // Single shared ScrollTrigger for both team rows
       if (teamRows.length > 0) {
         const sharedTrigger =
-          document.querySelector(".team_ticker-wrapper.is-one") ||
+          document.querySelector('[data-anim-attr="team_ticker-wrapper-one"]') ||
           teamRows[0].items[0].parentNode;
 
         ScrollTrigger.create({
@@ -1457,7 +1457,8 @@
         });
 
         // Bind each collection wrapper to its corresponding loop
-        const collectionWrappers = document.querySelectorAll(".team_ticker_wrapper_collection");
+    // Collection hover wrappers
+    const collectionWrappers = document.querySelectorAll('[data-anim-attr="team_ticker_wrapper_collection-one"], [data-anim-attr="team_ticker_wrapper_collection-two"]');
         collectionWrappers.forEach((wrapper, index) => {
           const row = teamRows[index];
           if (!row || !wrapper) return;
