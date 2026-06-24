@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T10:10:16.746Z
+ * Built: 2026-06-24T10:31:10.625Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1532,17 +1532,17 @@
      * Initialize Hopscotch tickers (two tickers moving in opposite directions)
      */
     function hopscotchTicker() {
-      const tickerOne = document.querySelector(".hopscotch_ticker.is-one");
-      const tickerTwo = document.querySelector(".hopscotch_ticker.is-two");
+      const tickerOne = document.querySelector('[data-anim-attr="hopscotch_ticker-one"]');
+      const tickerTwo = document.querySelector('[data-anim-attr="hopscotch_ticker-two"]');
       if (!tickerOne && !tickerTwo) return;
 
       const elements = [
         {
-          selector: ".hopscotch_ticker.is-one .hopscotch_ticker-svg",
+          selector: '[data-anim-attr="hopscotch_ticker-one"] [data-anim-attr="hopscotch_ticker-svg"]',
           reversed: false,
         },
         {
-          selector: ".hopscotch_ticker.is-two .hopscotch_ticker-svg",
+          selector: '[data-anim-attr="hopscotch_ticker-two"] [data-anim-attr="hopscotch_ticker-svg"]',
           reversed: true,
         },
       ];
