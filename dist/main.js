@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T09:22:25.498Z
+ * Built: 2026-06-24T09:27:11.001Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1044,28 +1044,31 @@
 
             const onMouseEnter = () => {
                 element.addEventListener("mousemove", floatImage);
-                gsap.timeline({ defaults: { overwrite: true } })
+                const tl = gsap.timeline({ defaults: { overwrite: true } })  // ← add const tl =
                     .to(element, { height: expandedHeight, backgroundColor: "#2C1387", duration: 0.5, ease: "power2.out" })
                     .to(serviceHeading, { color: "#38C67F", duration: 0.5, ease: "power2.out" }, "<")
                     .to(serviceNumber, { color: "#38C67F", duration: 0.5, ease: "power2.out" }, "<")
                     .to(serviceImage, { opacity: 1, scale: 1, y: 0, rotate: 12, duration: 0.5, ease: "power2.out" }, "<")
                     .to(serviceLine, { width: mobile ? "70%" : "100%", duration: 0.5, ease: "power2.out" }, "<")
                     .to(serviceDescription, { opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.1");
-                     if (serviceButton) tl.to(serviceButton, { opacity: 1, duration: 0.5, ease: "power2.out" }, "<");
+
+                if (serviceButton) tl.to(serviceButton, { opacity: 1, duration: 0.5, ease: "power2.out" }, "<");
+
                 if (!mobile && window.location.pathname === "/") {
-                    gsap.timeline.call(() => ScrollTrigger && ScrollTrigger.refresh());
+                    tl.call(() => ScrollTrigger && ScrollTrigger.refresh());  // ← was gsap.timeline.call() which is wrong
                 }
             };
 
             const onMouseLeave = () => {
-                gsap.timeline({ defaults: { overwrite: true } })
+                const tl = gsap.timeline({ defaults: { overwrite: true } })
                     .to(element, { height: mobile ? '4.8rem' : '8.5rem', backgroundColor: "#5431D0", duration: 0.3, ease: "power2.out" })
                     .to(serviceHeading, { color: "#FEFEFE", duration: 0.3, ease: "power2.out" }, "<")
                     .to(serviceNumber, { color: "#FEFEFE", duration: 0.3, ease: "power2.out" }, "<")
                     .to(serviceImage, { opacity: 0, scale: 0.8, y: -10, rotate: 0, duration: 0.3, ease: "power2.out" }, "<")
                     .to(serviceLine, { width: "0%", duration: 0.3, ease: "power2.out" }, "<")
                     .to(serviceDescription, { opacity: 0, duration: 0 }, "<");
-                     if (serviceButton) tl.to(serviceButton, { opacity: 0, duration: 0 }, "<");
+
+                if (serviceButton) tl.to(serviceButton, { opacity: 0, duration: 0 }, "<");
 
                 tl.call(() => {
                     element.removeEventListener("mousemove", floatImage);
