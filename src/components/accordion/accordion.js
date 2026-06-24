@@ -39,7 +39,7 @@ function destroyAccordionListeners() {
 
 export function lineAnimation() {
     gsap.fromTo(
-        '.accordion',
+        '[data-anim-attr="accordion"]',
         { clipPath: "polygon(0 0, 0% 0, 0% 100%, 0 100%)" },
         {
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
@@ -47,7 +47,7 @@ export function lineAnimation() {
             stagger: 0.2,
             ease: "power1.out",
             scrollTrigger: {
-                trigger: '.accordions',
+                trigger: '[data-anim-attr="accordions"]',
                 start: "top 70%",
             },
         }
@@ -56,8 +56,8 @@ export function lineAnimation() {
 
 
 export function initAccordionComponents() {
-    const accordions = document.querySelectorAll(".accordion_toggle");
-    const panels = document.querySelectorAll(".accordion_panel");
+    const accordions = document.querySelectorAll('[data-anim-attr="accordion_toggle"]');
+    const panels = document.querySelectorAll('[data-anim-attr="accordion_panel"]');
     
     initAccordion(accordions, panels);
 

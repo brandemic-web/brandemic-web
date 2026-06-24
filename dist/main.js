@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-23T12:56:14.200Z
+ * Built: 2026-06-24T05:56:34.684Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1818,7 +1818,7 @@
 
     function lineAnimation() {
         gsap.fromTo(
-            '.accordion',
+            '[data-anim-attr="accordion"]',
             { clipPath: "polygon(0 0, 0% 0, 0% 100%, 0 100%)" },
             {
                 clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
@@ -1826,7 +1826,7 @@
                 stagger: 0.2,
                 ease: "power1.out",
                 scrollTrigger: {
-                    trigger: '.accordions',
+                    trigger: '[data-anim-attr="accordions"]',
                     start: "top 70%",
                 },
             }
@@ -1835,8 +1835,8 @@
 
 
     function initAccordionComponents() {
-        const accordions = document.querySelectorAll(".accordion_toggle");
-        const panels = document.querySelectorAll(".accordion_panel");
+        const accordions = document.querySelectorAll('[data-anim-attr="accordion_toggle"]');
+        const panels = document.querySelectorAll('[data-anim-attr="accordion_panel"]');
         
         initAccordion(accordions, panels);
 
