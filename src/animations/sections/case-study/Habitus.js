@@ -6,7 +6,7 @@ let habitusActive = false;
 export function initHabitusSVG() {
   if (habitusActive) return;
 
-  const svgs = document.querySelectorAll(".habitus_svg");
+  const svgs = document.querySelectorAll('[data-anim-attr="habitus_svg"]');
   if (!svgs.length) return;
 
   habitusActive = true;
@@ -16,12 +16,12 @@ export function initHabitusSVG() {
   });
 
   svgs.forEach((svg) => {
-    const line = svg.querySelector(".is-line");
+    const line = svg.querySelector('[data-anim-attr="is-line"]');
     if (!line) return;
 
-    const primary = svg.querySelector(".is-primary");
+    const primary = svg.querySelector('[data-anim-attr="is-primary"]');
     const remainingPaths = svg.querySelectorAll(
-      "path:not(.is-line):not(.is-primary)"
+      "path:not([data-anim-attr=\"is-line\"]):not([data-anim-attr=\"is-primary\"])"
     );
     const circles = svg.querySelectorAll("circle");
 
