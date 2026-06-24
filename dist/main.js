@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T12:44:30.325Z
+ * Built: 2026-06-24T12:46:57.212Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3316,7 +3316,7 @@
         // Case Study ticker
         initHorizontalTicker('[data-anim-attr="case_studies-ticker-element"]', '[data-anim-attr="case_study-ticker-image"]');
         // LivX ticker
-        initHorizontalTicker('[data-anim-attr="livx-texts"]', '[data-anim-attr="livx_ticker-text"]');
+        initHorizontalTicker('[data-anim-attr="is-livx-texts"]', '[data-anim-attr="livx_ticker-text"]');
         hopscotchTicker();
         initHappyFeetAnimation();
         initHabitusSVG();

@@ -42,7 +42,7 @@ export function initCaseStudyAnimations() {
     // Case Study ticker
     initHorizontalTicker('[data-anim-attr="case_studies-ticker-element"]', '[data-anim-attr="case_study-ticker-image"]');
     // LivX ticker
-    initHorizontalTicker('[data-anim-attr="livx-texts"]', '[data-anim-attr="livx_ticker-text"]');
+    initHorizontalTicker('[data-anim-attr="is-livx-texts"]', '[data-anim-attr="livx_ticker-text"]');
     hopscotchTicker();
     initHappyFeetAnimation();
     initHabitusSVG();
