@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T12:12:02.461Z
+ * Built: 2026-06-24T12:14:19.358Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1581,9 +1581,9 @@
 
     /**
      * Initialize SVG marquee animation
-     * @param {string} className - CSS class (without dot)
+     * @param {string} selector - CSS selector for the elements to animate
      */
-    function initMarqueeSVG(AttributeSelector) {
+    function initMarqueeSVG(selector) {
       const elements = document.querySelectorAll(selector);
       if (!elements.length) return;
 
@@ -3324,8 +3324,8 @@
         initFloutRotateGroupAnimation();
         initSkaiMarqueeSVG();
         initScreworksSVG();
-        initMarqueeSVG();
-        initMarqueeSVG();
+        initMarqueeSVG('[data-anim-attr="blitz-text-svg"]');
+        initMarqueeSVG('.gygl-marquee-svg');
         initCasePreviewIframe();
     }
 

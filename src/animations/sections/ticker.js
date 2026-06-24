@@ -309,9 +309,9 @@ let marqueeTweens = [];
 
 /**
  * Initialize SVG marquee animation
- * @param {string} className - CSS class (without dot)
+ * @param {string} selector - CSS selector for the elements to animate
  */
-export function initMarqueeSVG(AttributeSelector) {
+export function initMarqueeSVG(selector) {
   const elements = document.querySelectorAll(selector);
   if (!elements.length) return;
 
