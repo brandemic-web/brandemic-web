@@ -13,8 +13,8 @@ let heroTl = null;
 export function initHPIHeroAnimation() {
     heroTl = createHeroTimeline();
 
-    const heroHeadline = document.querySelector(".hero-timeline-1");
-    const heroPara = document.querySelector(".hero-timeline-2");
+    const heroHeadline = document.querySelector('[data-anim-attr="hero-timeline-1"]');
+    const heroPara = document.querySelector('[data-anim-attr="hero-timeline-2"]');
 
     if (!heroHeadline) return;
 
@@ -39,7 +39,7 @@ export function initHPIHeroAnimation() {
         }, "-=0.5");
     }
 
-    heroTl.fromTo(".hero-timeline-3", {
+    heroTl.fromTo('[data-anim-attr="hero-timeline-3"]', {
         clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 0%)",
     }, {
         clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",

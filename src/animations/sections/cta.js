@@ -28,8 +28,8 @@ export function animateCTA() {
 
     // Select images
     const images = [
-        ctaWrapper.querySelector('[data-anim-attr="cta_image-one"]'),
-        ctaWrapper.querySelector('[data-anim-attr="cta_image-two"]')
+        ctaWrapper.querySelector('[data-anim-attr="cta_span-image-one"]'),
+        ctaWrapper.querySelector('[data-anim-attr="cta_span-image-two"]')
     ];
 
     // Timeline with ScrollTrigger

@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T09:57:38.623Z
+ * Built: 2026-06-24T10:03:18.345Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1226,8 +1226,8 @@
 
         // Select images
         const images = [
-            ctaWrapper.querySelector('[data-anim-attr="cta_image-one"]'),
-            ctaWrapper.querySelector('[data-anim-attr="cta_image-two"]')
+            ctaWrapper.querySelector('[data-anim-attr="cta_span-image-one"]'),
+            ctaWrapper.querySelector('[data-anim-attr="cta_span-image-two"]')
         ];
 
         // Timeline with ScrollTrigger
@@ -2410,8 +2410,8 @@
     function initHPIHeroAnimation() {
         heroTl$1 = createHeroTimeline();
 
-        const heroHeadline = document.querySelector(".hero-timeline-1");
-        const heroPara = document.querySelector(".hero-timeline-2");
+        const heroHeadline = document.querySelector('[data-anim-attr="hero-timeline-1"]');
+        const heroPara = document.querySelector('[data-anim-attr="hero-timeline-2"]');
 
         if (!heroHeadline) return;
 
@@ -2436,7 +2436,7 @@
             }, "-=0.5");
         }
 
-        heroTl$1.fromTo(".hero-timeline-3", {
+        heroTl$1.fromTo('[data-anim-attr="hero-timeline-3"]', {
             clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 0%)",
         }, {
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
