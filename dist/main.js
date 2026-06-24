@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T08:01:46.014Z
+ * Built: 2026-06-24T09:22:25.498Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1050,8 +1050,8 @@
                     .to(serviceNumber, { color: "#38C67F", duration: 0.5, ease: "power2.out" }, "<")
                     .to(serviceImage, { opacity: 1, scale: 1, y: 0, rotate: 12, duration: 0.5, ease: "power2.out" }, "<")
                     .to(serviceLine, { width: mobile ? "70%" : "100%", duration: 0.5, ease: "power2.out" }, "<")
-                    .to(serviceDescription, { opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.1")
-                    .to(serviceButton, { opacity: 1, duration: 0.5, ease: "power2.out" }, "<");
+                    .to(serviceDescription, { opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.1");
+                     if (serviceButton) tl.to(serviceButton, { opacity: 1, duration: 0.5, ease: "power2.out" }, "<");
                 if (!mobile && window.location.pathname === "/") {
                     gsap.timeline.call(() => ScrollTrigger && ScrollTrigger.refresh());
                 }
@@ -1064,15 +1064,16 @@
                     .to(serviceNumber, { color: "#FEFEFE", duration: 0.3, ease: "power2.out" }, "<")
                     .to(serviceImage, { opacity: 0, scale: 0.8, y: -10, rotate: 0, duration: 0.3, ease: "power2.out" }, "<")
                     .to(serviceLine, { width: "0%", duration: 0.3, ease: "power2.out" }, "<")
-                    .to(serviceDescription, { opacity: 0, duration: 0 }, "<")
-                    .to(serviceButton, { opacity: 0, duration: 0 }, "<")
-                    .call(() => {
-                        element.removeEventListener("mousemove", floatImage);
-                        gsap.to(serviceImage, { x: 0, y: -10, rotate: 0, duration: 0 });
-                        if (!mobile && window.location.pathname === "/") {
-                            ScrollTrigger && ScrollTrigger.refresh();
-                        }
-                    });
+                    .to(serviceDescription, { opacity: 0, duration: 0 }, "<");
+                     if (serviceButton) tl.to(serviceButton, { opacity: 0, duration: 0 }, "<");
+
+                tl.call(() => {
+                    element.removeEventListener("mousemove", floatImage);
+                    gsap.to(serviceImage, { x: 0, y: -10, rotate: 0, duration: 0 });
+                    if (!mobile && window.location.pathname === "/") {
+                        ScrollTrigger && ScrollTrigger.refresh();
+                    }
+                });
             };
 
             element.addEventListener("mouseenter", onMouseEnter);
