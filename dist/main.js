@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T10:03:18.345Z
+ * Built: 2026-06-24T10:10:16.746Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1213,9 +1213,10 @@
 
         const allParagraphs = Array.from(ctaWrapper.querySelectorAll('[data-anim-attr="cta_paragraph"]'));
         const visibleParagraphs = allParagraphs.filter(p => {
-            if (mobile && p.classList.contains('[data-visibility-attr="desktop-hidden"]')) return true;
-            if (!mobile && p.classList.contains('[data-visibility-attr="mobile-hidden"]')) return true;
-            if (p.classList.contains('[data-visibility-attr="desktop-hidden"]') || p.classList.contains('[data-visibility-attr="mobile-hidden"]')) return false;
+            const visibility = p.getAttribute('data-visibility-attr');
+            if (mobile && visibility === 'desktop-hidden') return true;
+            if (!mobile && visibility === 'mobile-hidden') return true;
+            if (visibility === 'desktop-hidden' || visibility === 'mobile-hidden') return false;
             return true;
         });
 
