@@ -50,8 +50,8 @@ export function initCaseStudyAnimations() {
     initFloutRotateGroupAnimation();
     initSkaiMarqueeSVG();
     initScreworksSVG();
-    initMarqueeSVG("blitz-text-svg");
-    initMarqueeSVG("gygl-marquee-svg");
+    initMarqueeSVG('[data-anim-attr="blitz-text-svg"]');
+    initMarqueeSVG('.gygl-marquee-svg');
     initCasePreviewIframe();
 }
 

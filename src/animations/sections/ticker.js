@@ -311,8 +311,8 @@ let marqueeTweens = [];
  * Initialize SVG marquee animation
  * @param {string} className - CSS class (without dot)
  */
-export function initMarqueeSVG(className) {
-  const elements = document.querySelectorAll(`.${className}`);
+export function initMarqueeSVG(AttributeSelector) {
+  const elements = document.querySelectorAll(selector);
   if (!elements.length) return;
 
   elements.forEach((el) => {
