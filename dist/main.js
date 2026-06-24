@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T11:54:24.952Z
+ * Built: 2026-06-24T11:59:37.388Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3242,7 +3242,7 @@
     let rotateGroupEls = null;
 
     function initFloutRotateGroupAnimation() {
-      rotateGroupEls = document.querySelectorAll(".rotate-group");
+      rotateGroupEls = document.querySelectorAll('[data-anim-attr="rotate-group"]');
       if (!rotateGroupEls.length) return;
 
       // prevent duplicate init

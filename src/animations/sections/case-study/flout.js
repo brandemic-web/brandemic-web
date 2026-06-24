@@ -2,7 +2,7 @@ let rotateGroupTween = null;
 let rotateGroupEls = null;
 
 export function initFloutRotateGroupAnimation() {
-  rotateGroupEls = document.querySelectorAll(".rotate-group");
+  rotateGroupEls = document.querySelectorAll('[data-anim-attr="rotate-group"]');
   if (!rotateGroupEls.length) return;
 
   // prevent duplicate init
