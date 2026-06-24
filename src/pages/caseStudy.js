@@ -51,7 +51,7 @@ export function initCaseStudyAnimations() {
     initSkaiMarqueeSVG();
     initScreworksSVG();
     initMarqueeSVG('[data-anim-attr="blitz-text-svg"]');
-    initMarqueeSVG('.gygl-marquee-svg');
+    initMarqueeSVG('[data-anim-attr="gygl-marquee-svg"]');
     initCasePreviewIframe();
 }
 

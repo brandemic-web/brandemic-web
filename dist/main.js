@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T12:14:19.358Z
+ * Built: 2026-06-24T12:24:06.042Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3325,7 +3325,7 @@
         initSkaiMarqueeSVG();
         initScreworksSVG();
         initMarqueeSVG('[data-anim-attr="blitz-text-svg"]');
-        initMarqueeSVG('.gygl-marquee-svg');
+        initMarqueeSVG('[data-anim-attr="gygl-marquee-svg"]');
         initCasePreviewIframe();
     }
 
