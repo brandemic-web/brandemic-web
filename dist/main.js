@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-24T12:46:57.212Z
+ * Built: 2026-06-25T06:30:51.646Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3503,9 +3503,9 @@
     function initBlogHeroAnimation() {
         heroTl = createHeroTimeline();
 
-        const heroHeadline = document.querySelector(".hero-timeline-1");
-        const heroPara = document.querySelector(".hero-timeline-2");
-        const blogCards = document.querySelectorAll(".related_blog-item");
+        const heroHeadline = document.querySelector('[data-anim-attr="hero-timeline-1"]');
+        const heroPara = document.querySelector('[data-anim-attr="hero-timeline-2"]');
+        const blogCards = document.querySelectorAll('[data-anim-attr="related_blog-item"]');
 
         if (!heroHeadline) return;
 

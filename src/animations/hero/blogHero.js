@@ -13,9 +13,9 @@ let heroTl = null;
 export function initBlogHeroAnimation() {
     heroTl = createHeroTimeline();
 
-    const heroHeadline = document.querySelector(".hero-timeline-1");
-    const heroPara = document.querySelector(".hero-timeline-2");
-    const blogCards = document.querySelectorAll(".related_blog-item");
+    const heroHeadline = document.querySelector('[data-anim-attr="hero-timeline-1"]');
+    const heroPara = document.querySelector('[data-anim-attr="hero-timeline-2"]');
+    const blogCards = document.querySelectorAll('[data-anim-attr="related_blog-item"]');
 
     if (!heroHeadline) return;
 
