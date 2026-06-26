@@ -4,27 +4,28 @@ let accordionListeners = [];
 
 function initAccordion(acc, panels) {
     const mobile = isMobile();
+
     for (let i = 0; i < acc.length; i++) {
         const handler = function () {
-            for (let j = 0; j < panels.length; j++) {
-                if (j !== i) {
-                    panels[j].style.maxHeight = null;
-                    acc[j].classList.remove("active");
-                }
-            }
-            this.classList.toggle("active");
-            const panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            }
-            else{
-                panel.style.maxHeight = panel.scrollHeight + "px";
+            const isActive = this.classList.contains("active");
+
+            // Close all
+            acc.forEach((el, j) => {
+                el.classList.remove("active");
+                panels[j].style.maxHeight = null;
+            });
+
+            // If it wasn't already open, open it
+            if (!isActive) {
+                this.classList.add("active");
+                panels[i].style.maxHeight = panels[i].scrollHeight + "px";
+
                 if (typeof ScrollTrigger !== "undefined" && !mobile) {
                     ScrollTrigger.refresh();
                 }
             }
-            
-        }
+        };
+
         acc[i].addEventListener("click", handler);
         accordionListeners.push({ el: acc[i], handler });
     }
