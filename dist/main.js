@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-07-01T06:41:46.464Z
+ * Built: 2026-07-01T06:43:52.215Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3783,7 +3783,7 @@
             trigger: sideInfo,
             start: 'top top+=100', // Adjust offset based on nav height
             endTrigger: contentWrapper,
-            end: () => `bottom bottom-=${sideInfo.offsetHeight - window.innerHeight + 100}`,
+            end: 'bottom bottom',
             pin: true,
             pinSpacing: false,
         });
