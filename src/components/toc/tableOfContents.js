@@ -119,7 +119,7 @@ function initStickySidebar() {
         trigger: sideInfo,
         start: 'top top+=100', // Adjust offset based on nav height
         endTrigger: contentWrapper,
-        end: 'bottom bottom',
+        end: () => `bottom bottom-=${sideInfo.offsetHeight - window.innerHeight + 100}`,
         pin: true,
         pinSpacing: false,
     });
