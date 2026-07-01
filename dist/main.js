@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-06-26T06:52:26.779Z
+ * Built: 2026-07-01T06:29:52.155Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3667,12 +3667,17 @@
     /**
      * Table of Contents - Dynamically generates TOC from H2 headings
      * Includes sticky sidebar functionality using ScrollTrigger pin
+     * Includes scroll-spy: highlights active TOC link as content scrolls
      */
 
 
     // Store click handlers for cleanup
     let clickHandlers = [];
     let sideInfoPin = null;
+
+    // Scroll-spy state
+    let headingLinkPairs = []; // [{ heading, link }]
+    let scrollSpyTriggers = [];
 
     // Mobile drawer state
     let mobileTocOpen = false;
@@ -3715,6 +3720,7 @@
 
         // Reset handlers array
         clickHandlers = [];
+        headingLinkPairs = [];
 
         headings.forEach((heading, index) => {
             // Generate or use existing ID for the heading
@@ -3747,6 +3753,9 @@
             // Store handler for cleanup
             clickHandlers.push({ element: link, handler: clickHandler });
 
+            // Store heading/link pairing for scroll-spy
+            headingLinkPairs.push({ heading, link });
+
             // Append link to TOC container
             tocContainer.appendChild(link);
         });
@@ -3754,6 +3763,7 @@
         // Initialize sticky sidebar (desktop) or mobile drawer
         initStickySidebar();
         initMobileTocDrawer();
+        initScrollSpy();
     }
 
     /**
@@ -3787,6 +3797,58 @@
             sideInfoPin.kill();
             sideInfoPin = null;
         }
+    }
+
+    /**
+     * Set a given link as active, clearing the rest, and keep it
+     * visible inside the (possibly scrollable) .toc_lists container.
+     * @param {HTMLElement|null} activeLink
+     */
+    function setActiveTocLink(activeLink) {
+        headingLinkPairs.forEach(({ link }) => {
+            link.classList.toggle('is-active', link === activeLink);
+        });
+
+        if (activeLink) {
+            activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+    }
+
+    /**
+     * Initialize scroll-spy: tracks which heading is currently in view
+     * and highlights the matching TOC link. Skipped on mobile since the
+     * TOC is a click-open/close drawer there, not a persistent sidebar.
+     */
+    function initScrollSpy() {
+        // Skip on mobile - drawer isn't persistently visible
+        if (isMobile()) return;
+
+        if (headingLinkPairs.length === 0) return;
+
+        headingLinkPairs.forEach(({ heading, link }, index) => {
+            const nextHeading = headingLinkPairs[index + 1]?.heading;
+
+            const trigger = ScrollTrigger.create({
+                trigger: heading,
+                start: 'top top+=120',
+                end: nextHeading ? () => `top+=${nextHeading.offsetTop - heading.offsetTop} top+=120` : 'bottom bottom',
+                onToggle: (self) => {
+                    if (self.isActive) {
+                        setActiveTocLink(link);
+                    }
+                },
+            });
+
+            scrollSpyTriggers.push(trigger);
+        });
+    }
+
+    /**
+     * Destroy scroll-spy triggers and clear active state
+     */
+    function destroyScrollSpy() {
+        scrollSpyTriggers.forEach((trigger) => trigger.kill());
+        scrollSpyTriggers = [];
     }
 
     /**
@@ -3894,8 +3956,9 @@
      * Removes event listeners and cleans up
      */
     function destroyTableOfContents() {
-        // Kill sticky sidebar and mobile drawer
+        // Kill sticky sidebar, scroll-spy, and mobile drawer
         destroyStickySidebar();
+        destroyScrollSpy();
         destroyMobileTocDrawer();
 
         // Remove all click handlers
@@ -3905,6 +3968,7 @@
 
         // Clear handlers array
         clickHandlers = [];
+        headingLinkPairs = [];
     }
 
     /**
