@@ -43,6 +43,7 @@ Every page MUST have these on the main content container:
 | Thank You | `thanks` |
 | Blog Listing | `blogs` |
 | Blog Post | `blog` |
+| Merch Product | `merch` |
 
 ---
 
@@ -70,8 +71,10 @@ Every page MUST have these on the main content container:
 | `section-hero` | Hero section container | Service |
 | `hero-tl-0` / `hero-tl-1` / `hero-tl-2` | Tag / headline / paragraph | Service |
 | `hero_anim-chars` | Hero headline animation | Home |
-| `hero-timeline-1` / `hero-timeline-2` / `hero-timeline-3` | Headline / paragraph / image | About, Portfolio, Blogs |
+| `hero-timeline-1` / `hero-timeline-2` / `hero-timeline-3` | Headline / paragraph / image | About, Portfolio, Blogs (`hero-timeline-1` also used for the product title on Merch) |
 | `related_blog-item` | Related blog cards | Blog Post |
+| `merch_media` | Product media wrapper — 1st child is the main image, later children's children are thumbnails | Merch |
+| `merch_info` | Product info column — direct children stagger in (the child holding the title is skipped) | Merch |
 | `section_contact-hero` | Hero section container | Contact |
 | `contact_hero-tl-1` / `contact_hero-tl-2` / `contact_hero-tl-3` | Headline / paragraph / form-CTA | Contact |
 | `is-one` … `is-six` | Floating hero images | Service, Contact |

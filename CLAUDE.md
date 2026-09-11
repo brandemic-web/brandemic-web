@@ -29,7 +29,7 @@ No test framework — verify by running `npm run build` and testing in browser.
 4. `afterEnter` (per view) — calls page-specific `initXxxAnimations()`
 5. `beforeLeave` (per view) — calls page-specific `destroyXxxAnimations()`
 
-**Page modules** (`src/pages/*.js`): Each page exports `init` and `destroy` functions that orchestrate animations for that page. Barba views are mapped by namespace: `home`, `about`, `portfolio`, `contact`, `case-study`, `service`, `thanks`, `blogs`, `blog`.
+**Page modules** (`src/pages/*.js`): Each page exports `init` and `destroy` functions that orchestrate animations for that page. Barba views are mapped by namespace: `home`, `about`, `portfolio`, `contact`, `case-study`, `service`, `thanks`, `blogs`, `blog`, `merch`.
 
 ### Init/Destroy Pattern
 

@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-08-10T06:04:57.498Z
+ * Built: 2026-09-11T06:45:41.670Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1834,10 +1834,10 @@
      */
 
 
-    let heroTl$2 = null;
+    let heroTl$3 = null;
 
     function initHeroAnimation() {
-        heroTl$2 = createHeroTimeline();
+        heroTl$3 = createHeroTimeline();
 
         const splitTag = new SplitText('[data-anim-attr="hero-tl-0"]', { type: "chars,words,lines" });
         const splitHeadline = new SplitText('[data-anim-attr="hero-tl-1"]', { type: "chars,words,lines" });
@@ -1845,7 +1845,7 @@
         const leftImages = ['[data-anim-attr="is-one"]', '[data-anim-attr="is-two"]', '[data-anim-attr="is-three"]'];
         const rightImages = ['[data-anim-attr="is-four"]', '[data-anim-attr="is-five"]', '[data-anim-attr="is-six"]'];
 
-        heroTl$2.from(splitTag.chars, {
+        heroTl$3.from(splitTag.chars, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -1950,7 +1950,7 @@
     }
 
     function destroyHeroAnimation() {
-        if (heroTl$2) heroTl$2.kill();
+        if (heroTl$3) heroTl$3.kill();
     }
 
     /**
@@ -2336,13 +2336,13 @@
      */
 
 
-    let heroTl$1 = null;
+    let heroTl$2 = null;
 
     /**
      * Initialize HPI hero animation
      */
     function initHPIHeroAnimation() {
-        heroTl$1 = createHeroTimeline();
+        heroTl$2 = createHeroTimeline();
 
         const heroHeadline = document.querySelector('[data-anim-attr="hero-timeline-1"]');
         const heroPara = document.querySelector('[data-anim-attr="hero-timeline-2"]');
@@ -2352,7 +2352,7 @@
         const splitHeroHeadline = new SplitText(heroHeadline, { type: "chars,words,lines" });
         const splitHeroPara = heroPara ? new SplitText(heroPara, { type: "chars,words,lines" }) : null;
 
-        heroTl$1.from(splitHeroHeadline.chars, {
+        heroTl$2.from(splitHeroHeadline.chars, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -2361,7 +2361,7 @@
             });
 
         if (splitHeroPara) {
-            heroTl$1.from(splitHeroPara.words, {
+            heroTl$2.from(splitHeroPara.words, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -2370,7 +2370,7 @@
             }, "-=0.5");
         }
 
-        heroTl$1.fromTo('[data-anim-attr="hero-timeline-3"]', {
+        heroTl$2.fromTo('[data-anim-attr="hero-timeline-3"]', {
             clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 0%)",
         }, {
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
@@ -2383,7 +2383,7 @@
      * Destroy HPI hero animation
      */
     function destroyHPIHeroAnimation() {
-        if (heroTl$1) heroTl$1.kill();
+        if (heroTl$2) heroTl$2.kill();
     }
 
     /**
@@ -3454,13 +3454,13 @@
      */
 
 
-    let heroTl = null;
+    let heroTl$1 = null;
 
     /**
      * Initialize Blog hero animation
      */
     function initBlogHeroAnimation() {
-        heroTl = createHeroTimeline();
+        heroTl$1 = createHeroTimeline();
 
         const heroHeadline = document.querySelector('[data-anim-attr="hero-timeline-1"]');
         const heroPara = document.querySelector('[data-anim-attr="hero-timeline-2"]');
@@ -3471,7 +3471,7 @@
         const splitHeroHeadline = new SplitText(heroHeadline, { type: "chars,words,lines" });
         const splitHeroPara = heroPara ? new SplitText(heroPara, { type: "chars,words,lines" }) : null;
 
-        heroTl.from(splitHeroHeadline.chars, {
+        heroTl$1.from(splitHeroHeadline.chars, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -3480,7 +3480,7 @@
             });
 
         if (splitHeroPara) {
-            heroTl.from(splitHeroPara.words, {
+            heroTl$1.from(splitHeroPara.words, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -3489,7 +3489,7 @@
             }, "-=0.5");
         }
         if (blogCards.length) {
-            heroTl.from(blogCards, {
+            heroTl$1.from(blogCards, {
                 opacity: 0,
                 y: 30,
                 filter: "blur(8px)",
@@ -3504,7 +3504,7 @@
      * Destroy Blog hero animation
      */
     function destroyBlogHeroAnimation() {
-        if (heroTl) heroTl.kill();
+        if (heroTl$1) heroTl$1.kill();
     }
 
     /**
@@ -3963,6 +3963,111 @@
     }
 
     /**
+     * Merch Hero Animation - Product intro animation for merch (CMS) pages
+     * Same char/blur reveal as the other heroes, applied to the product layout
+     */
+
+
+    let heroTl = null;
+    let splitTitle = null;
+
+    /**
+     * Initialize Merch hero animation
+     */
+    function initMerchHeroAnimation() {
+        heroTl = createHeroTimeline();
+
+        const title = document.querySelector('[data-anim-attr="hero-timeline-1"]');
+        const media = document.querySelector('[data-anim-attr="merch_media"]');
+        const info = document.querySelector('[data-anim-attr="merch_info"]');
+
+        if (media) {
+            const [mainImage, ...rest] = media.children;
+            const thumbnails = rest.flatMap(el => [...el.children]);
+
+            heroTl.from(mainImage, {
+                opacity: 0,
+                y: 30,
+                filter: "blur(8px)",
+                duration: 1,
+                ease: "power2.out",
+            });
+
+            if (thumbnails.length) {
+                heroTl.from(thumbnails, {
+                    opacity: 0,
+                    y: 20,
+                    filter: "blur(8px)",
+                    stagger: 0.15,
+                    duration: 0.8,
+                    ease: "power2.out",
+                }, "-=0.6");
+            }
+        }
+
+        if (title) {
+            splitTitle = new SplitText(title, { type: "chars,words,lines" });
+            heroTl.from(splitTitle.chars, {
+                opacity: 0,
+                x: 16,
+                y: "30%",
+                filter: "blur(10px)",
+                stagger: 0.03,
+            }, media ? "<" : ">");
+        }
+
+        if (info) {
+            // Everything in the info column except the block holding the title
+            const infoItems = [...info.children].filter(el => !title || !el.contains(title));
+
+            if (infoItems.length) {
+                heroTl.from(infoItems, {
+                    opacity: 0,
+                    y: 20,
+                    filter: "blur(8px)",
+                    stagger: 0.08,
+                    duration: 0.8,
+                    ease: "power2.out",
+                }, "-=0.5");
+            }
+        }
+    }
+
+    /**
+     * Destroy Merch hero animation
+     */
+    function destroyMerchHeroAnimation() {
+        if (heroTl) heroTl.kill();
+        if (splitTitle) splitTitle.revert();
+        heroTl = null;
+        splitTitle = null;
+    }
+
+    /**
+     * Merch Page (CMS) - Initialize and destroy animations
+     */
+
+
+    /**
+     * Initialize all merch page animations
+     */
+    function initMerchAnimations() {
+        initMerchHeroAnimation();
+        animateSvgPaths();
+        animateCTA();
+        initAccordionComponents();
+        lineAnimation();
+    }
+
+    /**
+     * Destroy all merch page animations
+     */
+    function destroyMerchAnimations() {
+        destroyMerchHeroAnimation();
+        destroyAccordionComponents();
+    }
+
+    /**
      * Barba.js Configuration - Page transitions and view management
      */
 
@@ -4123,6 +4228,14 @@
                 },
                 beforeLeave(data) {
                     destroyBlogPostAnimations();
+                },
+            }, {
+                namespace: 'merch',
+                afterEnter(data) {
+                    initMerchAnimations();
+                },
+                beforeLeave(data) {
+                    destroyMerchAnimations();
                 },
             }]
         });

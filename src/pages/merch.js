@@ -1,0 +1,34 @@
+/**
+ * Merch Page (CMS) - Initialize and destroy animations
+ */
+
+// Hero
+import { initMerchHeroAnimation, destroyMerchHeroAnimation } from '../animations/hero/merchHero.js';
+
+// SVG
+import { animateSvgPaths } from '../animations/svg/drawPaths.js';
+
+// Sections
+import { animateCTA } from '../animations/sections/cta.js';
+
+// Components
+import { initAccordionComponents, destroyAccordionComponents, lineAnimation } from '../components/accordion/accordion.js';
+
+/**
+ * Initialize all merch page animations
+ */
+export function initMerchAnimations() {
+    initMerchHeroAnimation();
+    animateSvgPaths();
+    animateCTA();
+    initAccordionComponents();
+    lineAnimation();
+}
+
+/**
+ * Destroy all merch page animations
+ */
+export function destroyMerchAnimations() {
+    destroyMerchHeroAnimation();
+    destroyAccordionComponents();
+}
