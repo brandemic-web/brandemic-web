@@ -112,6 +112,7 @@ Every page in Webflow MUST have `data-barba="container"` and `data-barba-namespa
 | Blogs (listing) | `blogs` |
 | Blog Post (CMS template) | `blog` |
 | Merch Product (CMS template) | `merch` |
+| Checkout | `checkout` |
 
 **In Webflow:** Add custom attribute on the page wrapper:
 - `data-barba` = `container`

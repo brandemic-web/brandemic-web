@@ -14,6 +14,9 @@ import { animateCTA } from '../animations/sections/cta.js';
 // Components
 import { initAccordionComponents, destroyAccordionComponents, lineAnimation } from '../components/accordion/accordion.js';
 
+// Merch
+import { initProductOrder, destroyProductOrder } from '../components/merch/productOrder.js';
+
 /**
  * Initialize all merch page animations
  */
@@ -23,6 +26,7 @@ export function initMerchAnimations() {
     animateCTA();
     initAccordionComponents();
     lineAnimation();
+    initProductOrder();
 }
 
 /**
@@ -31,4 +35,5 @@ export function initMerchAnimations() {
 export function destroyMerchAnimations() {
     destroyMerchHeroAnimation();
     destroyAccordionComponents();
+    destroyProductOrder();
 }

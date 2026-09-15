@@ -21,6 +21,7 @@ import { initThankAnimations, destroyThankAnimations } from '../pages/thanks.js'
 import { initBlogAnimations, destroyBlogAnimations } from '../pages/blog.js';
 import { initBlogPostAnimations, destroyBlogPostAnimations } from '../pages/blogPost.js';
 import { initMerchAnimations, destroyMerchAnimations } from '../pages/merch.js';
+import { initCheckoutAnimations, destroyCheckoutAnimations } from '../pages/checkout.js';
 
 /**
  * Get the appropriate hero animation function for a namespace
@@ -49,6 +50,8 @@ export function getHeroAnimationFunction(namespace) {
             return initBlogPostAnimations;
         case 'merch':
             return initMerchAnimations;
+        case 'checkout':
+            return initCheckoutAnimations;
         default:
             return () => { }; // Fallback to no-op
     }
@@ -218,6 +221,14 @@ export function initBarba() {
             },
             beforeLeave(data) {
                 destroyMerchAnimations();
+            },
+        }, {
+            namespace: 'checkout',
+            afterEnter(data) {
+                initCheckoutAnimations();
+            },
+            beforeLeave(data) {
+                destroyCheckoutAnimations();
             },
         }]
     });

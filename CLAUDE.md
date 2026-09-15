@@ -29,7 +29,7 @@ No test framework — verify by running `npm run build` and testing in browser.
 4. `afterEnter` (per view) — calls page-specific `initXxxAnimations()`
 5. `beforeLeave` (per view) — calls page-specific `destroyXxxAnimations()`
 
-**Page modules** (`src/pages/*.js`): Each page exports `init` and `destroy` functions that orchestrate animations for that page. Barba views are mapped by namespace: `home`, `about`, `portfolio`, `contact`, `case-study`, `service`, `thanks`, `blogs`, `blog`, `merch`.
+**Page modules** (`src/pages/*.js`): Each page exports `init` and `destroy` functions that orchestrate animations for that page. Barba views are mapped by namespace: `home`, `about`, `portfolio`, `contact`, `case-study`, `service`, `thanks`, `blogs`, `blog`, `merch`, `checkout`.
 
 ### Init/Destroy Pattern
 
@@ -51,4 +51,5 @@ export function destroyMyAnimation() { /* ... */ }
 - **Mobile**: Use `isMobile()` from `src/utils/isMobile.js`. Desktop-only features (custom cursor, hover effects) are gated behind `!mobile` checks.
 - **CSS classes**: All selectors (`.work_image`, `.animated-chars`, etc.) are defined in Webflow. See `CLASS-REFERENCE.md` for the full list. Do not rename without updating both Webflow and JS.
 - **horizontalLoop**: `src/utils/horizontalLoop.js` creates infinite horizontal tickers. Used for brand logos, team cards, culture images. Returns a GSAP timeline — call `.kill()` in destroy.
+- **Merch checkout**: `src/components/merch/` handles size/quantity/checkout via `data-merch` attributes. Payments go through the Cloudflare Worker in `workers/merch-checkout/` (deployed separately with wrangler, not bundled) which prices orders from the Webflow CMS and verifies Razorpay signatures.
 - **ScrollSmoother**: Uses `#smooth-wrapper` > `#smooth-content` structure. Access via `getSmoother()` from `src/core/smoothScroll.js`.

@@ -1,0 +1,15 @@
+name = "brandemic-merch-checkout"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# Public settings. Secrets (RAZORPAY_KEY_SECRET, WEBFLOW_API_TOKEN) are NOT stored here —
+# add them with `npx wrangler secret put` (see README.md).
+[vars]
+# Razorpay Key ID (starts with rzp_test_ or rzp_live_). Safe to be public.
+RAZORPAY_KEY_ID = "rzp_live_TcEJsS0OAajkdV"
+# ID of the Merch CMS collection in Webflow
+WEBFLOW_COLLECTION_ID = "6aa27380f7b2994b8b926faa"
+# Slug of the CMS field holding the selling price (e.g. 1199)
+WEBFLOW_PRICE_FIELD = "product-price"
+# Sites allowed to call this worker, comma-separated
+ALLOWED_ORIGINS = "https://brandemic-in.webflow.io,https://brandemic.in,https://www.brandemic.in"

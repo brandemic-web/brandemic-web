@@ -44,6 +44,7 @@ Every page MUST have these on the main content container:
 | Blog Listing | `blogs` |
 | Blog Post | `blog` |
 | Merch Product | `merch` |
+| Checkout | `checkout` |
 
 ---
 
@@ -123,6 +124,41 @@ Every page MUST have these on the main content container:
 | `marquee_text-svg` | Skai marquee SVG |
 | `blitz-text-svg` | Blitz marquee SVG |
 | `gygl-marquee-svg` | GYGL marquee SVG |
+
+---
+
+## 🛒 `data-merch` Hooks (Product Page & Checkout)
+
+Functional hooks for ordering — a separate attribute from `data-anim-attr`. Add via Element Settings → Custom Attributes (`data-merch` / value below).
+
+### Merch Product Page (`merch`)
+| Value | Element |
+|-------|---------|
+| `name` | Product title (text read for the order summary) |
+| `price` | Selling price text, e.g. ₹1199 (display only — the real price comes from the CMS) |
+| `image` | Main product image |
+| `size` | Each size button. Size = its text, or `data-size` if set. Selected button gets `.is-active` |
+| `size-error` | "Please select a size" message — set to display: none in Webflow |
+| `qty-minus` / `qty-plus` | Quantity buttons (get `.is-disabled` at 1 / 10) |
+| `qty-value` | Quantity number (text element or input) |
+| `place-order` | Place Order button — goes to `/checkout` |
+
+### Checkout Page (`checkout`)
+| Value | Element |
+|-------|---------|
+| `checkout-content` | Wrapper around summary + form (hidden after payment / when no order) |
+| `checkout-empty` | "No product selected" message — display: none in Webflow |
+| `checkout-success` | Order-confirmed message — display: none in Webflow |
+| `success-payment-id` | Text inside the success message showing the Razorpay payment ID |
+| `checkout-form` | The Form Block (or the form inside it) |
+| `checkout-error` | Error message text — display: none in Webflow |
+| `summary-name` / `summary-size` / `summary-qty` | Order summary texts |
+| `summary-price` / `summary-total` | Unit price / total |
+| `summary-image` | Product image in the summary |
+| `summary-link` | Optional "Edit" link back to the product |
+
+**Checkout input Names** (Element Settings → Name, must match exactly):
+`name`, `email`, `phone`, `address`, `city`, `state`, `pincode`
 
 ---
 
@@ -223,4 +259,6 @@ Every page MUST have these on the main content container:
 | `.fullscreen-video` | `.page-wrapper` during video fullscreen |
 | `.flex-layout` | Work images wrapper after Flip animation |
 | `.is-copied` | Share button after copy |
+| `.is-active` | Selected merch size button |
+| `.is-disabled` | Merch quantity −/+ at the 1 / 10 limit |
 | `.link-hover-ix` | Added to `.blog_share` for cursor interaction |

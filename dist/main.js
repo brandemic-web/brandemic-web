@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-09-11T06:45:41.670Z
+ * Built: 2026-09-15T08:30:48.801Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1834,10 +1834,10 @@
      */
 
 
-    let heroTl$3 = null;
+    let heroTl$4 = null;
 
     function initHeroAnimation() {
-        heroTl$3 = createHeroTimeline();
+        heroTl$4 = createHeroTimeline();
 
         const splitTag = new SplitText('[data-anim-attr="hero-tl-0"]', { type: "chars,words,lines" });
         const splitHeadline = new SplitText('[data-anim-attr="hero-tl-1"]', { type: "chars,words,lines" });
@@ -1845,7 +1845,7 @@
         const leftImages = ['[data-anim-attr="is-one"]', '[data-anim-attr="is-two"]', '[data-anim-attr="is-three"]'];
         const rightImages = ['[data-anim-attr="is-four"]', '[data-anim-attr="is-five"]', '[data-anim-attr="is-six"]'];
 
-        heroTl$3.from(splitTag.chars, {
+        heroTl$4.from(splitTag.chars, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -1950,7 +1950,7 @@
     }
 
     function destroyHeroAnimation() {
-        if (heroTl$3) heroTl$3.kill();
+        if (heroTl$4) heroTl$4.kill();
     }
 
     /**
@@ -2336,13 +2336,13 @@
      */
 
 
-    let heroTl$2 = null;
+    let heroTl$3 = null;
 
     /**
      * Initialize HPI hero animation
      */
     function initHPIHeroAnimation() {
-        heroTl$2 = createHeroTimeline();
+        heroTl$3 = createHeroTimeline();
 
         const heroHeadline = document.querySelector('[data-anim-attr="hero-timeline-1"]');
         const heroPara = document.querySelector('[data-anim-attr="hero-timeline-2"]');
@@ -2352,7 +2352,7 @@
         const splitHeroHeadline = new SplitText(heroHeadline, { type: "chars,words,lines" });
         const splitHeroPara = heroPara ? new SplitText(heroPara, { type: "chars,words,lines" }) : null;
 
-        heroTl$2.from(splitHeroHeadline.chars, {
+        heroTl$3.from(splitHeroHeadline.chars, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -2361,7 +2361,7 @@
             });
 
         if (splitHeroPara) {
-            heroTl$2.from(splitHeroPara.words, {
+            heroTl$3.from(splitHeroPara.words, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -2370,7 +2370,7 @@
             }, "-=0.5");
         }
 
-        heroTl$2.fromTo('[data-anim-attr="hero-timeline-3"]', {
+        heroTl$3.fromTo('[data-anim-attr="hero-timeline-3"]', {
             clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 0%)",
         }, {
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
@@ -2383,7 +2383,7 @@
      * Destroy HPI hero animation
      */
     function destroyHPIHeroAnimation() {
-        if (heroTl$2) heroTl$2.kill();
+        if (heroTl$3) heroTl$3.kill();
     }
 
     /**
@@ -2706,7 +2706,7 @@
         if (contactCycleCall) contactCycleCall.kill();
     }
 
-    let submitHandler = null;
+    let submitHandler$1 = null;
 
     const WORKER_URL       = 'https://brandemicrecaptcha.web-455.workers.dev/';
     const RECAPTCHA_KEY    = '6LdUc9osAAAAAJ5DdiwM0gKwl60xPn0BVM1C2Q92';
@@ -2764,7 +2764,7 @@
         );
         if (!form) return;
 
-        submitHandler = function (e) {
+        submitHandler$1 = function (e) {
             const data = collectFormData();
 
             if (isEmailBlocked(data.email)) {
@@ -2787,7 +2787,7 @@
             });
         };
 
-        form.addEventListener('submit', submitHandler);
+        form.addEventListener('submit', submitHandler$1);
     }
 
     function destroyContactForm() {
@@ -2795,11 +2795,11 @@
             '#wf-form-Contact-Form, #wf-form-Brandemic-Dubai, #wf-form-form-Contact-2'
         );
 
-        if (form && submitHandler) {
-            form.removeEventListener('submit', submitHandler);
+        if (form && submitHandler$1) {
+            form.removeEventListener('submit', submitHandler$1);
         }
 
-        submitHandler = null;
+        submitHandler$1 = null;
     }
 
     /**
@@ -3454,13 +3454,13 @@
      */
 
 
-    let heroTl$1 = null;
+    let heroTl$2 = null;
 
     /**
      * Initialize Blog hero animation
      */
     function initBlogHeroAnimation() {
-        heroTl$1 = createHeroTimeline();
+        heroTl$2 = createHeroTimeline();
 
         const heroHeadline = document.querySelector('[data-anim-attr="hero-timeline-1"]');
         const heroPara = document.querySelector('[data-anim-attr="hero-timeline-2"]');
@@ -3471,7 +3471,7 @@
         const splitHeroHeadline = new SplitText(heroHeadline, { type: "chars,words,lines" });
         const splitHeroPara = heroPara ? new SplitText(heroPara, { type: "chars,words,lines" }) : null;
 
-        heroTl$1.from(splitHeroHeadline.chars, {
+        heroTl$2.from(splitHeroHeadline.chars, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -3480,7 +3480,7 @@
             });
 
         if (splitHeroPara) {
-            heroTl$1.from(splitHeroPara.words, {
+            heroTl$2.from(splitHeroPara.words, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -3489,7 +3489,7 @@
             }, "-=0.5");
         }
         if (blogCards.length) {
-            heroTl$1.from(blogCards, {
+            heroTl$2.from(blogCards, {
                 opacity: 0,
                 y: 30,
                 filter: "blur(8px)",
@@ -3504,7 +3504,7 @@
      * Destroy Blog hero animation
      */
     function destroyBlogHeroAnimation() {
-        if (heroTl$1) heroTl$1.kill();
+        if (heroTl$2) heroTl$2.kill();
     }
 
     /**
@@ -3968,14 +3968,14 @@
      */
 
 
-    let heroTl = null;
-    let splitTitle = null;
+    let heroTl$1 = null;
+    let splitTitle$1 = null;
 
     /**
      * Initialize Merch hero animation
      */
     function initMerchHeroAnimation() {
-        heroTl = createHeroTimeline();
+        heroTl$1 = createHeroTimeline();
 
         const title = document.querySelector('[data-anim-attr="hero-timeline-1"]');
         const media = document.querySelector('[data-anim-attr="merch_media"]');
@@ -3985,7 +3985,7 @@
             const [mainImage, ...rest] = media.children;
             const thumbnails = rest.flatMap(el => [...el.children]);
 
-            heroTl.from(mainImage, {
+            heroTl$1.from(mainImage, {
                 opacity: 0,
                 y: 30,
                 filter: "blur(8px)",
@@ -3994,7 +3994,7 @@
             });
 
             if (thumbnails.length) {
-                heroTl.from(thumbnails, {
+                heroTl$1.from(thumbnails, {
                     opacity: 0,
                     y: 20,
                     filter: "blur(8px)",
@@ -4006,8 +4006,8 @@
         }
 
         if (title) {
-            splitTitle = new SplitText(title, { type: "chars,words,lines" });
-            heroTl.from(splitTitle.chars, {
+            splitTitle$1 = new SplitText(title, { type: "chars,words,lines" });
+            heroTl$1.from(splitTitle$1.chars, {
                 opacity: 0,
                 x: 16,
                 y: "30%",
@@ -4021,7 +4021,7 @@
             const infoItems = [...info.children].filter(el => !title || !el.contains(title));
 
             if (infoItems.length) {
-                heroTl.from(infoItems, {
+                heroTl$1.from(infoItems, {
                     opacity: 0,
                     y: 20,
                     filter: "blur(8px)",
@@ -4037,10 +4037,179 @@
      * Destroy Merch hero animation
      */
     function destroyMerchHeroAnimation() {
-        if (heroTl) heroTl.kill();
-        if (splitTitle) splitTitle.revert();
-        heroTl = null;
-        splitTitle = null;
+        if (heroTl$1) heroTl$1.kill();
+        if (splitTitle$1) splitTitle$1.revert();
+        heroTl$1 = null;
+        splitTitle$1 = null;
+    }
+
+    /**
+     * Merch Order Store - Hands the chosen product from the product page to the checkout page
+     * Price here is for display only; the checkout worker looks up the real price from the CMS
+     */
+
+    const STORAGE_KEY = 'brandemic_merch_order';
+
+    const CHECKOUT_PATH = '/checkout';
+
+    function saveOrder(order) {
+        try {
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(order));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function loadOrder() {
+        try {
+            const order = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+            return order && order.slug ? order : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function clearOrder() {
+        try {
+            sessionStorage.removeItem(STORAGE_KEY);
+        } catch (e) { /* storage unavailable */ }
+    }
+
+    /**
+     * Parse a displayed price like "₹1,199" into a number
+     */
+    function parsePrice(text) {
+        const n = parseFloat(String(text || '').replace(/[^\d.]/g, ''));
+        return Number.isFinite(n) ? n : 0;
+    }
+
+    function formatINR(amount) {
+        return '₹' + Number(amount || 0).toLocaleString('en-IN');
+    }
+
+    /**
+     * Navigate with Barba when available so the page transition still plays
+     */
+    function goTo(path) {
+        if (typeof barba !== 'undefined' && barba.go) {
+            barba.go(path);
+        } else {
+            window.location.href = path;
+        }
+    }
+
+    /**
+     * Product Order - Size picker, quantity stepper and Place Order button on merch pages
+     */
+
+
+    const MIN_QTY = 1;
+    const MAX_QTY = 10;
+
+    let listeners = [];
+    let quantity = MIN_QTY;
+    let selectedSize = null;
+
+    function q$1(name, root = document) {
+        return root.querySelector(`[data-merch="${name}"]`);
+    }
+
+    function on(el, type, handler) {
+        if (!el) return;
+        el.addEventListener(type, handler);
+        listeners.push({ el, type, handler });
+    }
+
+    function renderQuantity() {
+        const valueEl = q$1('qty-value');
+        if (valueEl) {
+            if ('value' in valueEl) valueEl.value = quantity;
+            else valueEl.textContent = quantity;
+        }
+        q$1('qty-minus')?.classList.toggle('is-disabled', quantity <= MIN_QTY);
+        q$1('qty-plus')?.classList.toggle('is-disabled', quantity >= MAX_QTY);
+    }
+
+    function setQuantity(value) {
+        const n = parseInt(value, 10);
+        quantity = Math.min(MAX_QTY, Math.max(MIN_QTY, Number.isFinite(n) ? n : MIN_QTY));
+        renderQuantity();
+    }
+
+    function showSizeError(show) {
+        const errorEl = q$1('size-error');
+        if (errorEl) errorEl.style.display = show ? 'block' : 'none';
+    }
+
+    /**
+     * Product slug from the CMS template URL, e.g. /merch/pop-dealer-tee → pop-dealer-tee
+     */
+    function getSlug() {
+        return window.location.pathname.split('/').filter(Boolean).pop() || '';
+    }
+
+    function handlePlaceOrder(e) {
+        e.preventDefault();
+        e.stopPropagation(); // keep Barba from following the button's href
+
+        const sizeButtons = document.querySelectorAll('[data-merch="size"]');
+        if (sizeButtons.length && !selectedSize) {
+            showSizeError(true);
+            return;
+        }
+
+        const image = q$1('image');
+
+        saveOrder({
+            slug: getSlug(),
+            url: window.location.pathname,
+            name: q$1('name')?.textContent.trim() || document.title,
+            price: parsePrice(q$1('price')?.textContent),
+            image: image ? (image.currentSrc || image.src || '') : '',
+            size: selectedSize,
+            quantity,
+        });
+
+        goTo(CHECKOUT_PATH);
+    }
+
+    function initProductOrder() {
+        if (!q$1('place-order')) return;
+
+        quantity = MIN_QTY;
+        selectedSize = null;
+        renderQuantity();
+
+        on(q$1('qty-minus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity - 1); });
+        on(q$1('qty-plus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity + 1); });
+
+        // Typed quantity (only when qty-value is an input)
+        const valueEl = q$1('qty-value');
+        if (valueEl && 'value' in valueEl) {
+            on(valueEl, 'change', () => setQuantity(valueEl.value));
+        }
+
+        // Nothing is selected until the buyer picks, even if Webflow left is-active on one
+        const sizeButtons = [...document.querySelectorAll('[data-merch="size"]')];
+        sizeButtons.forEach(b => b.classList.remove('is-active'));
+        showSizeError(false);
+        sizeButtons.forEach(btn => {
+            on(btn, 'click', (e) => {
+                e.preventDefault();
+                sizeButtons.forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+                selectedSize = (btn.dataset.size || btn.textContent).trim();
+                showSizeError(false);
+            });
+        });
+
+        on(q$1('place-order'), 'click', handlePlaceOrder);
+    }
+
+    function destroyProductOrder() {
+        listeners.forEach(({ el, type, handler }) => el.removeEventListener(type, handler));
+        listeners = [];
     }
 
     /**
@@ -4057,6 +4226,7 @@
         animateCTA();
         initAccordionComponents();
         lineAnimation();
+        initProductOrder();
     }
 
     /**
@@ -4065,6 +4235,296 @@
     function destroyMerchAnimations() {
         destroyMerchHeroAnimation();
         destroyAccordionComponents();
+        destroyProductOrder();
+    }
+
+    /**
+     * Checkout Hero Animation - Page reveal and heading char reveal on the checkout page
+     */
+
+
+    let heroTl = null;
+    let splitTitle = null;
+
+    /**
+     * Initialize checkout hero animation
+     */
+    function initCheckoutHeroAnimation() {
+        heroTl = createHeroTimeline();
+
+        const title = document.querySelector('[data-anim-attr="hero-timeline-1"]');
+        if (title) {
+            splitTitle = new SplitText(title, { type: "chars,words,lines" });
+            heroTl.from(splitTitle.chars, {
+                opacity: 0,
+                x: 16,
+                y: "30%",
+                filter: "blur(10px)",
+                stagger: 0.03,
+            });
+        }
+    }
+
+    /**
+     * Destroy checkout hero animation
+     */
+    function destroyCheckoutHeroAnimation() {
+        if (heroTl) heroTl.kill();
+        if (splitTitle) splitTitle.revert();
+        heroTl = null;
+        splitTitle = null;
+    }
+
+    /**
+     * Merch Checkout - Order summary, shipping form and Razorpay payment
+     * The worker (workers/merch-checkout) sets the real price and verifies payments
+     */
+
+
+    const API_URL = 'https://brandemic-merch-checkout.web-455.workers.dev';
+    const RAZORPAY_SCRIPT = 'https://checkout.razorpay.com/v1/checkout.js';
+
+    const CUSTOMER_FIELDS = ['name', 'email', 'phone', 'address', 'city', 'state', 'pincode'];
+
+    let form = null;
+    let submitHandler = null;
+    let razorpayInstance = null;
+    let razorpayLoader = null;
+    let busy = false;
+    let submitLabel = '';
+
+    function q(name) {
+        return document.querySelector(`[data-merch="${name}"]`);
+    }
+
+    function setText(name, text) {
+        const el = q(name);
+        if (el) el.textContent = text;
+    }
+
+    function toggle(name, show) {
+        const el = q(name);
+        if (el) el.style.display = show ? 'block' : 'none';
+    }
+
+    function showError(message) {
+        setText('checkout-error', message);
+        toggle('checkout-error', !!message);
+    }
+
+    function loadRazorpay() {
+        if (window.Razorpay) return Promise.resolve();
+        if (!razorpayLoader) {
+            razorpayLoader = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = RAZORPAY_SCRIPT;
+                script.onload = resolve;
+                script.onerror = () => {
+                    razorpayLoader = null;
+                    reject(new Error('Could not load the payment window. Please check your connection and try again.'));
+                };
+                document.head.appendChild(script);
+            });
+        }
+        return razorpayLoader;
+    }
+
+    async function post(path, body) {
+        const res = await fetch(API_URL + path, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
+        return data;
+    }
+
+    function fillSummary(order) {
+        setText('summary-name', order.name);
+        setText('summary-size', order.size || '');
+        setText('summary-qty', order.quantity);
+        setText('summary-price', formatINR(order.price));
+        setText('summary-total', formatINR(order.price * order.quantity));
+
+        const image = q('summary-image');
+        if (image && order.image) {
+            image.removeAttribute('srcset');
+            image.src = order.image;
+        }
+
+        const link = q('summary-link');
+        if (link && order.url) link.setAttribute('href', order.url);
+    }
+
+    function getCustomer() {
+        const customer = {};
+        CUSTOMER_FIELDS.forEach(field => {
+            customer[field] = (form.elements[field]?.value || '').trim();
+        });
+        customer.phone = customer.phone.replace(/\D/g, '').replace(/^(91|0)(?=\d{10}$)/, '');
+        return customer;
+    }
+
+    function validate(customer) {
+        const missing = CUSTOMER_FIELDS.filter(field => !customer[field]);
+        if (missing.length) return 'Please fill in all the fields.';
+        if (!/^\S+@\S+\.\S+$/.test(customer.email)) return 'Please enter a valid email address.';
+        if (!/^[6-9]\d{9}$/.test(customer.phone)) return 'Please enter a valid 10-digit mobile number.';
+        if (!/^\d{6}$/.test(customer.pincode)) return 'Please enter a valid 6-digit pincode.';
+        return '';
+    }
+
+    function setBusy(value) {
+        busy = value;
+        const button = form?.querySelector('[type="submit"]');
+        if (!button) return;
+
+        const isInput = button.tagName === 'INPUT';
+        if (value) {
+            submitLabel = isInput ? button.value : button.textContent;
+            const waitLabel = button.dataset.wait || 'Please wait...';
+            if (isInput) button.value = waitLabel; else button.textContent = waitLabel;
+        } else if (submitLabel) {
+            if (isInput) button.value = submitLabel; else button.textContent = submitLabel;
+        }
+        button.disabled = value;
+    }
+
+    function showSuccess(paymentId) {
+        clearOrder();
+        setText('success-payment-id', paymentId);
+
+        // If the success message sits inside the content wrapper (e.g. Webflow's form "done" block),
+        // keep the summary visible and hide just the form
+        const content = q('checkout-content');
+        const success = q('checkout-success');
+        if (content && success && content.contains(success)) {
+            form.style.display = 'none';
+            showError('');
+        } else {
+            toggle('checkout-content', false);
+        }
+        toggle('checkout-success', true);
+        getSmoother()?.scrollTo(0, true);
+    }
+
+    function openRazorpay(created, customer) {
+        razorpayInstance = new Razorpay({
+            key: created.keyId,
+            order_id: created.orderId,
+            amount: created.amount,
+            currency: created.currency,
+            name: 'Brandemic',
+            description: created.description,
+            prefill: { name: customer.name, email: customer.email, contact: customer.phone },
+            handler: async (response) => {
+                try {
+                    await post('/verify-payment', response);
+                    showSuccess(response.razorpay_payment_id);
+                } catch (err) {
+                    showError(`We received your payment but couldn't confirm it automatically. Please contact us with payment ID ${response.razorpay_payment_id}.`);
+                }
+                setBusy(false);
+            },
+            modal: {
+                ondismiss: () => setBusy(false),
+            },
+        });
+
+        razorpayInstance.on('payment.failed', (response) => {
+            showError(response.error?.description || 'Payment failed. Please try again.');
+        });
+
+        razorpayInstance.open();
+    }
+
+    async function handleSubmit(e) {
+        // Stop Webflow's own form handler from submitting the address to Webflow
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (busy) return;
+
+        const order = loadOrder();
+        if (!order) {
+            toggle('checkout-content', false);
+            toggle('checkout-empty', true);
+            return;
+        }
+
+        const customer = getCustomer();
+        const error = validate(customer);
+        showError(error);
+        if (error) return;
+
+        setBusy(true);
+        try {
+            const [created] = await Promise.all([
+                post('/create-order', {
+                    slug: order.slug,
+                    size: order.size,
+                    quantity: order.quantity,
+                    customer,
+                }),
+                loadRazorpay(),
+            ]);
+            openRazorpay(created, customer);
+        } catch (err) {
+            showError(err.message);
+            setBusy(false);
+        }
+    }
+
+    function initCheckout() {
+        // Works whether the attribute is on the Form Block or the form inside it
+        const formEl = q('checkout-form');
+        form = formEl?.tagName === 'FORM' ? formEl : formEl?.querySelector('form');
+        if (!form) return;
+
+        showError('');
+        toggle('checkout-success', false);
+
+        const order = loadOrder();
+        toggle('checkout-content', !!order);
+        toggle('checkout-empty', !order);
+        if (order) fillSummary(order);
+
+        submitHandler = handleSubmit;
+        form.addEventListener('submit', submitHandler, true);
+
+        // Warm up the Razorpay script while the buyer fills the form
+        if (order) loadRazorpay().catch(() => { });
+    }
+
+    function destroyCheckout() {
+        if (form && submitHandler) form.removeEventListener('submit', submitHandler, true);
+        if (razorpayInstance) razorpayInstance.close();
+        form = null;
+        submitHandler = null;
+        razorpayInstance = null;
+        busy = false;
+        submitLabel = '';
+    }
+
+    /**
+     * Checkout Page - Initialize and destroy animations
+     */
+
+
+    /**
+     * Initialize all checkout page animations
+     */
+    function initCheckoutAnimations() {
+        initCheckoutHeroAnimation();
+        initCheckout();
+    }
+
+    /**
+     * Destroy all checkout page animations
+     */
+    function destroyCheckoutAnimations() {
+        destroyCheckoutHeroAnimation();
+        destroyCheckout();
     }
 
     /**
@@ -4236,6 +4696,14 @@
                 },
                 beforeLeave(data) {
                     destroyMerchAnimations();
+                },
+            }, {
+                namespace: 'checkout',
+                afterEnter(data) {
+                    initCheckoutAnimations();
+                },
+                beforeLeave(data) {
+                    destroyCheckoutAnimations();
                 },
             }]
         });
