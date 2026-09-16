@@ -3,7 +3,6 @@
  */
 
 import { saveOrder, parsePrice, goTo, CHECKOUT_PATH } from './orderStore.js';
-import { isMobile } from '../../utils/isMobile.js';
 
 const MIN_QTY = 1;
 const MAX_QTY = 10;
@@ -86,11 +85,11 @@ export function initProductOrder() {
     on(q('qty-minus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity - 1); });
     on(q('qty-plus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity + 1); });
 
-    // Typed quantity: works with a real input, or by making the text editable on desktop
+    // Typed quantity: works with a real input, or by making the text editable
     const valueEl = q('qty-value');
     if (valueEl && 'value' in valueEl) {
         on(valueEl, 'change', () => setQuantity(valueEl.value));
-    } else if (valueEl && !isMobile()) {
+    } else if (valueEl) {
         valueEl.setAttribute('contenteditable', 'true');
         valueEl.setAttribute('inputmode', 'numeric');
         valueEl.setAttribute('role', 'textbox');

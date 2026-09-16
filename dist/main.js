@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-09-16T14:32:48.034Z
+ * Built: 2026-09-16T14:37:41.446Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -4189,11 +4189,11 @@
         on(q$1('qty-minus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity - 1); });
         on(q$1('qty-plus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity + 1); });
 
-        // Typed quantity: works with a real input, or by making the text editable on desktop
+        // Typed quantity: works with a real input, or by making the text editable
         const valueEl = q$1('qty-value');
         if (valueEl && 'value' in valueEl) {
             on(valueEl, 'change', () => setQuantity(valueEl.value));
-        } else if (valueEl && !isMobile()) {
+        } else if (valueEl) {
             valueEl.setAttribute('contenteditable', 'true');
             valueEl.setAttribute('inputmode', 'numeric');
             valueEl.setAttribute('role', 'textbox');
