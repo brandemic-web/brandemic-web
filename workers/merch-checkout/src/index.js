@@ -12,7 +12,8 @@
  */
 
 const MAX_QTY = 10;
-const PRODUCT_CACHE_MS = 5 * 60 * 1000;
+// Short so CMS price changes reach checkout quickly (Webflow allows 60+ API calls/min)
+const PRODUCT_CACHE_MS = 60 * 1000;
 
 let productCache = { at: 0, items: null };
 
