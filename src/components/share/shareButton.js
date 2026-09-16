@@ -4,8 +4,7 @@
 
 let shareButtons = [];
 
-// Blog post share link + merch product share icon
-const SHARE_SELECTOR = '.blog_share, .share_button';
+const SHARE_SELECTOR = '.blog_share';
 
 /**
  * Handle share button click
