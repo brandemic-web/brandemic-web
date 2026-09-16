@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-09-16T10:50:46.642Z
+ * Built: 2026-09-16T14:32:48.034Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -4127,7 +4127,8 @@
 
     function renderQuantity() {
         const valueEl = q$1('qty-value');
-        if (valueEl) {
+        // Don't fight the buyer while they are typing
+        if (valueEl && valueEl !== document.activeElement) {
             if ('value' in valueEl) valueEl.value = quantity;
             else valueEl.textContent = quantity;
         }
@@ -4188,10 +4189,34 @@
         on(q$1('qty-minus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity - 1); });
         on(q$1('qty-plus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity + 1); });
 
-        // Typed quantity (only when qty-value is an input)
+        // Typed quantity: works with a real input, or by making the text editable on desktop
         const valueEl = q$1('qty-value');
         if (valueEl && 'value' in valueEl) {
             on(valueEl, 'change', () => setQuantity(valueEl.value));
+        } else if (valueEl && !isMobile()) {
+            valueEl.setAttribute('contenteditable', 'true');
+            valueEl.setAttribute('inputmode', 'numeric');
+            valueEl.setAttribute('role', 'textbox');
+
+            on(valueEl, 'input', () => {
+                const digits = valueEl.textContent.replace(/\D/g, '').slice(0, 2);
+                if (digits !== valueEl.textContent) valueEl.textContent = digits;
+            });
+            on(valueEl, 'keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    valueEl.blur();
+                }
+            });
+            on(valueEl, 'focus', () => {
+                // Select what's there so typing replaces it
+                const range = document.createRange();
+                range.selectNodeContents(valueEl);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            });
+            on(valueEl, 'blur', () => setQuantity(valueEl.textContent));
         }
 
         // Nothing is selected until the buyer picks, even if Webflow left is-active on one
@@ -4214,6 +4239,7 @@
     function destroyProductOrder() {
         listeners.forEach(({ el, type, handler }) => el.removeEventListener(type, handler));
         listeners = [];
+        q$1('qty-value')?.removeAttribute('contenteditable');
     }
 
     /**

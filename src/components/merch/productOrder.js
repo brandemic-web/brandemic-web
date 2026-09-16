@@ -3,6 +3,7 @@
  */
 
 import { saveOrder, parsePrice, goTo, CHECKOUT_PATH } from './orderStore.js';
+import { isMobile } from '../../utils/isMobile.js';
 
 const MIN_QTY = 1;
 const MAX_QTY = 10;
@@ -23,7 +24,8 @@ function on(el, type, handler) {
 
 function renderQuantity() {
     const valueEl = q('qty-value');
-    if (valueEl) {
+    // Don't fight the buyer while they are typing
+    if (valueEl && valueEl !== document.activeElement) {
         if ('value' in valueEl) valueEl.value = quantity;
         else valueEl.textContent = quantity;
     }
@@ -84,10 +86,34 @@ export function initProductOrder() {
     on(q('qty-minus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity - 1); });
     on(q('qty-plus'), 'click', (e) => { e.preventDefault(); setQuantity(quantity + 1); });
 
-    // Typed quantity (only when qty-value is an input)
+    // Typed quantity: works with a real input, or by making the text editable on desktop
     const valueEl = q('qty-value');
     if (valueEl && 'value' in valueEl) {
         on(valueEl, 'change', () => setQuantity(valueEl.value));
+    } else if (valueEl && !isMobile()) {
+        valueEl.setAttribute('contenteditable', 'true');
+        valueEl.setAttribute('inputmode', 'numeric');
+        valueEl.setAttribute('role', 'textbox');
+
+        on(valueEl, 'input', () => {
+            const digits = valueEl.textContent.replace(/\D/g, '').slice(0, 2);
+            if (digits !== valueEl.textContent) valueEl.textContent = digits;
+        });
+        on(valueEl, 'keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                valueEl.blur();
+            }
+        });
+        on(valueEl, 'focus', () => {
+            // Select what's there so typing replaces it
+            const range = document.createRange();
+            range.selectNodeContents(valueEl);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        });
+        on(valueEl, 'blur', () => setQuantity(valueEl.textContent));
     }
 
     // Nothing is selected until the buyer picks, even if Webflow left is-active on one
@@ -110,4 +136,5 @@ export function initProductOrder() {
 export function destroyProductOrder() {
     listeners.forEach(({ el, type, handler }) => el.removeEventListener(type, handler));
     listeners = [];
+    q('qty-value')?.removeAttribute('contenteditable');
 }
