@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-09-15T08:30:48.801Z
+ * Built: 2026-09-16T10:28:18.709Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -3533,6 +3533,9 @@
 
     let shareButtons = [];
 
+    // Blog post share link + merch product share icon
+    const SHARE_SELECTOR = '.blog_share, .share_button';
+
     /**
      * Handle share button click
      * Uses Web Share API on supported devices, fallback to clipboard copy
@@ -3590,15 +3593,17 @@
      * Show visual feedback after copy action
      */
     function showCopyFeedback(button, success) {
+        // Icon buttons (e.g. the merch share SVG) only get the state class - swapping
+        // their text would replace the icon
+        const isIcon = button.tagName.toLowerCase() === 'svg' || button.children.length > 0;
         const originalText = button.textContent;
-        const feedbackText = success ? 'Link Copied!' : 'Copy Failed';
-        
-        button.textContent = feedbackText;
-        button.classList.add('is-copied');
-        
+
+        if (!isIcon) button.textContent = success ? 'Link Copied!' : 'Copy Failed';
+        button.classList.add(success ? 'is-copied' : 'is-copy-failed');
+
         setTimeout(() => {
-            button.textContent = originalText;
-            button.classList.remove('is-copied');
+            if (!isIcon) button.textContent = originalText;
+            button.classList.remove('is-copied', 'is-copy-failed');
         }, 2000);
     }
 
@@ -3606,7 +3611,7 @@
      * Initialize share button functionality
      */
     function initShareButton() {
-        shareButtons = document.querySelectorAll('.blog_share');
+        shareButtons = document.querySelectorAll(SHARE_SELECTOR);
         
         shareButtons.forEach(button => {
             button.addEventListener('click', handleShare);
@@ -4227,6 +4232,7 @@
         initAccordionComponents();
         lineAnimation();
         initProductOrder();
+        initShareButton();
     }
 
     /**
@@ -4236,6 +4242,7 @@
         destroyMerchHeroAnimation();
         destroyAccordionComponents();
         destroyProductOrder();
+        destroyShareButton();
     }
 
     /**

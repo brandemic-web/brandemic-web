@@ -17,6 +17,9 @@ import { initAccordionComponents, destroyAccordionComponents, lineAnimation } fr
 // Merch
 import { initProductOrder, destroyProductOrder } from '../components/merch/productOrder.js';
 
+// Share
+import { initShareButton, destroyShareButton } from '../components/share/shareButton.js';
+
 /**
  * Initialize all merch page animations
  */
@@ -27,6 +30,7 @@ export function initMerchAnimations() {
     initAccordionComponents();
     lineAnimation();
     initProductOrder();
+    initShareButton();
 }
 
 /**
@@ -36,4 +40,5 @@ export function destroyMerchAnimations() {
     destroyMerchHeroAnimation();
     destroyAccordionComponents();
     destroyProductOrder();
+    destroyShareButton();
 }

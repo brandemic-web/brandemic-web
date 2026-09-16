@@ -4,6 +4,9 @@
 
 let shareButtons = [];
 
+// Blog post share link + merch product share icon
+const SHARE_SELECTOR = '.blog_share, .share_button';
+
 /**
  * Handle share button click
  * Uses Web Share API on supported devices, fallback to clipboard copy
@@ -61,15 +64,17 @@ function copyToClipboard(url, button) {
  * Show visual feedback after copy action
  */
 function showCopyFeedback(button, success) {
+    // Icon buttons (e.g. the merch share SVG) only get the state class - swapping
+    // their text would replace the icon
+    const isIcon = button.tagName.toLowerCase() === 'svg' || button.children.length > 0;
     const originalText = button.textContent;
-    const feedbackText = success ? 'Link Copied!' : 'Copy Failed';
-    
-    button.textContent = feedbackText;
-    button.classList.add('is-copied');
-    
+
+    if (!isIcon) button.textContent = success ? 'Link Copied!' : 'Copy Failed';
+    button.classList.add(success ? 'is-copied' : 'is-copy-failed');
+
     setTimeout(() => {
-        button.textContent = originalText;
-        button.classList.remove('is-copied');
+        if (!isIcon) button.textContent = originalText;
+        button.classList.remove('is-copied', 'is-copy-failed');
     }, 2000);
 }
 
@@ -77,7 +82,7 @@ function showCopyFeedback(button, success) {
  * Initialize share button functionality
  */
 export function initShareButton() {
-    shareButtons = document.querySelectorAll('.blog_share');
+    shareButtons = document.querySelectorAll(SHARE_SELECTOR);
     
     shareButtons.forEach(button => {
         button.addEventListener('click', handleShare);
