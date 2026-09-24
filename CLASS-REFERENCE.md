@@ -171,7 +171,7 @@ Functional hooks for ordering — a separate attribute from `data-anim-attr`. Ad
 | `.hamburger` | Hamburger icon (gets `.is-active`) |
 | `.mega_menu` / `.mega_menu-cta` / `.mega_menu-gradient` | Menu overlay / CTA / gradient |
 | `.nav_link-wrapper` / `.nav_link` | Nav links container / link |
-| `.nav_link-block` / `.nav_link-block-services` | Nav hover block / services dropdown |
+| `.nav_link-block` / `.nav_link-block-dropdown` | Nav hover block / dropdown with sub nav (`.nav_link-block-services` still works) |
 | `.nav_arrow-icon` | Arrow icon in nav |
 | `.sub_nav-wrapper` / `.sub_nav-link` | Sub-navigation container / links |
 
