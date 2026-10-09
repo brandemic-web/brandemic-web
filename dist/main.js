@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-09T07:34:07.016Z
+ * Built: 2026-10-09T11:01:33.344Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -1005,62 +1005,25 @@
     }
 
     /**
-     * Animate work images with FLIP
+     * Animate work images - lays the cards out as a normal row and starts the
+     * carousel ticker once scrolled into view. No flip/title reveal choreography.
      */
     function animateWorkImages() {
         const wrapper = document.querySelector(".work_images-wrapper");
         if (!wrapper) return;
 
         const images = document.querySelectorAll(".work_image");
-        const firstImage = images[0];
-        const secondImage = images[1];
-        const title = document.querySelector(".our-work_title");
-        const titleWrapper = document.querySelector(".our-work_title-wrapper");
 
         images.forEach((img, index) => {
             img.style.zIndex = images.length - index;
         });
-
-        const flipImages = Array.from(images).slice(0, 10);
-        const restImages = Array.from(images).slice(10);
-
-        gsap.set(firstImage, { rotation: 6 });
-        gsap.set(secondImage, { rotation: 3 });
-        gsap.set(restImages, { autoAlpha: 0 });
 
         ScrollTrigger.create({
             trigger: ".our-work_block",
             start: "center 75%",
             once: true,
             onEnter: () => {
-                const worksTl = gsap.timeline();
-
-                worksTl.to(title, {
-                    y: "-100%",
-                    duration: 1,
-                    ease: "power1.out"
-                })
-                    .to([firstImage, secondImage], {
-                        rotation: 0,
-                        duration: 1,
-                        ease: "power1.out"
-                    }, "<")
-                    .set(title, { autoAlpha: 0 })
-                    .set(titleWrapper, { autoAlpha: 0 })
-                    .add(() => {
-                        const state = Flip.getState(flipImages);
-                        wrapper.classList.add("flex-layout");
-
-                        Flip.from(state, {
-                            duration: 1,
-                            ease: "power1.out",
-                            stagger: 0.05,
-                            onComplete: () => {
-                                gsap.set(restImages, { autoAlpha: 1 });
-                                featuredWorkLoop();
-                            }
-                        });
-                    });
+                featuredWorkLoop();
             }
         });
     }
