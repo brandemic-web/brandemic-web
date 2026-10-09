@@ -5,6 +5,7 @@
 import { horizontalLoop } from '../../utils/horizontalLoop.js';
 
 const featuredWorkLoopHandlers = new Map();
+let currentLoop = null;
 
 /**
  * Initialize featured work horizontal loop
@@ -37,6 +38,8 @@ export function featuredWorkLoop() {
 
         featuredWorkLoopHandlers.set(image, { mouseenter, mouseleave });
     });
+
+    currentLoop = loop;
 }
 
 /**
@@ -48,6 +51,11 @@ export function destroyFeaturedWorkLoop() {
         image.removeEventListener("mouseleave", handlers.mouseleave);
     });
     featuredWorkLoopHandlers.clear();
+
+    if (currentLoop && typeof currentLoop.kill === "function") {
+        currentLoop.kill();
+    }
+    currentLoop = null;
 }
 
 /**

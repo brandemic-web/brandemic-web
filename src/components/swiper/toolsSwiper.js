@@ -2,6 +2,8 @@
  * Tools Swiper - Coverflow effect swiper for tools section
  */
 
+import { lazyLoadImagesIn } from '../../utils/lazyLoadImages.js';
+
 let toolsSwiperInstance = null;
 
 /**
@@ -26,6 +28,8 @@ export function initToolsSwiperScripts() {
             slideShadows: true,
         },
     });
+
+    lazyLoadImagesIn('.is-tools');
 }
 
 /**

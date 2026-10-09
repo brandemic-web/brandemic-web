@@ -2,6 +2,8 @@
  * Featured Swiper - Swiper for featured projects
  */
 
+import { lazyLoadImagesIn } from '../../utils/lazyLoadImages.js';
+
 let featuredSwiperInstance = null;
 
 /**
@@ -24,6 +26,8 @@ export function initFeaturedSwiper() {
             }
         }
     });
+
+    lazyLoadImagesIn('.is-featured-swiper');
 }
 
 /**

@@ -4,6 +4,12 @@
 
 import { isMobile } from '../../utils/isMobile.js';
 
+// Tracks the currently-bound fullscreen handlers so destroyStartVideo() can
+// actually remove them instead of silently no-op'ing (see destroyStartVideo).
+let activeVideoCursor = null;
+let activeEnterFullscreen = null;
+let activeExitFullscreen = null;
+
 /**
  * Play showreel video
  */
@@ -21,6 +27,10 @@ export function playVideo() {
  * Initialize video with fullscreen capability
  */
 export function startVideo() {
+    // Ensure any previously-bound listeners (from a prior startVideo() call)
+    // are removed first, so repeated calls never stack duplicate handlers.
+    destroyStartVideo();
+
     const mobile = isMobile();
 
     const videoCursor = document.getElementById('videoCursor');
@@ -132,19 +142,32 @@ export function startVideo() {
     //     });
     // }
 
-    // Attach the click listener **only once** to prevent duplicates
-    videoCursor.removeEventListener("click", enterFullscreen);
     videoCursor.addEventListener("click", enterFullscreen);
+
+    // Track these so destroyStartVideo() can remove the exact same references.
+    activeVideoCursor = videoCursor;
+    activeEnterFullscreen = enterFullscreen;
+    activeExitFullscreen = exitFullscreen;
 }
 
 /**
  * Cleanup video listeners
  */
 export function destroyStartVideo() {
-    const videoCursor = document.getElementById('videoCursor');
-    if (videoCursor) {
-        // Note: exitFullscreen reference may not be available here
-        // This is a limitation of the original code structure
+    if (activeVideoCursor) {
+        if (activeEnterFullscreen) {
+            activeVideoCursor.removeEventListener("click", activeEnterFullscreen);
+        }
+        if (activeExitFullscreen) {
+            activeVideoCursor.removeEventListener("click", activeExitFullscreen);
+        }
     }
+    if (activeExitFullscreen) {
+        document.removeEventListener("keydown", activeExitFullscreen);
+    }
+
+    activeVideoCursor = null;
+    activeEnterFullscreen = null;
+    activeExitFullscreen = null;
 }
 

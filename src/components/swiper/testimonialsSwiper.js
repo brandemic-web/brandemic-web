@@ -2,6 +2,8 @@
  * Testimonials Swiper - Creative effect swiper for testimonials
  */
 
+import { lazyLoadImagesIn } from '../../utils/lazyLoadImages.js';
+
 let testimonialsSwiperInstance = null;
 
 /**
@@ -34,6 +36,8 @@ export function initTestimonialsSwiperScripts() {
             prevEl: '.testimonials-prev',
         },
     });
+
+    lazyLoadImagesIn('.is-testimonials');
 }
 
 /**

@@ -10,7 +10,7 @@ import { initCharAnimations } from '../animations/text/charAnimations.js';
 import { initLineAnimations } from '../animations/text/lineAnimations.js';
 
 // Sections
-import { featuredWorkLoop } from '../animations/sections/featuredWork.js';
+import { featuredWorkLoop, destroyFeaturedWorkLoop } from '../animations/sections/featuredWork.js';
 import { initHorizontalTicker, hopscotchTicker, destroyTickers, destroyHorizontalTickers, initMarqueeSVG, destroyMarqueeSVG} from '../animations/sections/ticker.js';
 import { animateCTA } from '../animations/sections/cta.js';
 import { animateGalleryImages } from '../animations/sections/gallery.js';
@@ -60,6 +60,7 @@ export function initCaseStudyAnimations() {
  */
 export function destroyCaseStudyAnimations() {
     destroyHPIHeroAnimation();
+    destroyFeaturedWorkLoop();
     destroyTickers();
     destroyHorizontalTickers();
     destroyHappyFeetAnimation();

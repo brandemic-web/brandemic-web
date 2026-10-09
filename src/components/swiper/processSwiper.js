@@ -3,6 +3,7 @@
  */
 
 import { isMobile } from '../../utils/isMobile.js';
+import { lazyLoadImagesIn } from '../../utils/lazyLoadImages.js';
 
 let processSwiperInstance = null;
 
@@ -20,6 +21,8 @@ export function initProcessSwiper() {
                 prevEl: '#process-prev',
             },
         });
+
+        lazyLoadImagesIn('.is-process');
     }
 }
 

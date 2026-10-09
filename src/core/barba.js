@@ -58,6 +58,22 @@ export function getHeroAnimationFunction(namespace) {
 }
 
 let barbaInit = false;
+let lazyloadListenerAdded = false;
+let refreshScheduled = false;
+
+/**
+ * Coalesce multiple refresh requests (e.g. several images loading in quick
+ * succession) into a single ScrollTrigger.refresh() per frame, instead of
+ * one full reflow/remeasure per image.
+ */
+function scheduleScrollTriggerRefresh() {
+    if (refreshScheduled) return;
+    refreshScheduled = true;
+    requestAnimationFrame(() => {
+        refreshScheduled = false;
+        ScrollTrigger.refresh();
+    });
+}
 
 /**
  * Initialize Barba.js with all transitions and views
@@ -108,30 +124,38 @@ export function initBarba() {
                     mouseHover();
                 }
 
-                recreateSmoother();
-
                 ScrollTrigger.normalizeScroll(false);
 
+                // Kill the outgoing page's triggers *before* recreating the smoother,
+                // so the freshly-created smoother's own ScrollTrigger isn't
+                // immediately killed along with them.
                 let triggers = ScrollTrigger.getAll();
                 triggers.forEach(trigger => {
                     trigger.kill();
                 });
 
+                recreateSmoother();
+
                 footerLimitless();
                 copyYear();
 
                 if (!mobile) {
+                    // Coalesce every image's load event into a single refresh per
+                    // frame instead of one full reflow per image.
                     document.querySelectorAll("img").forEach(img => {
                         if (img.complete) {
-                            ScrollTrigger.refresh();
+                            scheduleScrollTriggerRefresh();
                         } else {
-                            img.addEventListener('load', imgLoaded => ScrollTrigger.refresh());
+                            img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
                         }
                     });
 
-                    document.addEventListener('lazyloaded', function (e) {
-                        ScrollTrigger.refresh();
-                    });
+                    if (!lazyloadListenerAdded) {
+                        lazyloadListenerAdded = true;
+                        document.addEventListener('lazyloaded', function (e) {
+                            scheduleScrollTriggerRefresh();
+                        });
+                    }
                 }
             },
             async enter(data) {

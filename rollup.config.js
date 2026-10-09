@@ -30,7 +30,7 @@ export default {
             format: 'iife',
             name: 'BrandemicAnimations',
             sourcemap: false,
-            plugins: [terser()],
+            plugins: [terser({ compress: { drop_console: true } })],
             banner: `/* Brandemic - Minified */`
         }
     ],

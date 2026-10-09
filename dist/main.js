@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-09-24T19:41:04.279Z
+ * Built: 2026-10-09T07:34:07.016Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -560,6 +560,12 @@
      */
 
 
+    // Tracks the currently-bound fullscreen handlers so destroyStartVideo() can
+    // actually remove them instead of silently no-op'ing (see destroyStartVideo).
+    let activeVideoCursor = null;
+    let activeEnterFullscreen = null;
+    let activeExitFullscreen = null;
+
     /**
      * Play showreel video
      */
@@ -577,6 +583,10 @@
      * Initialize video with fullscreen capability
      */
     function startVideo() {
+        // Ensure any previously-bound listeners (from a prior startVideo() call)
+        // are removed first, so repeated calls never stack duplicate handlers.
+        destroyStartVideo();
+
         const mobile = isMobile();
 
         const videoCursor = document.getElementById('videoCursor');
@@ -688,16 +698,33 @@
         //     });
         // }
 
-        // Attach the click listener **only once** to prevent duplicates
-        videoCursor.removeEventListener("click", enterFullscreen);
         videoCursor.addEventListener("click", enterFullscreen);
+
+        // Track these so destroyStartVideo() can remove the exact same references.
+        activeVideoCursor = videoCursor;
+        activeEnterFullscreen = enterFullscreen;
+        activeExitFullscreen = exitFullscreen;
     }
 
     /**
      * Cleanup video listeners
      */
     function destroyStartVideo() {
-        document.getElementById('videoCursor');
+        if (activeVideoCursor) {
+            if (activeEnterFullscreen) {
+                activeVideoCursor.removeEventListener("click", activeEnterFullscreen);
+            }
+            if (activeExitFullscreen) {
+                activeVideoCursor.removeEventListener("click", activeExitFullscreen);
+            }
+        }
+        if (activeExitFullscreen) {
+            document.removeEventListener("keydown", activeExitFullscreen);
+        }
+
+        activeVideoCursor = null;
+        activeEnterFullscreen = null;
+        activeExitFullscreen = null;
     }
 
     /*
@@ -718,7 +745,7 @@
         let timeline;
         items = gsap.utils.toArray(items);
         config = config || {};
-        gsap.context(() => { // use a context so that if this is called from within another context or a gsap.matchMedia(), we can perform proper cleanup like the "resize" event handler on the window
+        const ctx = gsap.context(() => { // use a context so that if this is called from within another context or a gsap.matchMedia(), we can perform proper cleanup like the "resize" event handler on the window
             let onChange = config.onChange,
                 lastIndex = 0,
                 tl = gsap.timeline({
@@ -905,6 +932,16 @@
             timeline = tl;
             return () => window.removeEventListener("resize", onResize); // cleanup
         });
+
+        // Expose the context's cleanup (resize listener + any Draggable created above)
+        // through the existing timeline.kill() API, so every call site that already
+        // does `loop.kill()` for teardown now also releases these without any changes.
+        const originalKill = timeline.kill.bind(timeline);
+        timeline.kill = (...args) => {
+            ctx.revert();
+            return originalKill(...args);
+        };
+
         return timeline;
     }
 
@@ -914,6 +951,7 @@
 
 
     const featuredWorkLoopHandlers = new Map();
+    let currentLoop = null;
 
     /**
      * Initialize featured work horizontal loop
@@ -946,6 +984,8 @@
 
             featuredWorkLoopHandlers.set(image, { mouseenter, mouseleave });
         });
+
+        currentLoop = loop;
     }
 
     /**
@@ -957,6 +997,11 @@
             image.removeEventListener("mouseleave", handlers.mouseleave);
         });
         featuredWorkLoopHandlers.clear();
+
+        if (currentLoop && typeof currentLoop.kill === "function") {
+            currentLoop.kill();
+        }
+        currentLoop = null;
     }
 
     /**
@@ -1604,8 +1649,29 @@
     }
 
     /**
+     * Marks images inside a container as lazy/async-decoded so the browser
+     * defers fetching them until they're near the viewport, instead of Swiper's
+     * default of requesting every slide's image eagerly on init.
+     * @param {string} containerSelector
+     */
+    function lazyLoadImagesIn(containerSelector) {
+        const container = document.querySelector(containerSelector);
+        if (!container) return;
+
+        container.querySelectorAll('img').forEach(img => {
+            if (!img.hasAttribute('loading')) {
+                img.setAttribute('loading', 'lazy');
+            }
+            if (!img.hasAttribute('decoding')) {
+                img.setAttribute('decoding', 'async');
+            }
+        });
+    }
+
+    /**
      * Tools Swiper - Coverflow effect swiper for tools section
      */
+
 
     let toolsSwiperInstance = null;
 
@@ -1631,6 +1697,8 @@
                 slideShadows: true,
             },
         });
+
+        lazyLoadImagesIn('.is-tools');
     }
 
     /**
@@ -1646,6 +1714,7 @@
     /**
      * Testimonials Swiper - Creative effect swiper for testimonials
      */
+
 
     let testimonialsSwiperInstance = null;
 
@@ -1679,6 +1748,8 @@
                 prevEl: '.testimonials-prev',
             },
         });
+
+        lazyLoadImagesIn('.is-testimonials');
     }
 
     /**
@@ -2232,6 +2303,8 @@
                     prevEl: '#process-prev',
                 },
             });
+
+            lazyLoadImagesIn('.is-process');
         }
     }
 
@@ -3252,7 +3325,26 @@
       // Prevent unnecessary reassignments
       if (iframe.src === url) return;
 
-      iframe.src = url;
+      const loadIframe = () => {
+        if (iframe.src !== url) iframe.src = url;
+      };
+
+      // Defer loading the embedded site until the preview is about to scroll
+      // into view, instead of fetching it immediately on every page load.
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              loadIframe();
+              obs.disconnect();
+            }
+          });
+        }, { rootMargin: "600px 0px" });
+
+        observer.observe(section);
+      } else {
+        loadIframe();
+      }
     }
 
     /**
@@ -3293,6 +3385,7 @@
      */
     function destroyCaseStudyAnimations() {
         destroyHPIHeroAnimation();
+        destroyFeaturedWorkLoop();
         destroyTickers();
         destroyHorizontalTickers();
         destroyHappyFeetAnimation();
@@ -3307,6 +3400,7 @@
     /**
      * Featured Swiper - Swiper for featured projects
      */
+
 
     let featuredSwiperInstance = null;
 
@@ -3330,6 +3424,8 @@
                 }
             }
         });
+
+        lazyLoadImagesIn('.is-featured-swiper');
     }
 
     /**
@@ -4731,6 +4827,22 @@
 
 
     let barbaInit = false;
+    let lazyloadListenerAdded = false;
+    let refreshScheduled = false;
+
+    /**
+     * Coalesce multiple refresh requests (e.g. several images loading in quick
+     * succession) into a single ScrollTrigger.refresh() per frame, instead of
+     * one full reflow/remeasure per image.
+     */
+    function scheduleScrollTriggerRefresh() {
+        if (refreshScheduled) return;
+        refreshScheduled = true;
+        requestAnimationFrame(() => {
+            refreshScheduled = false;
+            ScrollTrigger.refresh();
+        });
+    }
 
     /**
      * Initialize Barba.js with all transitions and views
@@ -4781,30 +4893,38 @@
                         mouseHover();
                     }
 
-                    recreateSmoother();
-
                     ScrollTrigger.normalizeScroll(false);
 
+                    // Kill the outgoing page's triggers *before* recreating the smoother,
+                    // so the freshly-created smoother's own ScrollTrigger isn't
+                    // immediately killed along with them.
                     let triggers = ScrollTrigger.getAll();
                     triggers.forEach(trigger => {
                         trigger.kill();
                     });
 
+                    recreateSmoother();
+
                     footerLimitless();
                     copyYear();
 
                     if (!mobile) {
+                        // Coalesce every image's load event into a single refresh per
+                        // frame instead of one full reflow per image.
                         document.querySelectorAll("img").forEach(img => {
                             if (img.complete) {
-                                ScrollTrigger.refresh();
+                                scheduleScrollTriggerRefresh();
                             } else {
-                                img.addEventListener('load', imgLoaded => ScrollTrigger.refresh());
+                                img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
                             }
                         });
 
-                        document.addEventListener('lazyloaded', function (e) {
-                            ScrollTrigger.refresh();
-                        });
+                        if (!lazyloadListenerAdded) {
+                            lazyloadListenerAdded = true;
+                            document.addEventListener('lazyloaded', function (e) {
+                                scheduleScrollTriggerRefresh();
+                            });
+                        }
                     }
                 },
                 async enter(data) {
@@ -5091,18 +5211,11 @@
 
 
     /**
-     * Main initialization function
-     * Called when DOM is ready and fonts are loaded
+     * UI wiring that has no dependency on GSAP plugins or font metrics
+     * (cursor, nav, buttons). Runs as soon as the DOM is ready so the nav/menu
+     * aren't stuck waiting on web fonts to finish loading before they respond.
      */
-    function init() {
-        const mobile = isMobile();
-
-        // Initialize Barba.js for page transitions
-        initBarba();
-
-        // Initialize smooth scrolling
-        initSmoothScroller();
-
+    function initUI(mobile) {
         // Desktop-only features
         if (!mobile) {
             window.addEventListener("load", () => {
@@ -5118,6 +5231,22 @@
         megaMenuToggle();
         initNavHoverAnimation();
         initSubMenuNavHover();
+    }
+
+    /**
+     * Animation setup that relies on GSAP plugins (SplitText/ScrollTrigger) and
+     * needs final font metrics to measure text correctly, so it waits on
+     * document.fonts.ready.
+     */
+    function initAnimations() {
+        // Register GSAP plugins
+        registerGSAPPlugins();
+
+        // Initialize Barba.js for page transitions
+        initBarba();
+
+        // Initialize smooth scrolling
+        initSmoothScroller();
 
         // Footer
         footerLimitless();
@@ -5128,12 +5257,12 @@
      * Bootstrap the application
      */
     document.addEventListener("DOMContentLoaded", (event) => {
-        document.fonts.ready.then(() => {
-            // Register GSAP plugins
-            registerGSAPPlugins();
+        const mobile = isMobile();
 
-            // Initialize the app
-            init();
+        initUI(mobile);
+
+        document.fonts.ready.then(() => {
+            initAnimations();
         });
     });
 

@@ -31,18 +31,11 @@ import { footerLimitless, copyYear } from './footer/footer.js';
 import { isMobile } from './utils/isMobile.js';
 
 /**
- * Main initialization function
- * Called when DOM is ready and fonts are loaded
+ * UI wiring that has no dependency on GSAP plugins or font metrics
+ * (cursor, nav, buttons). Runs as soon as the DOM is ready so the nav/menu
+ * aren't stuck waiting on web fonts to finish loading before they respond.
  */
-function init() {
-    const mobile = isMobile();
-
-    // Initialize Barba.js for page transitions
-    initBarba();
-
-    // Initialize smooth scrolling
-    initSmoothScroller();
-
+function initUI(mobile) {
     // Desktop-only features
     if (!mobile) {
         window.addEventListener("load", () => {
@@ -58,6 +51,22 @@ function init() {
     megaMenuToggle();
     initNavHoverAnimation();
     initSubMenuNavHover();
+}
+
+/**
+ * Animation setup that relies on GSAP plugins (SplitText/ScrollTrigger) and
+ * needs final font metrics to measure text correctly, so it waits on
+ * document.fonts.ready.
+ */
+function initAnimations() {
+    // Register GSAP plugins
+    registerGSAPPlugins();
+
+    // Initialize Barba.js for page transitions
+    initBarba();
+
+    // Initialize smooth scrolling
+    initSmoothScroller();
 
     // Footer
     footerLimitless();
@@ -68,12 +77,12 @@ function init() {
  * Bootstrap the application
  */
 document.addEventListener("DOMContentLoaded", (event) => {
-    document.fonts.ready.then(() => {
-        // Register GSAP plugins
-        registerGSAPPlugins();
+    const mobile = isMobile();
 
-        // Initialize the app
-        init();
+    initUI(mobile);
+
+    document.fonts.ready.then(() => {
+        initAnimations();
     });
 });
 

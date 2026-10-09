@@ -16,7 +16,7 @@ export function horizontalLoop(items, config) {
     let timeline;
     items = gsap.utils.toArray(items);
     config = config || {};
-    gsap.context(() => { // use a context so that if this is called from within another context or a gsap.matchMedia(), we can perform proper cleanup like the "resize" event handler on the window
+    const ctx = gsap.context(() => { // use a context so that if this is called from within another context or a gsap.matchMedia(), we can perform proper cleanup like the "resize" event handler on the window
         let onChange = config.onChange,
             lastIndex = 0,
             tl = gsap.timeline({
@@ -203,5 +203,15 @@ export function horizontalLoop(items, config) {
         timeline = tl;
         return () => window.removeEventListener("resize", onResize); // cleanup
     });
+
+    // Expose the context's cleanup (resize listener + any Draggable created above)
+    // through the existing timeline.kill() API, so every call site that already
+    // does `loop.kill()` for teardown now also releases these without any changes.
+    const originalKill = timeline.kill.bind(timeline);
+    timeline.kill = (...args) => {
+        ctx.revert();
+        return originalKill(...args);
+    };
+
     return timeline;
 }

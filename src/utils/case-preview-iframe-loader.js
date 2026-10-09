@@ -22,5 +22,24 @@ export function initCasePreviewIframe() {
   // Prevent unnecessary reassignments
   if (iframe.src === url) return;
 
-  iframe.src = url;
+  const loadIframe = () => {
+    if (iframe.src !== url) iframe.src = url;
+  };
+
+  // Defer loading the embedded site until the preview is about to scroll
+  // into view, instead of fetching it immediately on every page load.
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          loadIframe();
+          obs.disconnect();
+        }
+      });
+    }, { rootMargin: "600px 0px" });
+
+    observer.observe(section);
+  } else {
+    loadIframe();
+  }
 }
