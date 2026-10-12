@@ -27,8 +27,12 @@ export function initFilterPortfolio() {
         items.forEach(item => {
             const categoryElements = item.querySelectorAll('.category');
             const itemCategories = Array.from(categoryElements).map(el => el.textContent.trim().toLowerCase());
+            const isFeaturedOnSharkTank = !!item.querySelector('.featured_on_sharktank_wrapper');
 
-            const matches = activeCategories.some(cat => itemCategories.includes(cat));
+            const matches = activeCategories.some(cat => {
+                if (cat === 'featured_shark_tank') return isFeaturedOnSharkTank;
+                return itemCategories.includes(cat);
+            });
             const shouldShow = activeCategories.length === 0 || activeCategories.length === filters.length || matches;
 
             item.style.display = shouldShow ? 'block' : 'none';

@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-09T11:01:33.344Z
+ * Built: 2026-10-12T08:47:20.133Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2450,8 +2450,12 @@
             items.forEach(item => {
                 const categoryElements = item.querySelectorAll('.category');
                 const itemCategories = Array.from(categoryElements).map(el => el.textContent.trim().toLowerCase());
+                const isFeaturedOnSharkTank = !!item.querySelector('.featured_on_sharktank_wrapper');
 
-                const matches = activeCategories.some(cat => itemCategories.includes(cat));
+                const matches = activeCategories.some(cat => {
+                    if (cat === 'featured_shark_tank') return isFeaturedOnSharkTank;
+                    return itemCategories.includes(cat);
+                });
                 const shouldShow = activeCategories.length === 0 || activeCategories.length === filters.length || matches;
 
                 item.style.display = shouldShow ? 'block' : 'none';
