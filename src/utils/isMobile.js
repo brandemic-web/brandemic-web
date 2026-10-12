@@ -3,6 +3,6 @@
  * @returns {boolean}
  */
 export function isMobile() {
-    return window.matchMedia("(max-width: 768px)").matches;
+    return window.matchMedia("(max-width: 991px)").matches;
 }
 
