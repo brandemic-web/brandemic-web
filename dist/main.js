@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-12T09:56:24.220Z
+ * Built: 2026-10-12T12:53:25.599Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -90,7 +90,7 @@
      * @returns {boolean}
      */
     function isMobile() {
-        return window.matchMedia("(max-width: 991px)").matches;
+        return window.matchMedia("(max-width: 1024px)").matches;
     }
 
     /**
@@ -321,15 +321,21 @@
      * Footer Animations - Footer text animation and copyright year
      */
 
+    let limitlessSplit = null;
+    let limitlessTween = null;
+
     /**
      * Animate "Think Limitless" text and footer AI elements in footer
      */
     function footerLimitless() {
         const thinkLimitless = document.querySelector('[data-anim-attr="think-limitless"]');
         if (thinkLimitless) {
-            const splitLimitless = new SplitText(thinkLimitless, { type: "chars" });
+            if (limitlessTween) limitlessTween.kill();
+            if (limitlessSplit) limitlessSplit.revert();
 
-            gsap.from(splitLimitless.chars, {
+            limitlessSplit = new SplitText(thinkLimitless, { type: "chars" });
+
+            limitlessTween = gsap.from(limitlessSplit.chars, {
                 y: "100%",
                 stagger: 0.1,
                 scrollTrigger: {
@@ -1040,7 +1046,8 @@
      */
     function serviceHoverAnimation() {
         const elements = document.querySelectorAll('[data-anim-attr="services-element"]');
-        const mobile = isMobile();
+        const isTablet = window.matchMedia("(min-width: 768px) and (max-width: 991px)").matches;
+        const mobile = isMobile() && !isTablet;
 
         elements.forEach((element) => {
             const serviceLine = element.querySelector('[data-anim-attr="service_line"]');

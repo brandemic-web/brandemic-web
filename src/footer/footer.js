@@ -2,15 +2,21 @@
  * Footer Animations - Footer text animation and copyright year
  */
 
+let limitlessSplit = null;
+let limitlessTween = null;
+
 /**
  * Animate "Think Limitless" text and footer AI elements in footer
  */
 export function footerLimitless() {
     const thinkLimitless = document.querySelector('[data-anim-attr="think-limitless"]');
     if (thinkLimitless) {
-        const splitLimitless = new SplitText(thinkLimitless, { type: "chars" });
+        if (limitlessTween) limitlessTween.kill();
+        if (limitlessSplit) limitlessSplit.revert();
 
-        gsap.from(splitLimitless.chars, {
+        limitlessSplit = new SplitText(thinkLimitless, { type: "chars" });
+
+        limitlessTween = gsap.from(limitlessSplit.chars, {
             y: "100%",
             stagger: 0.1,
             scrollTrigger: {

@@ -11,7 +11,8 @@ let serviceHoverCleanupFns = [];
  */
 export function serviceHoverAnimation() {
     const elements = document.querySelectorAll('[data-anim-attr="services-element"]');
-    const mobile = isMobile();
+    const isTablet = window.matchMedia("(min-width: 768px) and (max-width: 991px)").matches;
+    const mobile = isMobile() && !isTablet;
 
     elements.forEach((element) => {
         const serviceLine = element.querySelector('[data-anim-attr="service_line"]');
