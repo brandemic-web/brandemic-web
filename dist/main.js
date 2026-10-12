@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-12T12:53:25.599Z
+ * Built: 2026-10-12T13:36:46.271Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -4882,23 +4882,21 @@
                     footerLimitless();
                     copyYear();
 
-                    if (!mobile) {
-                        // Coalesce every image's load event into a single refresh per
-                        // frame instead of one full reflow per image.
-                        document.querySelectorAll("img").forEach(img => {
-                            if (img.complete) {
-                                scheduleScrollTriggerRefresh();
-                            } else {
-                                img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
-                            }
-                        });
-
-                        if (!lazyloadListenerAdded) {
-                            lazyloadListenerAdded = true;
-                            document.addEventListener('lazyloaded', function (e) {
-                                scheduleScrollTriggerRefresh();
-                            });
+                    // Coalesce every image's load event into a single refresh per
+                    // frame instead of one full reflow per image.
+                    document.querySelectorAll("img").forEach(img => {
+                        if (img.complete) {
+                            scheduleScrollTriggerRefresh();
+                        } else {
+                            img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
                         }
+                    });
+
+                    if (!lazyloadListenerAdded) {
+                        lazyloadListenerAdded = true;
+                        document.addEventListener('lazyloaded', function (e) {
+                            scheduleScrollTriggerRefresh();
+                        });
                     }
                 },
                 async enter(data) {

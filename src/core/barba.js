@@ -139,23 +139,21 @@ export function initBarba() {
                 footerLimitless();
                 copyYear();
 
-                if (!mobile) {
-                    // Coalesce every image's load event into a single refresh per
-                    // frame instead of one full reflow per image.
-                    document.querySelectorAll("img").forEach(img => {
-                        if (img.complete) {
-                            scheduleScrollTriggerRefresh();
-                        } else {
-                            img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
-                        }
-                    });
-
-                    if (!lazyloadListenerAdded) {
-                        lazyloadListenerAdded = true;
-                        document.addEventListener('lazyloaded', function (e) {
-                            scheduleScrollTriggerRefresh();
-                        });
+                // Coalesce every image's load event into a single refresh per
+                // frame instead of one full reflow per image.
+                document.querySelectorAll("img").forEach(img => {
+                    if (img.complete) {
+                        scheduleScrollTriggerRefresh();
+                    } else {
+                        img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
                     }
+                });
+
+                if (!lazyloadListenerAdded) {
+                    lazyloadListenerAdded = true;
+                    document.addEventListener('lazyloaded', function (e) {
+                        scheduleScrollTriggerRefresh();
+                    });
                 }
             },
             async enter(data) {
