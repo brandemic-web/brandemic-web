@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-12T09:52:54.275Z
+ * Built: 2026-10-12T09:56:24.220Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -90,7 +90,7 @@
      * @returns {boolean}
      */
     function isMobile() {
-        return window.matchMedia("(max-width: 1366px)").matches;
+        return window.matchMedia("(max-width: 991px)").matches;
     }
 
     /**
