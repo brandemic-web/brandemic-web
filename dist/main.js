@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-13T10:31:13.397Z
+ * Built: 2026-10-13T10:43:54.532Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2564,7 +2564,7 @@
             endTrigger: list,
             end: () => `bottom top+=${getBarBottom()}`,
             pin: true,
-            pinSpacing: false,
+            pinSpacing: true,
             anticipatePin: 1,
             invalidateOnRefresh: true,
         });

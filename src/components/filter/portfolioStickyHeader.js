@@ -58,7 +58,7 @@ export function initPortfolioStickyHeader() {
         endTrigger: list,
         end: () => `bottom top+=${getBarBottom()}`,
         pin: true,
-        pinSpacing: false,
+        pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
     });
