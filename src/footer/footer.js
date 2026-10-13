@@ -23,7 +23,6 @@ export function footerLimitless() {
                 trigger: thinkLimitless,
                 start: "top 90%",
                 toggleActions: "play none none none",
-                markers: true,
             }
         });
     }

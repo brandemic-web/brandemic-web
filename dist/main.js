@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-13T06:35:02.692Z
+ * Built: 2026-10-13T06:37:48.554Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -342,7 +342,6 @@
                     trigger: thinkLimitless,
                     start: "top 90%",
                     toggleActions: "play none none none",
-                    markers: true,
                 }
             });
         }
