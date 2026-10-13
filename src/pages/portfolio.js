@@ -14,6 +14,7 @@ import { animateCTA } from '../animations/sections/cta.js';
 
 // Filter
 import { initFilterPortfolio, destroyFilterPortfolio } from '../components/filter/portfolioFilter.js';
+import { initPortfolioStickyHeader, destroyPortfolioStickyHeader } from '../components/filter/portfolioStickyHeader.js';
 
 // Scroll
 import { applyParallaxEffect } from '../animations/scroll/parallax.js';
@@ -33,6 +34,7 @@ export function initPortfolioAnimations() {
     applyParallaxEffect();
     animateSvgPaths();
     initFilterPortfolio();
+    initPortfolioStickyHeader();
     animateCTA();
 }
 
@@ -43,5 +45,6 @@ export function destroyPortfolioAnimations() {
     destroyHPIHeroAnimation();
     destroyVisionSectionAnimation();
     destroyFilterPortfolio();
+    destroyPortfolioStickyHeader();
 }
 
