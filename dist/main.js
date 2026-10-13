@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-13T06:03:38.371Z
+ * Built: 2026-10-13T06:14:38.258Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -4855,6 +4855,29 @@
     }
 
     /**
+     * Refresh ScrollTrigger once the current page's images (including Webflow's
+     * lazy-loaded ones) finish loading. Needed on both the initial hard page
+     * load and every Barba transition, since lazy-loaded images change layout
+     * after ScrollTriggers have already been created/measured.
+     */
+    function refreshScrollTriggerOnAssetsLoad() {
+        document.querySelectorAll("img").forEach(img => {
+            if (img.complete) {
+                scheduleScrollTriggerRefresh();
+            } else {
+                img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
+            }
+        });
+
+        if (!lazyloadListenerAdded) {
+            lazyloadListenerAdded = true;
+            document.addEventListener('lazyloaded', function (e) {
+                scheduleScrollTriggerRefresh();
+            });
+        }
+    }
+
+    /**
      * Initialize Barba.js with all transitions and views
      */
     function initBarba() {
@@ -4918,22 +4941,7 @@
                     footerLimitless();
                     copyYear();
 
-                    // Coalesce every image's load event into a single refresh per
-                    // frame instead of one full reflow per image.
-                    document.querySelectorAll("img").forEach(img => {
-                        if (img.complete) {
-                            scheduleScrollTriggerRefresh();
-                        } else {
-                            img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
-                        }
-                    });
-
-                    if (!lazyloadListenerAdded) {
-                        lazyloadListenerAdded = true;
-                        document.addEventListener('lazyloaded', function (e) {
-                            scheduleScrollTriggerRefresh();
-                        });
-                    }
+                    refreshScrollTriggerOnAssetsLoad();
                 },
                 async enter(data) {
                     gsap.from(data.next.container, {
@@ -5259,6 +5267,8 @@
         // Footer
         footerLimitless();
         copyYear();
+
+        refreshScrollTriggerOnAssetsLoad();
     }
 
     /**

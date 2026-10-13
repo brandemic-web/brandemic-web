@@ -16,7 +16,7 @@
 // Core
 import { registerGSAPPlugins } from './core/gsapConfig.js';
 import { initSmoothScroller } from './core/smoothScroll.js';
-import { initBarba } from './core/barba.js';
+import { initBarba, refreshScrollTriggerOnAssetsLoad } from './core/barba.js';
 
 // Components
 import { customCursorInit, mouseHover } from './components/cursor/customCursor.js';
@@ -71,6 +71,8 @@ function initAnimations() {
     // Footer
     footerLimitless();
     copyYear();
+
+    refreshScrollTriggerOnAssetsLoad();
 }
 
 /**
