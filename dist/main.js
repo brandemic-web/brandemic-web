@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-13T06:31:25.600Z
+ * Built: 2026-10-13T06:35:02.692Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -340,7 +340,7 @@
                 stagger: 0.1,
                 scrollTrigger: {
                     trigger: thinkLimitless,
-                    start: "top 80%",
+                    start: "top 90%",
                     toggleActions: "play none none none",
                     markers: true,
                 }

@@ -21,7 +21,7 @@ export function footerLimitless() {
             stagger: 0.1,
             scrollTrigger: {
                 trigger: thinkLimitless,
-                start: "top 80%",
+                start: "top 90%",
                 toggleActions: "play none none none",
                 markers: true,
             }
