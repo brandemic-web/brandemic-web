@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-13T06:14:38.258Z
+ * Built: 2026-10-13T06:31:25.600Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -324,25 +324,6 @@
     let limitlessSplit = null;
     let limitlessTween = null;
 
-    // DEBUG: append ?debugFooter to the URL to log ScrollTrigger diagnostics
-    // for the footer animation to the console. Remove once the issue is found.
-    const DEBUG_FOOTER = typeof window !== 'undefined' && window.location.search.includes('debugFooter');
-
-    function logFooterDebug(label, thinkLimitless) {
-        if (!DEBUG_FOOTER) return;
-        const rect = thinkLimitless.getBoundingClientRect();
-        console.log(`[footerDebug] ${label}`, {
-            innerHeight: window.innerHeight,
-            innerWidth: window.innerWidth,
-            docScrollHeight: document.documentElement.scrollHeight,
-            scrollY: window.scrollY,
-            elementTop: rect.top,
-            elementBottom: rect.bottom,
-            triggerPointPx: window.innerHeight * 0.75,
-            distanceToTrigger: rect.top - window.innerHeight * 0.75,
-        });
-    }
-
     /**
      * Animate "Think Limitless" text and footer AI elements in footer
      */
@@ -354,30 +335,14 @@
 
             limitlessSplit = new SplitText(thinkLimitless, { type: "chars" });
 
-            logFooterDebug('init', thinkLimitless);
-
             limitlessTween = gsap.from(limitlessSplit.chars, {
                 y: "100%",
                 stagger: 0.1,
                 scrollTrigger: {
                     trigger: thinkLimitless,
-                    start: "top 75%",
+                    start: "top 80%",
                     toggleActions: "play none none none",
-                    onRefresh: (self) => {
-                        if (!DEBUG_FOOTER) return;
-                        console.log('[footerDebug] onRefresh', {
-                            start: self.start,
-                            end: self.end,
-                            viewportHeight: window.innerHeight,
-                        });
-                    },
-                    onUpdate: (self) => {
-                        if (!DEBUG_FOOTER) return;
-                        console.log('[footerDebug] onUpdate', { progress: self.progress, direction: self.direction });
-                    },
-                    onEnter: () => {
-                        if (DEBUG_FOOTER) console.log('[footerDebug] onEnter fired - animation should play');
-                    },
+                    markers: true,
                 }
             });
         }
@@ -4855,29 +4820,6 @@
     }
 
     /**
-     * Refresh ScrollTrigger once the current page's images (including Webflow's
-     * lazy-loaded ones) finish loading. Needed on both the initial hard page
-     * load and every Barba transition, since lazy-loaded images change layout
-     * after ScrollTriggers have already been created/measured.
-     */
-    function refreshScrollTriggerOnAssetsLoad() {
-        document.querySelectorAll("img").forEach(img => {
-            if (img.complete) {
-                scheduleScrollTriggerRefresh();
-            } else {
-                img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
-            }
-        });
-
-        if (!lazyloadListenerAdded) {
-            lazyloadListenerAdded = true;
-            document.addEventListener('lazyloaded', function (e) {
-                scheduleScrollTriggerRefresh();
-            });
-        }
-    }
-
-    /**
      * Initialize Barba.js with all transitions and views
      */
     function initBarba() {
@@ -4941,7 +4883,22 @@
                     footerLimitless();
                     copyYear();
 
-                    refreshScrollTriggerOnAssetsLoad();
+                    // Coalesce every image's load event into a single refresh per
+                    // frame instead of one full reflow per image.
+                    document.querySelectorAll("img").forEach(img => {
+                        if (img.complete) {
+                            scheduleScrollTriggerRefresh();
+                        } else {
+                            img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
+                        }
+                    });
+
+                    if (!lazyloadListenerAdded) {
+                        lazyloadListenerAdded = true;
+                        document.addEventListener('lazyloaded', function (e) {
+                            scheduleScrollTriggerRefresh();
+                        });
+                    }
                 },
                 async enter(data) {
                     gsap.from(data.next.container, {
@@ -5232,12 +5189,12 @@
      * aren't stuck waiting on web fonts to finish loading before they respond.
      */
     function initUI(mobile) {
-        window.addEventListener("load", () => {
-            ScrollTrigger.refresh();
-        });
-
         // Desktop-only features
         if (!mobile) {
+            window.addEventListener("load", () => {
+                ScrollTrigger.refresh();
+            });
+
             customCursorInit();
             mouseHover();
         }
@@ -5267,8 +5224,6 @@
         // Footer
         footerLimitless();
         copyYear();
-
-        refreshScrollTriggerOnAssetsLoad();
     }
 
     /**

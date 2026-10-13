@@ -5,25 +5,6 @@
 let limitlessSplit = null;
 let limitlessTween = null;
 
-// DEBUG: append ?debugFooter to the URL to log ScrollTrigger diagnostics
-// for the footer animation to the console. Remove once the issue is found.
-const DEBUG_FOOTER = typeof window !== 'undefined' && window.location.search.includes('debugFooter');
-
-function logFooterDebug(label, thinkLimitless) {
-    if (!DEBUG_FOOTER) return;
-    const rect = thinkLimitless.getBoundingClientRect();
-    console.log(`[footerDebug] ${label}`, {
-        innerHeight: window.innerHeight,
-        innerWidth: window.innerWidth,
-        docScrollHeight: document.documentElement.scrollHeight,
-        scrollY: window.scrollY,
-        elementTop: rect.top,
-        elementBottom: rect.bottom,
-        triggerPointPx: window.innerHeight * 0.75,
-        distanceToTrigger: rect.top - window.innerHeight * 0.75,
-    });
-}
-
 /**
  * Animate "Think Limitless" text and footer AI elements in footer
  */
@@ -35,30 +16,14 @@ export function footerLimitless() {
 
         limitlessSplit = new SplitText(thinkLimitless, { type: "chars" });
 
-        logFooterDebug('init', thinkLimitless);
-
         limitlessTween = gsap.from(limitlessSplit.chars, {
             y: "100%",
             stagger: 0.1,
             scrollTrigger: {
                 trigger: thinkLimitless,
-                start: "top 75%",
+                start: "top 80%",
                 toggleActions: "play none none none",
-                onRefresh: (self) => {
-                    if (!DEBUG_FOOTER) return;
-                    console.log('[footerDebug] onRefresh', {
-                        start: self.start,
-                        end: self.end,
-                        viewportHeight: window.innerHeight,
-                    });
-                },
-                onUpdate: (self) => {
-                    if (!DEBUG_FOOTER) return;
-                    console.log('[footerDebug] onUpdate', { progress: self.progress, direction: self.direction });
-                },
-                onEnter: () => {
-                    if (DEBUG_FOOTER) console.log('[footerDebug] onEnter fired - animation should play');
-                },
+                markers: true,
             }
         });
     }

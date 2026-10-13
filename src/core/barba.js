@@ -76,29 +76,6 @@ function scheduleScrollTriggerRefresh() {
 }
 
 /**
- * Refresh ScrollTrigger once the current page's images (including Webflow's
- * lazy-loaded ones) finish loading. Needed on both the initial hard page
- * load and every Barba transition, since lazy-loaded images change layout
- * after ScrollTriggers have already been created/measured.
- */
-export function refreshScrollTriggerOnAssetsLoad() {
-    document.querySelectorAll("img").forEach(img => {
-        if (img.complete) {
-            scheduleScrollTriggerRefresh();
-        } else {
-            img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
-        }
-    });
-
-    if (!lazyloadListenerAdded) {
-        lazyloadListenerAdded = true;
-        document.addEventListener('lazyloaded', function (e) {
-            scheduleScrollTriggerRefresh();
-        });
-    }
-}
-
-/**
  * Initialize Barba.js with all transitions and views
  */
 export function initBarba() {
@@ -162,7 +139,22 @@ export function initBarba() {
                 footerLimitless();
                 copyYear();
 
-                refreshScrollTriggerOnAssetsLoad();
+                // Coalesce every image's load event into a single refresh per
+                // frame instead of one full reflow per image.
+                document.querySelectorAll("img").forEach(img => {
+                    if (img.complete) {
+                        scheduleScrollTriggerRefresh();
+                    } else {
+                        img.addEventListener('load', () => scheduleScrollTriggerRefresh(), { once: true });
+                    }
+                });
+
+                if (!lazyloadListenerAdded) {
+                    lazyloadListenerAdded = true;
+                    document.addEventListener('lazyloaded', function (e) {
+                        scheduleScrollTriggerRefresh();
+                    });
+                }
             },
             async enter(data) {
                 gsap.from(data.next.container, {

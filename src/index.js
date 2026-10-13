@@ -16,7 +16,7 @@
 // Core
 import { registerGSAPPlugins } from './core/gsapConfig.js';
 import { initSmoothScroller } from './core/smoothScroll.js';
-import { initBarba, refreshScrollTriggerOnAssetsLoad } from './core/barba.js';
+import { initBarba } from './core/barba.js';
 
 // Components
 import { customCursorInit, mouseHover } from './components/cursor/customCursor.js';
@@ -36,12 +36,12 @@ import { isMobile } from './utils/isMobile.js';
  * aren't stuck waiting on web fonts to finish loading before they respond.
  */
 function initUI(mobile) {
-    window.addEventListener("load", () => {
-        ScrollTrigger.refresh();
-    });
-
     // Desktop-only features
     if (!mobile) {
+        window.addEventListener("load", () => {
+            ScrollTrigger.refresh();
+        });
+
         customCursorInit();
         mouseHover();
     }
@@ -71,8 +71,6 @@ function initAnimations() {
     // Footer
     footerLimitless();
     copyYear();
-
-    refreshScrollTriggerOnAssetsLoad();
 }
 
 /**
