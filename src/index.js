@@ -36,12 +36,12 @@ import { isMobile } from './utils/isMobile.js';
  * aren't stuck waiting on web fonts to finish loading before they respond.
  */
 function initUI(mobile) {
+    window.addEventListener("load", () => {
+        ScrollTrigger.refresh();
+    });
+
     // Desktop-only features
     if (!mobile) {
-        window.addEventListener("load", () => {
-            ScrollTrigger.refresh();
-        });
-
         customCursorInit();
         mouseHover();
     }

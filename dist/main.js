@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-12T13:36:46.271Z
+ * Built: 2026-10-13T06:03:38.371Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -324,6 +324,25 @@
     let limitlessSplit = null;
     let limitlessTween = null;
 
+    // DEBUG: append ?debugFooter to the URL to log ScrollTrigger diagnostics
+    // for the footer animation to the console. Remove once the issue is found.
+    const DEBUG_FOOTER = typeof window !== 'undefined' && window.location.search.includes('debugFooter');
+
+    function logFooterDebug(label, thinkLimitless) {
+        if (!DEBUG_FOOTER) return;
+        const rect = thinkLimitless.getBoundingClientRect();
+        console.log(`[footerDebug] ${label}`, {
+            innerHeight: window.innerHeight,
+            innerWidth: window.innerWidth,
+            docScrollHeight: document.documentElement.scrollHeight,
+            scrollY: window.scrollY,
+            elementTop: rect.top,
+            elementBottom: rect.bottom,
+            triggerPointPx: window.innerHeight * 0.75,
+            distanceToTrigger: rect.top - window.innerHeight * 0.75,
+        });
+    }
+
     /**
      * Animate "Think Limitless" text and footer AI elements in footer
      */
@@ -335,6 +354,8 @@
 
             limitlessSplit = new SplitText(thinkLimitless, { type: "chars" });
 
+            logFooterDebug('init', thinkLimitless);
+
             limitlessTween = gsap.from(limitlessSplit.chars, {
                 y: "100%",
                 stagger: 0.1,
@@ -342,6 +363,21 @@
                     trigger: thinkLimitless,
                     start: "top 75%",
                     toggleActions: "play none none none",
+                    onRefresh: (self) => {
+                        if (!DEBUG_FOOTER) return;
+                        console.log('[footerDebug] onRefresh', {
+                            start: self.start,
+                            end: self.end,
+                            viewportHeight: window.innerHeight,
+                        });
+                    },
+                    onUpdate: (self) => {
+                        if (!DEBUG_FOOTER) return;
+                        console.log('[footerDebug] onUpdate', { progress: self.progress, direction: self.direction });
+                    },
+                    onEnter: () => {
+                        if (DEBUG_FOOTER) console.log('[footerDebug] onEnter fired - animation should play');
+                    },
                 }
             });
         }
@@ -5188,12 +5224,12 @@
      * aren't stuck waiting on web fonts to finish loading before they respond.
      */
     function initUI(mobile) {
+        window.addEventListener("load", () => {
+            ScrollTrigger.refresh();
+        });
+
         // Desktop-only features
         if (!mobile) {
-            window.addEventListener("load", () => {
-                ScrollTrigger.refresh();
-            });
-
             customCursorInit();
             mouseHover();
         }
