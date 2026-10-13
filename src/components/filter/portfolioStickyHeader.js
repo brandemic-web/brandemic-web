@@ -130,9 +130,26 @@ function scrollToListStart(header, list, done) {
     const barBottom = getBarBottom(header);
     const smoother = getSmoother();
 
-    if (smoother) {
+    if (smoother && !isMobile()) {
+        // Desktop: use the smoother's own glide so the pinned bar stays put.
         smoother.scrollTo(list, true, `top ${barBottom}px`);
-        gsap.delayedCall(SCROLL_DURATION, done);
+        gsap.delayedCall(smoother.smooth() * 0.9, done);
+    } else if (smoother) {
+        // Mobile/tablet: smoothTouch is disabled, so scrollTo(..., true) won't
+        // ease here - tween the smoother's own scrollTop directly instead.
+        const target = smoother.offset(list, `top ${barBottom}px`);
+        const previousSmooth = smoother.smooth();
+        smoother.smooth(0);
+        gsap.to(smoother, {
+            scrollTop: target,
+            duration: SCROLL_DURATION,
+            ease: 'power2.inOut',
+            overwrite: true,
+            onComplete: () => {
+                smoother.smooth(previousSmooth);
+                done();
+            },
+        });
     } else {
         const y = window.scrollY + list.getBoundingClientRect().top - barBottom;
         window.scrollTo({ top: y, behavior: 'smooth' });
