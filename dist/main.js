@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-13T10:56:26.802Z
+ * Built: 2026-10-16T07:47:21.242Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2535,6 +2535,18 @@
     let cleanups = [];
     let scrolling = false;
     let releasing = false;
+    const NAV_BORDER_DEFAULT = { width: '2px', style: 'solid', color: '#222222' };
+    const NAV_BORDER_PINNED = { width: '0.1px', style: 'solid', color: '#ffffff6b' };
+
+    function setNavPinnedBorder(pinned) {
+        const nav = document.querySelector('.nav_component');
+        if (!nav) return;
+
+        const border = pinned ? NAV_BORDER_PINNED : NAV_BORDER_DEFAULT;
+        nav.style.borderWidth = border.width;
+        nav.style.borderStyle = border.style;
+        nav.style.borderColor = border.color;
+    }
 
     function getOptionsRow(root) {
         return Array.from(root.children).find(child => child.querySelector('.filter')) || root;
@@ -2690,7 +2702,10 @@
             settings = {
                 trigger: getOptionsRow(header),
                 start: () => `top top+=${NAV_OFFSET_MOBILE + MOBILE_TOP_SPACE}`,
-                onToggle: (self) => (self.isActive ? showCopy(header) : hideCopy()),
+                onToggle: (self) => {
+                    if (self.isActive) showCopy(header); else hideCopy();
+                    setNavPinnedBorder(self.isActive);
+                },
                 onRefresh: () => positionCopy(header),
             };
         } else {
@@ -2700,6 +2715,7 @@
                 pin: true,
                 pinSpacing: false,
                 anticipatePin: 1,
+                onToggle: (self) => setNavPinnedBorder(self.isActive),
             };
         }
 
@@ -2746,6 +2762,7 @@
         cleanups = [];
         scrolling = false;
         releasing = false;
+        setNavPinnedBorder(false);
         if (headerTrigger) {
             headerTrigger.kill(true);
             headerTrigger = null;

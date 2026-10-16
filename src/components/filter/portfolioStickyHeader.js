@@ -29,6 +29,18 @@ let fixedCopy = null;
 let cleanups = [];
 let scrolling = false;
 let releasing = false;
+const NAV_BORDER_DEFAULT = { width: '2px', style: 'solid', color: '#222222' };
+const NAV_BORDER_PINNED = { width: '0.1px', style: 'solid', color: '#ffffff6b' };
+
+function setNavPinnedBorder(pinned) {
+    const nav = document.querySelector('.nav_component');
+    if (!nav) return;
+
+    const border = pinned ? NAV_BORDER_PINNED : NAV_BORDER_DEFAULT;
+    nav.style.borderWidth = border.width;
+    nav.style.borderStyle = border.style;
+    nav.style.borderColor = border.color;
+}
 
 function getOptionsRow(root) {
     return Array.from(root.children).find(child => child.querySelector('.filter')) || root;
@@ -184,7 +196,10 @@ export function initPortfolioStickyHeader() {
         settings = {
             trigger: getOptionsRow(header),
             start: () => `top top+=${NAV_OFFSET_MOBILE + MOBILE_TOP_SPACE}`,
-            onToggle: (self) => (self.isActive ? showCopy(header) : hideCopy()),
+            onToggle: (self) => {
+                if (self.isActive) showCopy(header); else hideCopy();
+                setNavPinnedBorder(self.isActive);
+            },
             onRefresh: () => positionCopy(header),
         };
     } else {
@@ -194,6 +209,7 @@ export function initPortfolioStickyHeader() {
             pin: true,
             pinSpacing: false,
             anticipatePin: 1,
+            onToggle: (self) => setNavPinnedBorder(self.isActive),
         };
     }
 
@@ -240,6 +256,7 @@ export function destroyPortfolioStickyHeader() {
     cleanups = [];
     scrolling = false;
     releasing = false;
+    setNavPinnedBorder(false);
     if (headerTrigger) {
         headerTrigger.kill(true);
         headerTrigger = null;
