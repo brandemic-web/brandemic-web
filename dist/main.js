@@ -1,7 +1,7 @@
 /**
  * Brandemic - Custom Animations
  * Version: 1.0.0
- * Built: 2026-10-16T07:47:21.242Z
+ * Built: 2026-10-16T07:50:32.701Z
  * 
  * This file is auto-generated from modular source code.
  * Do not edit directly - edit the source files in /src instead.
@@ -2543,9 +2543,9 @@
         if (!nav) return;
 
         const border = pinned ? NAV_BORDER_PINNED : NAV_BORDER_DEFAULT;
-        nav.style.borderWidth = border.width;
-        nav.style.borderStyle = border.style;
-        nav.style.borderColor = border.color;
+        nav.style.borderBottomWidth = border.width;
+        nav.style.borderBottomStyle = border.style;
+        nav.style.borderBottomColor = border.color;
     }
 
     function getOptionsRow(root) {

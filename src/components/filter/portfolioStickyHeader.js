@@ -37,9 +37,9 @@ function setNavPinnedBorder(pinned) {
     if (!nav) return;
 
     const border = pinned ? NAV_BORDER_PINNED : NAV_BORDER_DEFAULT;
-    nav.style.borderWidth = border.width;
-    nav.style.borderStyle = border.style;
-    nav.style.borderColor = border.color;
+    nav.style.borderBottomWidth = border.width;
+    nav.style.borderBottomStyle = border.style;
+    nav.style.borderBottomColor = border.color;
 }
 
 function getOptionsRow(root) {
